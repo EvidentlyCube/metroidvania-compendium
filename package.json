@@ -18,6 +18,17 @@
     "url": "https://github.com/EvidentlyCube/metroidvania-compendium/issues"
   },
   "homepage": "https://github.com/EvidentlyCube/metroidvania-compendium#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged && npm run test"
+    }
+  },
+  "lint-staged": {
+    "*.ts": [
+      "eslint --fix",
+      "git add"
+    ]
+  },
   "devDependencies": {
     "@types/express": "^4.17.2",
     "@types/node": "^13.7.4",
@@ -28,6 +39,7 @@
     "eslint": "^6.8.0",
     "eslint-plugin-react": "^7.18.3",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^4.2.3",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.2",
