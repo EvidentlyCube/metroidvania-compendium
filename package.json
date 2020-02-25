@@ -20,11 +20,15 @@
   "homepage": "https://github.com/EvidentlyCube/metroidvania-compendium#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test"
+      "pre-commit": "lint-staged"
     }
   },
   "lint-staged": {
     "*.ts": [
+      "eslint --fix",
+      "git add"
+    ],
+    "*.tsx": [
       "eslint --fix",
       "git add"
     ]
