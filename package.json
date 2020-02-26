@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev:frontend": "npx webpack-dev-server",
-    "dev:backend": "node -r ts-node/register backend/index.ts",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev:backend": "node -r ts-node/register backend/index.ts"
   },
   "repository": {
     "type": "git",
@@ -20,13 +19,13 @@
   "homepage": "https://github.com/EvidentlyCube/metroidvania-compendium#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged && npm run test"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --fix",
-      "git add"
+    "*.{ts,tsx}": [
+        "eslint --fix",
+        "git add"
     ]
   },
   "devDependencies": {
@@ -40,6 +39,7 @@
     "eslint-plugin-react": "^7.18.3",
     "html-webpack-plugin": "^3.2.0",
     "husky": "^4.2.3",
+    "lint-staged": "^10.0.8",
     "source-map-loader": "^0.2.4",
     "ts-loader": "^6.2.1",
     "typescript": "^3.8.2",
