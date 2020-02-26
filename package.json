@@ -19,15 +19,13 @@
   "homepage": "https://github.com/EvidentlyCube/metroidvania-compendium#readme",
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "tsc --noEmit && lint-staged"
     }
   },
   "lint-staged": {
-    "*.ts": [
-      "eslint --fix"
-    ],
-    "*.tsx": [
-      "eslint --fix"
+    "*.{ts,tsx}": [
+        "eslint --fix",
+        "git add"
     ]
   },
   "devDependencies": {
