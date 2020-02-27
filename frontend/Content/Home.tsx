@@ -2,11 +2,12 @@ import * as React from 'react';
 import {
 	Link,
 } from 'react-router-dom';
-
+import { MainHeader } from '../Components/Header';
 export class Home extends React.Component {
 	public render(): React.ReactNode  {
 		return (
 			<>
+				<MainHeader pageName="Home"/>
 				<h1>Metroidvania Compendium</h1>
 				<div className="container">
 					<article>

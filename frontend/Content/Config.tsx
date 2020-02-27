@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { GamesCheck } from '../Components/Games';
+import { MainHeader } from '../Components/Header';
 
 class Game {
 	public name: string;
@@ -29,6 +30,7 @@ export class Config extends React.Component {
 	public render(): React.ReactNode  {
 		return (
 			<>
+				<MainHeader pageName="Config"/>
 				<header>
 					<h1>Configuration</h1>
 					<h2>Customize your experience</h2>
