@@ -27,21 +27,22 @@ export class MainRouter extends React.Component {
 
 				<hr />
 				<Switch>
-					<Route exact path="/">
-						<Home />
-					</Route>
-					<Route path="/games">
-						{/* <Games /> */}
-					</Route>
-					<Route path="/abilities">
-						{/* <Abilities /> */}
-					</Route>
-					<Route path="/config">
-						<Config />
+					<Route path="/" >
+						<Route exact path="/" component={Home}>
+							{/* <Home /> */}
+						</Route>
+						<Route path="/games">
+							{/* <Games /> */}
+						</Route>
+						<Route path="/abilities">
+							{/* <Abilities /> */}
+						</Route>
+						<Route path="/config" component={Config}>
+							{/* <Config /> */}
+						</Route>
 					</Route>
 				</Switch>
 			</Router>
 		);
 	}
 }
-
