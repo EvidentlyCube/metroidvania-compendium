@@ -2,21 +2,22 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 module.exports = {
-	mode: "production",
+	mode: 'production',
 	entry: './frontend',
 
 	// Enable sourcemaps for debugging webpack's output.
-	devtool: "source-map",
+	devtool: 'source-map',
 	devServer: {
 		contentBase: path.join(__dirname, 'dist'),
 		compress: true,
 		port: 9000,
-		overlay: true
+		overlay: true,
+		historyApiFallback: true,
 	},
 	resolve: {
 		modules: ['frontend', 'node_modules'],
 		// Add '.ts' and '.tsx' as resolvable extensions.
-		extensions: [".ts", ".tsx", '.js']
+		extensions: ['.ts', '.tsx', '.js'],
 	},
 
 	module: {
@@ -26,23 +27,23 @@ module.exports = {
 				exclude: /node_modules/,
 				use: [
 					{
-						loader: "ts-loader"
-					}
-				]
+						loader: 'ts-loader',
+					},
+				],
 			},
 			// All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
 			{
-				enforce: "pre",
+				enforce: 'pre',
 				test: /\.js$/,
-				loader: "source-map-loader"
-			}
-		]
+				loader: 'source-map-loader',
+			},
+		],
 	},
 
 	plugins: [
 		new HtmlWebpackPlugin({
 			inject: true,
 			template: `${__dirname}/frontend/index.html`,
-		})
-	]
+		}),
+	],
 };

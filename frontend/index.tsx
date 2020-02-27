@@ -5,9 +5,11 @@ import { Hello } from './Hello';
 import { MainRouter } from './Router';
 
 ReactDOM.render(
-	<div>
-		<MainRouter/>
-		<Hello compiler="TypeScript" framework="React" />
-	</div>,
+	<MainRouter/>,
+	document.getElementById('router'),
+);
+
+ReactDOM.render(
+	<Hello compiler="TypeScript" framework="React" />,
 	document.getElementById('app'),
 );
