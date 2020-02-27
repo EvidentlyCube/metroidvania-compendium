@@ -3,13 +3,15 @@ import * as ReactDOM from 'react-dom';
 
 import { Hello } from './Hello';
 import { MainRouter } from './Router';
+import { Footer } from './Components';
 
 ReactDOM.render(
-	<MainRouter/>,
-	document.getElementById('router'),
-);
-
-ReactDOM.render(
-	<Hello compiler="TypeScript" framework="React" />,
+	<div>
+		<MainRouter/>
+		<Hello compiler="TypeScript" framework="React" />
+		<hr></hr>
+		<Footer/>
+	</div>,
 	document.getElementById('app'),
 );
+

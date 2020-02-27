@@ -8,7 +8,7 @@ import {
 export const MainRouter = (): JSX.Element => {
 	return (
 		<Router>
-			<div>
+			<nav>
 				<ul>
 					<li>
 						<Link to="/">Home</Link>
@@ -23,23 +23,23 @@ export const MainRouter = (): JSX.Element => {
 						<Link to="/config">Config</Link>
 					</li>
 				</ul>
+			</nav>
 
-				<hr />
-				<Switch>
-					<Route exact path="/">
-						{/* <Home /> */}
-					</Route>
-					<Route path="/games">
-						{/* <Games /> */}
-					</Route>
-					<Route path="/abilities">
-						{/* <Abilities /> */}
-					</Route>
-					<Route path="/config">
-						{/* <Config /> */}
-					</Route>
-				</Switch>
-			</div>
+			<hr />
+			<Switch>
+				<Route exact path="/">
+					{/* <Home /> */}
+				</Route>
+				<Route path="/games">
+					{/* <Games /> */}
+				</Route>
+				<Route path="/abilities">
+					{/* <Abilities /> */}
+				</Route>
+				<Route path="/config">
+					{/* <Config /> */}
+				</Route>
+			</Switch>
 		</Router>
 	);
 };
