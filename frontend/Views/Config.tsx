@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { GamesCheck } from '../Components/Games';
-import { MainHeader } from '../Components/Header';
 
 class Game {
 	public name: string;
@@ -15,22 +14,25 @@ for (let i = 0; i < 11; i++) {
 	let newGame: Game = new Game('Super Metroid');
 	mockData.push(newGame);
 }
-
-const gameList = function(gameData: Game[]): JSX.Element[] {
-	let result = [];
-	for (let game of gameData) {
-		result.push(<>
-			<GamesCheck game={game.name}/>
-		</>);
+interface GameListProps{
+	games: Game[];
+}
+class GameList extends React.Component<GameListProps> {
+	public render(): React.ReactNode  {
+		let result = [];
+		for (let game of this.props.games) {
+			result.push(<>
+				<GamesCheck game={game.name}/>
+			</>);
+		}
+		return result;
 	}
-	return result;
-};
+}
 
 export class Config extends React.Component {
 	public render(): React.ReactNode  {
 		return (
 			<>
-				<MainHeader pageName="Config"/>
 				<header>
 					<h1>Configuration</h1>
 					<h2>Customize your experience</h2>
@@ -47,7 +49,7 @@ export class Config extends React.Component {
 						<div>
 							<input type="text" name="game" placeholder="Find a game"/>
 						</div>
-						{gameList(mockData)}
+						<GameList games={mockData}/>
 					</form>
 				</div>
 			</>

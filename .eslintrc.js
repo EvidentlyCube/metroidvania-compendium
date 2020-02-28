@@ -34,7 +34,7 @@ module.exports = {
     "rules": {
         '@typescript-eslint/array-type': ['warn'],
 		'@typescript-eslint/consistent-type-assertions': ['warn', {assertionStyle: 'as'}],
-		'@typescript-eslint/explicit-function-return-type': ['error', { allowExpressions: true }],
+		'@typescript-eslint/explicit-function-return-type': ['off'],
 		'@typescript-eslint/explicit-member-accessibility': ['error', {accessibility: 'explicit', overrides: {constructors: 'no-public'}}],
 		'@typescript-eslint/interface-name-prefix': ['error', { prefixWithI: "never" }],
 		'@typescript-eslint/member-delimiter-style': ['error' ],
@@ -52,7 +52,8 @@ module.exports = {
 		'@typescript-eslint/no-explicit-any': ['off'],
 		'@typescript-eslint/type-annotation-spacing': ['warn'],
 		'@typescript-eslint/no-non-null-assertion': ['off'],
-
+		//React style rules
+		'react/prop-types': ['off'],
 		// ESLint Style rules
 		'block-spacing': ['warn', 'always'],
 		'brace-style': ['off'],

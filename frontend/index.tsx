@@ -8,33 +8,25 @@ import {
 // import { Hello } from './Hello';
 
 import { Footer } from './Components/Footer';
-import {Home} from './Content/Home';
-import {Config} from './Content/Config';
+import {Home} from './Views/Home';
+import {Config} from './Views/Config';
+import { Header } from './Components/Header';
 
 ReactDOM.render(
 	<>
 		<Router>
+			<Header />
 			<Switch>
-				<Route path="/" >
-					<Route exact path="/" component={Home}>
-						{/* <Home /> */}
-					</Route>
-					<Route path="/games">
-						{/* <Games /> */}
-					</Route>
-					<Route path="/abilities">
-						{/* <Abilities /> */}
-					</Route>
-					<Route path="/config" component={Config}>
-						{/* <Config /> */}
-					</Route>
-				</Route>
+				<Route exact path="/" component={Home} />
+				<Route path="/games"/>
+				<Route path="/abilities"/>
+				<Route path="/config" component={Config}/>
 			</Switch>
 		</Router>
+
 		{/* <Hello compiler="TypeScript" framework="React" /> */}
 		<hr></hr>
 		<Footer/>
 	</>,
 	document.getElementById('app'),
 );
-

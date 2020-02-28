@@ -2,23 +2,18 @@ import * as React from 'react';
 import {
 	Link,
 } from 'react-router-dom';
-export interface HeaderParams{
-	pageName: string;
-}
-export class MainHeader extends React.Component<HeaderParams> {
-	private readonly pageName: string;
 
-	constructor(params: HeaderParams) {
-		super(params);
-		this.pageName = params.pageName;
-	}
+export class Header extends React.Component {
+	public state ={
+		pageName: 'Home',
+	};
 
 	public render(): JSX.Element {
 		return (
 			<>
 				<nav>
 					<div><strong>Metroidvania Compendium</strong>
-						<span> » {this.pageName}</span>
+						<span> » {this.state.pageName}</span>
 					</div>
 					<div>
 						{/* Spans are placeholder before styling, to have a space between links */}

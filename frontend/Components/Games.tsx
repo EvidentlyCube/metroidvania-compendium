@@ -3,7 +3,7 @@ export interface GameProps {
 	game: string;
 }
 
-export const GamesCheck = (props: GameProps): JSX.Element => <>
+export const GamesCheck: React.FC<GameProps> = (props) => <>
 	<div>
 		<input type="checkbox" name={props.game} id="check-index"/> {props.game}
 	</div>
