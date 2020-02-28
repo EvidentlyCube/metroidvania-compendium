@@ -4,7 +4,7 @@ import {
 } from 'react-router-dom';
 
 export class Home extends React.Component {
-	public render(): React.ReactNode  {
+	public render()  {
 		return (
 			<>
 				<h1>Metroidvania Compendium</h1>

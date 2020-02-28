@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GamesCheck } from '../Components/Games';
+import { GamesCheck } from '../components/Games';
 
 class Game {
 	public name: string;
@@ -17,18 +17,9 @@ for (let i = 0; i < 11; i++) {
 interface GameListProps{
 	games: Game[];
 }
-class GameList extends React.Component<GameListProps> {
-	public render(): React.ReactNode  {
-		let result = [];
-		for (let game of this.props.games) {
-			result.push(<>
-				<GamesCheck game={game.name}/>
-			</>);
-		}
-		return result;
-	}
-}
-
+const GameList: React.FC<GameListProps> = (props: GameListProps) => <React.Fragment>
+	{props.games.map(game=> <GamesCheck key={game.name} game={game.name}/>)};
+</React.Fragment>;
 export class Config extends React.Component {
 	public render(): React.ReactNode  {
 		return (

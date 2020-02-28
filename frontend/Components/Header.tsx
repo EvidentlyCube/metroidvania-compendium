@@ -4,16 +4,12 @@ import {
 } from 'react-router-dom';
 
 export class Header extends React.Component {
-	public state ={
-		pageName: 'Home',
-	};
-
 	public render(): JSX.Element {
 		return (
 			<>
 				<nav>
 					<div><strong>Metroidvania Compendium</strong>
-						<span> » {this.state.pageName}</span>
+						<span> » Home</span>
 					</div>
 					<div>
 						{/* Spans are placeholder before styling, to have a space between links */}
