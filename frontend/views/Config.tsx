@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { GamesCheck } from '../componentsASD/Games';
+import { GamesCheck } from '../components/Games';
 
 class Game {
 	public name: string;

@@ -5,10 +5,10 @@ import {
 	Route,
 } from 'react-router-dom';
 
-import { Footer } from '../componentsASD/Footer';
+import { Footer } from '../components/Footer';
 import {Home} from './Home';
 import {Config} from './Config';
-import {Header} from '../componentsASD/Header';
+import {Header} from '../components/Header';
 
 export class App extends React.Component {
 	public render()  {
