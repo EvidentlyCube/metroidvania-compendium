@@ -5,7 +5,7 @@ import * as ReactDOM from 'react-dom';
 // import {pageReducer} from './reducers/page';
 // import { Hello } from './Hello';
 
-import {App} from './views/App';
+import {App} from './viewsASD/App';
 // const store = createStore(pageReducer);
 ReactDOM.render(
 	<>
