@@ -24,8 +24,8 @@
   },
   "lint-staged": {
     "*.{ts,tsx}": [
-        "eslint --fix",
-        "git add"
+      "eslint --fix",
+      "git add"
     ]
   },
   "devDependencies": {
@@ -33,6 +33,7 @@
     "@types/node": "^13.7.4",
     "@types/react": "^16.9.22",
     "@types/react-dom": "^16.9.5",
+    "@types/react-router-dom": "^5.1.3",
     "@typescript-eslint/eslint-plugin": "^2.21.0",
     "@typescript-eslint/parser": "^2.21.0",
     "eslint": "^6.8.0",
@@ -51,6 +52,7 @@
     "express": "^4.17.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
+    "react-router-dom": "^5.1.2",
     "ts-node": "^8.6.2"
   }
 }
