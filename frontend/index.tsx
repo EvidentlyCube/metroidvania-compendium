@@ -3,7 +3,7 @@ import * as ReactDOM from 'react-dom';
 
 // import { Hello } from './Hello';
 import configureStore from './storage/configureStore';
-import {App} from './viewsASD/App';
+import {App} from './views/App';
 const store = configureStore();
 ReactDOM.render(
 	<App store={store}/>,
