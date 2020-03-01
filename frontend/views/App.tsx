@@ -4,10 +4,10 @@ import {
 	Switch,
 	Route,
 } from 'react-router-dom';
+
 import { Provider } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Store } from 'redux';
-
 import { Footer } from '../components/Footer';
 import {Home} from './Home';
 import {Config} from './Config';
@@ -39,7 +39,6 @@ export class App extends React.Component<appProps> {
 						</Switch>
 					</Router>
 				</Provider>
-
 				{/* <Hello compiler="TypeScript" framework="React" /> */}
 				<hr></hr>
 				<Footer/>
