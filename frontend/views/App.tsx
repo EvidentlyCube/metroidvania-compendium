@@ -8,10 +8,10 @@ import { Provider } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import { Store } from 'redux';
 
-import { Footer } from '../components1/Footer';
+import { Footer } from '../components/Footer';
 import {Home} from './Home';
 import {Config} from './Config';
-import Header from '../components1/Header';
+import Header from '../components/Header';
 // eslint-disable-next-line no-unused-vars
 import { Breadcrumb, SetBreadcrumbAction, BreadcrumbActions } from '../storage/common';
 
