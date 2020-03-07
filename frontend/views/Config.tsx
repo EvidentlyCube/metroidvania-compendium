@@ -1,4 +1,8 @@
 import * as React from 'react';
+// eslint-disable-next-line no-unused-vars
+import {Store} from 'redux';
+// eslint-disable-next-line no-unused-vars
+import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
 import { GamesCheck } from '../components/Games';
 
 class Game {
@@ -20,7 +24,16 @@ interface GameListProps{
 const GameList: React.FC<GameListProps> = (props: GameListProps) => <React.Fragment>
 	{props.games.map(game=> <GamesCheck key={game.name} game={game.name}/>)};
 </React.Fragment>;
-export class Config extends React.Component {
+
+interface ConfigProps{
+	store: Store<AppStore, AppActions>;
+}
+
+export class Config extends React.Component<ConfigProps> {
+	public componentDidMount() {
+		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
+	}
+
 	public render(): React.ReactNode  {
 		return (
 			<>

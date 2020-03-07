@@ -1,9 +1,18 @@
 import * as React from 'react';
-import {
-	Link,
-} from 'react-router-dom';
+import {Link} from 'react-router-dom';
+// eslint-disable-next-line no-unused-vars
+import {Store} from 'redux';
+// eslint-disable-next-line no-unused-vars
+import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
 
-export class Home extends React.Component {
+interface HomeProps {
+	store: Store<AppStore, AppActions>;
+}
+export class Home extends React.Component<HomeProps> {
+	public componentDidMount() {
+		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Home'));
+	}
+
 	public render()  {
 		return (
 			<>
