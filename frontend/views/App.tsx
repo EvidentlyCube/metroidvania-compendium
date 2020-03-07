@@ -13,16 +13,16 @@ import {Home} from './Home';
 import {Config} from './Config';
 import Header from '../components/Header';
 // eslint-disable-next-line no-unused-vars
-import { Breadcrumb, SetBreadcrumbAction, BreadcrumbActions } from '../storage/common';
+import { AppStore, SetBreadcrumbAction, BreadcrumbActions } from '../storage/common';
 
-interface appProps{
-	store: Store<Breadcrumb, SetBreadcrumbAction>;
+interface AppProps{
+	store: Store<AppStore, SetBreadcrumbAction>;
 }
 
-export class App extends React.Component<appProps> {
-	constructor(props: appProps) {
+export class App extends React.Component<AppProps> {
+	constructor(props: AppProps) {
 		super(props);
-		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb({pageName: 'Home'}));
+		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Home'));
 	}
 
 	public render()  {
@@ -39,8 +39,6 @@ export class App extends React.Component<appProps> {
 						</Switch>
 					</Router>
 				</Provider>
-
-				{/* <Hello compiler="TypeScript" framework="React" /> */}
 				<hr></hr>
 				<Footer/>
 			</>

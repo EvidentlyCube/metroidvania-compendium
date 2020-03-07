@@ -4,13 +4,13 @@ import {
 } from 'react-router-dom';
 import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
-import {Breadcrumb} from '../storage/common';
+import {AppStore} from '../storage/common';
 
 interface HeaderProps{
-	currBreadcrumb: Breadcrumb | undefined;
+	currBreadcrumb: AppStore | undefined;
 }
 const Header: React.FC<HeaderProps> = (props) => {
-	const breadcrumb = props.currBreadcrumb.pageName ? props.currBreadcrumb.pageName : 'Missing page name';
+	const breadcrumb = props.currBreadcrumb.headerBreadcrumb || 'Missing page name';
 	console.log(breadcrumb);
 	return (
 		<>
@@ -32,7 +32,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 	);
 };
 
-const mapPropsToStore = (state: Breadcrumb): HeaderProps => {
+const mapPropsToStore = (state: AppStore): HeaderProps => {
 	return {
 		currBreadcrumb: state ? state : undefined,
 	};

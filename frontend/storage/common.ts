@@ -1,18 +1,19 @@
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 
-export interface Breadcrumb {
-	pageName: string;
+export interface AppStore {
+	headerBreadcrumb: string;
 }
 export interface SetBreadcrumbAction{
 	type: typeof SET_BREADCRUMB;
-	payload: Breadcrumb;
+	headerBreadcrumb: string;
 }
 export const BreadcrumbActions = {
-	setBreadcrumb: function(breadcrumbState: Breadcrumb): SetBreadcrumbAction {
+	setBreadcrumb: function(headerBreadcrumb: string): SetBreadcrumbAction {
 		return {
 			type: SET_BREADCRUMB,
-			payload: breadcrumbState,
+			headerBreadcrumb: headerBreadcrumb,
 		};
 	},
 };
-
+// Making one variable, that will be extended with new actions, to be passed to configureStore
+export type AppActions = SetBreadcrumbAction;
