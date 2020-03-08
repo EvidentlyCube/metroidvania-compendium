@@ -5,10 +5,10 @@ import {Store} from 'redux';
 // eslint-disable-next-line no-unused-vars
 import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
 
-interface HomeProps {
+interface HomeViewProps {
 	store: Store<AppStore, AppActions>;
 }
-export class Home extends React.Component<HomeProps> {
+export class HomeView extends React.Component<HomeViewProps> {
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Home'));
 	}

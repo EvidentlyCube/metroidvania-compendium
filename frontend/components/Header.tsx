@@ -7,11 +7,10 @@ import { connect } from 'react-redux';
 import {AppStore} from '../storage/common';
 
 interface HeaderProps{
-	currBreadcrumb: AppStore | undefined;
+	breadcrumb: string;
 }
 const Header: React.FC<HeaderProps> = (props) => {
-	const breadcrumb = props.currBreadcrumb.headerBreadcrumb || 'Missing page name';
-	console.log(breadcrumb);
+	const breadcrumb = props.breadcrumb || 'Missing page name';
 	return (
 		<>
 			<nav>
@@ -32,9 +31,9 @@ const Header: React.FC<HeaderProps> = (props) => {
 	);
 };
 
-const mapPropsToStore = (state: AppStore): HeaderProps => {
+const mapStateToProps = (state: AppStore): HeaderProps => {
 	return {
-		currBreadcrumb: state ? state : undefined,
+		breadcrumb: state.headerBreadcrumb || '',
 	};
 };
-export default connect(mapPropsToStore)(Header);
+export default connect(mapStateToProps)(Header);

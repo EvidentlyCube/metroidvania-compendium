@@ -6,7 +6,8 @@ module.exports = {
     "extends": [
         "eslint:recommended",
         "plugin:react/recommended",
-        "plugin:@typescript-eslint/eslint-recommended"
+		"plugin:@typescript-eslint/eslint-recommended",
+		"plugin:react-redux/recommended"
     ],
     "globals": {
         "Atomics": "readonly",
@@ -29,7 +30,8 @@ module.exports = {
     },
     "plugins": [
         "react",
-        "@typescript-eslint"
+		"@typescript-eslint",
+		"react-redux"
     ],
     "rules": {
         '@typescript-eslint/array-type': ['warn'],

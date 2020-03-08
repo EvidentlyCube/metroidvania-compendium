@@ -25,11 +25,11 @@ const GameList: React.FC<GameListProps> = (props: GameListProps) => <React.Fragm
 	{props.games.map(game=> <GamesCheck key={game.name} game={game.name}/>)};
 </React.Fragment>;
 
-interface ConfigProps{
+interface ConfigViewProps{
 	store: Store<AppStore, AppActions>;
 }
 
-export class Config extends React.Component<ConfigProps> {
+export class ConfigView extends React.Component<ConfigViewProps> {
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 	}
