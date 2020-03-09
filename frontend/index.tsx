@@ -1,17 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
-// import { Provider } from 'react-redux';
-// import { createStore } from 'redux';
-// import {pageReducer} from './reducers/page';
-// import { Hello } from './Hello';
-
+import configureStore from './storage/configureStore';
 import {App} from './views/App';
-// const store = createStore(pageReducer);
+const store = configureStore();
 ReactDOM.render(
-	<>
-		{/* <Provider store={store}> */}
-		<App/>
-		{/* </Provider> */}
-	</>,
+	<App store={store}/>,
 	document.getElementById('app'),
 );
