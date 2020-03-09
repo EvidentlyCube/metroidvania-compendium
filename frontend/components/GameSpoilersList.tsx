@@ -37,4 +37,5 @@ const mapStateToProps = (state: AppStore): GameSpoilersListProps => {
 		gameSpoilers: state.gameSpoilers || new Map(),
 	};
 };
+//Test comment to add any changes
 export default connect(mapStateToProps)(GameSpoilersList);
