@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Store} from 'redux';
 // eslint-disable-next-line no-unused-vars
 import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
-import GameSpoilersList from '../components/GameSpoilersList';
+import GamesVisibilityList from '../components/GameVisibilityList';
 
 interface ConfigViewProps{
 	store: Store<AppStore, AppActions>;
@@ -33,7 +33,7 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 						<div>
 							<input type="text" name="game" placeholder="Find a game"/>
 						</div>
-						<GameSpoilersList/>
+						<GamesVisibilityList/>
 					</form>
 				</div>
 			</>

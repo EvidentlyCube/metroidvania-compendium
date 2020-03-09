@@ -1,7 +1,7 @@
 // eslint-disable-next-line no-unused-vars
 import {AppStore, SET_GAME_VISIBILITY, AppActions} from '../common';
 
-export function gameSpoilersReducer(state: AppStore, action: AppActions): AppStore {
+export function gameVisibilityReducer(state: AppStore, action: AppActions): AppStore {
 	switch (action.type) {
 		case SET_GAME_VISIBILITY: {
 			if (state.gamesVisibility.get(action.payload.gameId)) {
