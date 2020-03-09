@@ -10,7 +10,7 @@ interface HeaderProps{
 	breadcrumb: string;
 }
 const Header: React.FC<HeaderProps> = (props) => {
-	const breadcrumb = props.breadcrumb || 'Missing page name';
+	const {breadcrumb} = props;
 	return (
 		<>
 			<nav>
@@ -33,7 +33,7 @@ const Header: React.FC<HeaderProps> = (props) => {
 
 const mapStateToProps = (state: AppStore): HeaderProps => {
 	return {
-		breadcrumb: state.headerBreadcrumb || '',
+		breadcrumb: state.headerBreadcrumb || 'Missing page name',
 	};
 };
 export default connect(mapStateToProps)(Header);
