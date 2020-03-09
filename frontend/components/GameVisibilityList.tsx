@@ -3,15 +3,15 @@ import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {AppStore} from '../storage/common';
 interface GameVisibilityListProps{
-	gamesVisibility: Map<number, boolean>;
+	gameVisibilityToggleMap: Map<number, GameVisibilityToggleProps>;
 }
 const GamesVisibilityList: React.FC<GameVisibilityListProps> = (props: GameVisibilityListProps) =>{
-	const {gamesVisibility} = props;
+	const {gameVisibilityToggleMap: gamesVisibility} = props;
 
 	return (
 		<>
-			{Array.from(gamesVisibility.entries()).map(game=> {
-				return <GameVisibilityToggle key={game[0]} name='{game.name}' isVisible={game[1]} id={game[0]} />;
+			{Array.from(gamesVisibility.values()).map(game=> {
+				return <GameVisibilityToggle key={game.id} name={game.name} isVisible={game.isVisible} id={game.id} />;
 			})}
 		</>
 	);
@@ -30,8 +30,17 @@ const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) => <>
 </>;
 
 const mapStateToProps = (state: AppStore): GameVisibilityListProps => {
+	const games = state.games;
+	const gamesVisibility = state.gamesVisibility;
+	const gameVisibilityToggleMap = new Map<number, GameVisibilityToggleProps>();
+	Array.from(games.values()).map(game =>{
+		gameVisibilityToggleMap.set(
+			game.gameId,
+			{id: game.gameId, name: game.gameName, isVisible: gamesVisibility.get(game.gameId) ?? true},
+		);
+	});
 	return {
-		gamesVisibility: state.gamesVisibility,
+		gameVisibilityToggleMap: gameVisibilityToggleMap,
 	};
 };
 export default connect(mapStateToProps)(GamesVisibilityList);
