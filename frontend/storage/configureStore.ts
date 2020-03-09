@@ -3,7 +3,6 @@ import {createStore, Store} from 'redux';
 // eslint-disable-next-line no-unused-vars
 import { AppActions, AppStore } from './common';
 import {appReducer } from './reducers';
-import { GameSpoilers } from './models/GameSpoilers';
 
 export default function configureStore(): Store<AppStore, AppActions> {
 	const store = createStore(appReducer, createInitialApplicationState());
@@ -12,15 +11,14 @@ export default function configureStore(): Store<AppStore, AppActions> {
 function createInitialApplicationState(): AppStore {
 	return {
 		headerBreadcrumb: 'Home',
-		gameSpoilers: createMockGameSpoilers(),
+		gamesVisibility: createMockGameSpoilers(),
 	};
 }
-function createMockGameSpoilers(): Map<number, GameSpoilers> {
-	let mockData: Map<number, GameSpoilers>  = new Map();
+function createMockGameSpoilers(): Map<number, boolean> {
+	let mockData: Map<number, boolean>  = new Map();
 	for (let i = 0; i < 20; i++) {
 		const randomBoolean = Math.random() >= 0.5;
-		const mockGame = new GameSpoilers({gameId: i, name: 'Super Metroid', showSpoilers: randomBoolean});
-		mockData.set(i, mockGame);
+		mockData.set(i, randomBoolean);
 	}
 	return mockData;
 }

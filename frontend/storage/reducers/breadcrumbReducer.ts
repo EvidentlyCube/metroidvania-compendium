@@ -6,7 +6,7 @@ export function breadcrumbReducer(state: AppStore, action: AppActions): AppStore
 		case SET_BREADCRUMB: {
 			return {
 				...state,
-				headerBreadcrumb: action.headerBreadcrumb || '',
+				headerBreadcrumb: action.headerBreadcrumb,
 			};
 		}
 		default:

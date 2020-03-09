@@ -16,8 +16,4 @@ export class GameSpoilers {
 		this.showSpoilers = props.showSpoilers;
 	}
 }
-export const GameSpoilersMutator = {
-	changeShowSpoilers(gameSpoilers: GameSpoilers | undefined, showSpoilers: boolean): GameSpoilers {
-		return gameSpoilers ? new GameSpoilers({...gameSpoilers, showSpoilers}) : undefined;
-	},
-};
+

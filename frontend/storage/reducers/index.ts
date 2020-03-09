@@ -3,7 +3,7 @@ import { AppStore, AppActions} from '../common';
 import { breadcrumbReducer } from './breadcrumbReducer';
 import { gameSpoilersReducer } from './gameSpoilersReducer';
 export function appReducer(
-	state: AppStore | undefined,
+	state: AppStore,
 	action: AppActions,
 ): AppStore {
 	state = breadcrumbReducer(state, action);
