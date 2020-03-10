@@ -7,11 +7,11 @@ interface GameVisibilityListProps{
 	gameVisibilityToggleMap: Map<number, GameVisibilityToggleProps>;
 }
 const GamesVisibilityList: React.FC<GameVisibilityListProps> = (props: GameVisibilityListProps) =>{
-	const {gameVisibilityToggleMap: gamesVisibility} = props;
-
+	const {gameVisibilityToggleMap} = props;
+	const gamesVisibility = Array.from(gameVisibilityToggleMap.values());
 	return (
 		<>
-			{Array.from(gamesVisibility.values()).map(entry=> {
+			{gamesVisibility.map(entry=> {
 				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} />;
 			})}
 		</>
