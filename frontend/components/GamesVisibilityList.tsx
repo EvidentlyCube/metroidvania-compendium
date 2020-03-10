@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {AppStore} from '../storage/common';
 import { Game } from '../storage/models/Game';
-interface GameVisibilityListProps{
-	gameVisibilityToggleArray: Array<GameVisibilityToggleProps>;
+interface GamesVisibilityListProps{
+	gamesVisibilityToggleArray: Array<GameVisibilityToggleProps>;
 }
-const GamesVisibilityList: React.FC<GameVisibilityListProps> = (props: GameVisibilityListProps) =>{
-	const {gameVisibilityToggleArray} = props;
+const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) =>{
+	const {gamesVisibilityToggleArray: gameVisibilityToggleArray} = props;
 	return (
 		<>
 			{gameVisibilityToggleArray.map(entry=> {
@@ -26,14 +26,14 @@ const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) =>
 		<input type="checkbox" checked = {props.isVisible} name={`${props.game.name}: ${props.game.id}`} id={`spoiler #${props.game.id}`}/> {props.game.name}
 	</div>;
 
-const mapStateToProps = (state: AppStore): GameVisibilityListProps => {
+const mapStateToProps = (state: AppStore): GamesVisibilityListProps => {
 	const {games, gamesVisibility} = state;
 	const gameVisibilityToggleArray = new Array<GameVisibilityToggleProps>();
 	for (const game of games.values()){
 		gameVisibilityToggleArray.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
 	}
 	return {
-		gameVisibilityToggleArray: gameVisibilityToggleArray,
+		gamesVisibilityToggleArray: gameVisibilityToggleArray,
 	};
 };
 export default connect(mapStateToProps)(GamesVisibilityList);

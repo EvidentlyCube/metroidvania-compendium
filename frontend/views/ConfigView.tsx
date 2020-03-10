@@ -3,7 +3,7 @@ import * as React from 'react';
 import {Store} from 'redux';
 // eslint-disable-next-line no-unused-vars
 import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
-import GamesVisibilityList from '../components/GameVisibilityList';
+import GamesVisibilityList from '../components/GamesVisibilityList';
 
 interface ConfigViewProps{
 	store: Store<AppStore, AppActions>;
