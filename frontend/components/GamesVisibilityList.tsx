@@ -4,13 +4,13 @@ import { connect } from 'react-redux';
 import {AppStore} from '../storage/common';
 import { Game } from '../storage/models/Game';
 interface GamesVisibilityListProps{
-	gamesVisibilityToggleArray: Array<GameVisibilityToggleProps>;
+	gameVisibilityToggles: Array<GameVisibilityToggleProps>;
 }
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) =>{
-	const {gamesVisibilityToggleArray: gameVisibilityToggleArray} = props;
+	const {gameVisibilityToggles} = props;
 	return (
 		<>
-			{gameVisibilityToggleArray.map(entry=> {
+			{gameVisibilityToggles.map(entry=> {
 				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} />;
 			})}
 		</>
@@ -28,12 +28,12 @@ const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) =>
 
 const mapStateToProps = (state: AppStore): GamesVisibilityListProps => {
 	const {games, gamesVisibility} = state;
-	const gamesVisibilityToggleArray = new Array<GameVisibilityToggleProps>();
+	const gameVisibilityToggles = new Array<GameVisibilityToggleProps>();
 	for (const game of games.values()){
-		gamesVisibilityToggleArray.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
+		gameVisibilityToggles.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
 	}
 	return {
-		gamesVisibilityToggleArray: gamesVisibilityToggleArray,
+		gameVisibilityToggles: gameVisibilityToggles,
 	};
 };
 export default connect(mapStateToProps)(GamesVisibilityList);
