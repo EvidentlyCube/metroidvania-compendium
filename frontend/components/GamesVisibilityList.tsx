@@ -28,12 +28,12 @@ const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) =>
 
 const mapStateToProps = (state: AppStore): GamesVisibilityListProps => {
 	const {games, gamesVisibility} = state;
-	const gameVisibilityToggleArray = new Array<GameVisibilityToggleProps>();
+	const gamesVisibilityToggleArray = new Array<GameVisibilityToggleProps>();
 	for (const game of games.values()){
-		gameVisibilityToggleArray.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
+		gamesVisibilityToggleArray.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
 	}
 	return {
-		gamesVisibilityToggleArray: gameVisibilityToggleArray,
+		gamesVisibilityToggleArray: gamesVisibilityToggleArray,
 	};
 };
 export default connect(mapStateToProps)(GamesVisibilityList);
