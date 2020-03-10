@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { Dispatch, Action, AnyAction } from 'redux';
+import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../storage/common';
 import { Game } from '../storage/models/Game';
 interface GamesVisibilityListProps {
@@ -23,7 +23,7 @@ interface GameVisibilityProps {
 	isVisible: boolean;
 }
 interface GameVisibilityToggleProps extends GameVisibilityProps {
-	dispatch: Dispatch<Action>;
+	dispatch: Dispatch<AnyAction>;
 }
 
 const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = props => (
