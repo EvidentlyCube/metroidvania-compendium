@@ -2,50 +2,40 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../storage/common';
-import { Game } from '../storage/models/Game';
+import { CheckboxRowProps, CheckboxRow } from './generics/CheckboxRow';
 interface GamesVisibilityListProps {
-	gameVisibilityToggles: Array<GameVisibilityProps>;
+	checkboxRows: Array<CheckboxRowProps>;
 	dispatch: Dispatch<AnyAction>;
 }
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
-	const { gameVisibilityToggles } = props;
+	const callbackFunction = (name: string, checkValue: boolean) => {
+		const gameNumber = parseInt(name);
+		props.dispatch(GameVisibilityActions.setGameVisibility(gameNumber, !checkValue));
+	};
+	const { checkboxRows } = props;
 	return (
 		<>
-			{gameVisibilityToggles.map(entry => {
-				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} dispatch={props.dispatch} />;
+			{checkboxRows.map(entry => {
+				return <CheckboxRow key={entry.id} {...entry} callback={callbackFunction} />;
 			})}
 		</>
 	);
 };
-interface GameVisibilityProps {
-	game: Game;
-	isVisible: boolean;
-}
-interface GameVisibilityToggleProps extends GameVisibilityProps {
-	dispatch: Dispatch<AnyAction>;
-}
-
-const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = props => (
-	<div>
-		<input
-			type="checkbox"
-			onClick={() => props.dispatch(GameVisibilityActions.setGameVisibility(props.game.id, !props.isVisible))}
-			defaultChecked={props.isVisible}
-			name={`${props.game.name}: ${props.game.id}`}
-			id={`spoiler #${props.game.id}`}
-		/>{' '}
-		{props.game.name}
-	</div>
-);
 
 const mapStateToProps = (state: AppStore): Partial<GamesVisibilityListProps> => {
 	const { games, gamesVisibility } = state;
-	const gameVisibilityToggles = new Array<GameVisibilityProps>();
+	const checkboxRowProps = new Array<CheckboxRowProps>();
 	for (const game of games.values()) {
-		gameVisibilityToggles.push({ game: game, isVisible: gamesVisibility.get(game.id) ?? true });
+		checkboxRowProps.push({
+			id: `${game.id}: gameVisibility`,
+			label: game.name,
+			defaultCheckValue: gamesVisibility.get(game.id) ?? true,
+			name: `${game.id}`,
+			callback: () => {},
+		});
 	}
 	return {
-		gameVisibilityToggles: gameVisibilityToggles,
+		checkboxRows: checkboxRowProps,
 	};
 };
 
