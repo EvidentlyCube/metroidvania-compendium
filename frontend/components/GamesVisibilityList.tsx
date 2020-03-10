@@ -1,16 +1,15 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
-import {AppStore} from '../storage/common';
+import { AppStore } from '../storage/common';
 import { Game } from '../storage/models/Game';
-interface GamesVisibilityListProps{
+interface GamesVisibilityListProps {
 	gameVisibilityToggles: Array<GameVisibilityToggleProps>;
 }
-const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) =>{
-	const {gameVisibilityToggles} = props;
+const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
+	const { gameVisibilityToggles } = props;
 	return (
 		<>
-			{gameVisibilityToggles.map(entry=> {
+			{gameVisibilityToggles.map(entry => {
 				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} />;
 			})}
 		</>
@@ -21,16 +20,17 @@ interface GameVisibilityToggleProps {
 	isVisible: boolean;
 }
 
-const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) => 
+const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = props => (
 	<div>
-		<input type="checkbox" checked = {props.isVisible} name={`${props.game.name}: ${props.game.id}`} id={`spoiler #${props.game.id}`}/> {props.game.name}
-	</div>;
+		<input type="checkbox" checked={props.isVisible} name={`${props.game.name}: ${props.game.id}`} id={`spoiler #${props.game.id}`} /> {props.game.name}
+	</div>
+);
 
 const mapStateToProps = (state: AppStore): GamesVisibilityListProps => {
-	const {games, gamesVisibility} = state;
+	const { games, gamesVisibility } = state;
 	const gameVisibilityToggles = new Array<GameVisibilityToggleProps>();
-	for (const game of games.values()){
-		gameVisibilityToggles.push({game:game, isVisible: gamesVisibility.get(game.id) ?? true});
+	for (const game of games.values()) {
+		gameVisibilityToggles.push({ game: game, isVisible: gamesVisibility.get(game.id) ?? true });
 	}
 	return {
 		gameVisibilityToggles: gameVisibilityToggles,

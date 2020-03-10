@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import {AppStore, SET_BREADCRUMB, AppActions} from '../common';
+import { AppStore, SET_BREADCRUMB, AppActions } from '../common';
 
 export function breadcrumbReducer(state: AppStore, action: AppActions): AppStore {
 	switch (action.type) {

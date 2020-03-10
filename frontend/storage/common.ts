@@ -1,4 +1,3 @@
-// eslint-disable-next-line no-unused-vars
 import { Game } from './models/Game';
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
@@ -8,11 +7,11 @@ export interface AppStore {
 	gamesVisibility: Map<number, boolean>;
 	games: Map<number, Game>;
 }
-export interface SetBreadcrumbAction{
+export interface SetBreadcrumbAction {
 	type: typeof SET_BREADCRUMB;
 	headerBreadcrumb: string;
 }
-export interface SetGameVisibilityAction{
+export interface SetGameVisibilityAction {
 	type: typeof SET_GAME_VISIBILITY;
 	gameId: number;
 	gamesVisibility: boolean;
@@ -29,7 +28,7 @@ export const GameVisibilityActions = {
 	setGameVisibility: function(gameId: number, gameVisibility: boolean): SetGameVisibilityAction {
 		return {
 			type: SET_GAME_VISIBILITY,
-			gameId: gameId, 
+			gameId: gameId,
 			gamesVisibility: gameVisibility,
 		};
 	},
