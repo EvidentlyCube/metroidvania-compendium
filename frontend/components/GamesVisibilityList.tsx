@@ -9,7 +9,6 @@ interface GamesVisibilityListProps {
 }
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
 	const { gameVisibilityToggles } = props;
-	console.log(props);
 	return (
 		<>
 			{gameVisibilityToggles.map(entry => {
