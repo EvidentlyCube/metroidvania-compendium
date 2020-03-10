@@ -2,6 +2,7 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 // eslint-disable-next-line no-unused-vars
 import {AppStore} from '../storage/common';
+import { Game } from '../storage/models/Game';
 interface GameVisibilityListProps{
 	gameVisibilityToggleMap: Map<number, GameVisibilityToggleProps>;
 }
@@ -10,35 +11,28 @@ const GamesVisibilityList: React.FC<GameVisibilityListProps> = (props: GameVisib
 
 	return (
 		<>
-			{Array.from(gamesVisibility.values()).map(game=> {
-				return <GameVisibilityToggle key={game.id} name={game.name} isVisible={game.isVisible} id={game.id} />;
+			{Array.from(gamesVisibility.values()).map(entry=> {
+				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} />;
 			})}
 		</>
 	);
 };
 interface GameVisibilityToggleProps {
-	id: number;
-	name: string;
+	game: Game;
 	isVisible: boolean;
 }
 
-const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) => <>
+const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = (props) => 
 	<div>
-		<input type="checkbox" checked = {props.isVisible} name={props.name} id={`spoiler #${props.id}`}/> {props.name}
-	</div>
-
-</>;
+		<input type="checkbox" checked = {props.isVisible} name={`${props.game.name}: ${props.game.id}`} id={`spoiler #${props.game.id}`}/> {props.game.name}
+	</div>;
 
 const mapStateToProps = (state: AppStore): GameVisibilityListProps => {
-	const games = state.games;
-	const gamesVisibility = state.gamesVisibility;
+	const {games, gamesVisibility} = state;
 	const gameVisibilityToggleMap = new Map<number, GameVisibilityToggleProps>();
-	Array.from(games.values()).map(game =>{
-		gameVisibilityToggleMap.set(
-			game.gameId,
-			{id: game.gameId, name: game.gameName, isVisible: gamesVisibility.get(game.gameId) ?? true},
-		);
-	});
+	for (const game of games.values()){
+		gameVisibilityToggleMap.set(game.id, {game:game, isVisible: gamesVisibility.get(game.id) ?? true});
+	}
 	return {
 		gameVisibilityToggleMap: gameVisibilityToggleMap,
 	};

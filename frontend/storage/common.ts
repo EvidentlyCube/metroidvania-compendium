@@ -14,10 +14,8 @@ export interface SetBreadcrumbAction{
 }
 export interface SetGameVisibilityAction{
 	type: typeof SET_GAME_VISIBILITY;
-	payload: {
-		gameId: number;
-		gameVisibility: boolean;
-	};
+	gameId: number;
+	gamesVisibility: boolean;
 }
 export const BreadcrumbActions = {
 	setBreadcrumb: function(headerBreadcrumb: string): SetBreadcrumbAction {
@@ -28,10 +26,11 @@ export const BreadcrumbActions = {
 	},
 };
 export const GameVisibilityActions = {
-	setGameVisibility: function(gameId: number, gameVisibility: boolean) {
+	setGameVisibility: function(gameId: number, gameVisibility: boolean): SetGameVisibilityAction {
 		return {
 			type: SET_GAME_VISIBILITY,
-			payload: {gameId, showSpoilers: gameVisibility},
+			gameId: gameId, 
+			gamesVisibility: gameVisibility,
 		};
 	},
 };

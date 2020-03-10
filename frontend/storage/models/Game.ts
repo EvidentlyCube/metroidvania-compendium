@@ -1,14 +1,11 @@
-export interface GameProps{
-	gameId: number;
-	gameName: string;
-}
+export type GameProps = Required<Game>;
 export class Game {
-	public readonly gameId: number;
+	public readonly id: number;
 
-	public readonly gameName: string;
+	public readonly name: string;
 
 	constructor(props: GameProps) {
-		this.gameId = props.gameId;
-		this.gameName = props.gameName;
+		this.id = props.id;
+		this.name = props.name;
 	}
 }
