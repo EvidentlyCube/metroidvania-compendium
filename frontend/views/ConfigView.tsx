@@ -3,27 +3,7 @@ import * as React from 'react';
 import {Store} from 'redux';
 // eslint-disable-next-line no-unused-vars
 import { AppStore, AppActions, BreadcrumbActions} from '../storage/common';
-import { GamesCheck } from '../components/Games';
-
-class Game {
-	public name: string;
-
-	constructor(name: string) {
-		this.name = name;
-	}
-}
-// Creation of mock data, to simulate a list
-let mockData: Game[] = [];
-for (let i = 0; i < 11; i++) {
-	let newGame: Game = new Game('Super Metroid');
-	mockData.push(newGame);
-}
-interface GameListProps{
-	games: Game[];
-}
-const GameList: React.FC<GameListProps> = (props: GameListProps) => <React.Fragment>
-	{props.games.map(game=> <GamesCheck key={game.name} game={game.name}/>)};
-</React.Fragment>;
+import GamesVisibilityList from '../components/GamesVisibilityList';
 
 interface ConfigViewProps{
 	store: Store<AppStore, AppActions>;
@@ -53,7 +33,7 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 						<div>
 							<input type="text" name="game" placeholder="Find a game"/>
 						</div>
-						<GameList games={mockData}/>
+						<GamesVisibilityList/>
 					</form>
 				</div>
 			</>
