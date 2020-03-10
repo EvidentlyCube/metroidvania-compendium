@@ -1,5 +1,4 @@
-// eslint-disable-next-line no-unused-vars
-import {AppStore, SET_GAME_VISIBILITY, AppActions} from '../common';
+import { AppStore, SET_GAME_VISIBILITY, AppActions } from '../common';
 
 export function gameVisibilityReducer(state: AppStore, action: AppActions): AppStore {
 	switch (action.type) {
@@ -18,4 +17,3 @@ export function gameVisibilityReducer(state: AppStore, action: AppActions): AppS
 			return state;
 	}
 }
-
