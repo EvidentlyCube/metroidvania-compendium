@@ -3,15 +3,12 @@ import { AppStore, SET_GAME_VISIBILITY, AppActions } from '../common';
 export function gameVisibilityReducer(state: AppStore, action: AppActions): AppStore {
 	switch (action.type) {
 		case SET_GAME_VISIBILITY: {
-			if (state.gamesVisibility.get(action.gameId)) {
-				const newGamesVisibility = new Map(state.gamesVisibility);
-				newGamesVisibility.set(action.gameId, action.gamesVisibility);
-				return {
-					...state,
-					gamesVisibility: newGamesVisibility,
-				};
-			}
-			return state;
+			const newGamesVisibility = new Map(state.gamesVisibility);
+			newGamesVisibility.set(action.gameId, action.gamesVisibility);
+			return {
+				...state,
+				gamesVisibility: newGamesVisibility,
+			};
 		}
 		default:
 			return state;
