@@ -9,6 +9,8 @@ import { PageHeader } from '../components/styles/PageHeader';
 import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { SearchRow } from '../components/styles/SearchRow';
+import { PageTitle } from '../components/styles/PageTitle';
+import { PageSubtitle } from '../components/styles/PageSubtitle';
 
 const Buttons = styled.div`
 	display: flex;
@@ -26,9 +28,6 @@ const Button = styled.div`
 		background: ${Theme.colorAccentDarkBg};
 	}
 `;
-const Box = styled.div`
-	padding-top: ${Theme.headerHeight};
-`;
 
 const Controls = styled.div`
 	margin-bottom: 20px;
@@ -45,30 +44,28 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 
 	public render(): React.ReactNode {
 		return (
-			<Box>
-				<Narrow>
-					<PageHeader>
-						<h1>Configuration</h1>
-						<h2>Customize your experience</h2>
-					</PageHeader>
-					<PageSection>
-						<SectionHeader>Visible games</SectionHeader>
-						<article>
-							<p>There are a lot of spoilers in here for games you may not have played. Please select the games which youd like to see.</p>
-						</article>
-						<Controls>
-							<Buttons>
-								<Button>Select All</Button>
-								<Button>Unselect All</Button>
-							</Buttons>
-							<form action="#" method="post">
-								<SearchRow name="searchedGame" placeholder="Find a game" />
-							</form>
-						</Controls>
-						<GamesVisibilityList />
-					</PageSection>
-				</Narrow>
-			</Box>
+			<Narrow>
+				<PageHeader>
+					<PageTitle>Configuration</PageTitle>
+					<PageSubtitle>Customize your experience</PageSubtitle>
+				</PageHeader>
+				<PageSection>
+					<SectionHeader>Visible games</SectionHeader>
+					<article>
+						<p>There are a lot of spoilers in here for games you may not have played. Please select the games which youd like to see.</p>
+					</article>
+					<Controls>
+						<Buttons>
+							<Button>Select All</Button>
+							<Button>Unselect All</Button>
+						</Buttons>
+						<form action="#" method="post">
+							<SearchRow name="searchedGame" placeholder="Find a game" />
+						</form>
+					</Controls>
+					<GamesVisibilityList />
+				</PageSection>
+			</Narrow>
 		);
 	}
 }

@@ -20,6 +20,13 @@ const Title = styled.h1`
 const Description = styled.article`
 	font-size: 24px;
 	text-align: justify;
+	a {
+		display: inline-block;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 `;
 
 interface HomeViewProps {
