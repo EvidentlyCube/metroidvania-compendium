@@ -36,15 +36,27 @@ const Controls = styled.div`
 interface ConfigViewProps {
 	store: Store<AppStore, AppActions>;
 }
-
-export class ConfigView extends React.Component<ConfigViewProps> {
+interface ConfigViewState {
+	filterString: string;
+}
+export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState> {
+	constructor(props: ConfigViewProps) {
+		super(props);
+		this.state = {
+			filterString: '',
+		};
+		this.setGameFilter = this.setGameFilter.bind(this);
+	}
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 	}
-	public changeEveryGameVisibility(isVisibile: boolean): void {
+	public changeEveryGameVisibility(isVisibile: boolean) {
 		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
 	}
-	public render(): React.ReactNode {
+	public setGameFilter(event: React.ChangeEvent<HTMLInputElement>) {
+		this.setState({ filterString: event.target.value });
+	}
+	public render() {
 		return (
 			<Narrow>
 				<PageHeader>
@@ -61,11 +73,9 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 							<Button onClick={() => this.changeEveryGameVisibility(true)}>Select All</Button>
 							<Button onClick={() => this.changeEveryGameVisibility(false)}>Unselect All</Button>
 						</Buttons>
-						<form action="#" method="post">
-							<SearchRow name="searchedGame" placeholder="Find a game" />
-						</form>
+						<SearchRow name="searchedGame" value={this.state.filterString} onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>
-					<GamesVisibilityList />
+					<GamesVisibilityList filterString={this.state.filterString} />
 				</PageSection>
 			</Narrow>
 		);

@@ -12,5 +12,5 @@ const Input = styled.input`
 `;
 
 export function SearchRow(props: any) {
-	return <Input type="text" placeholder={props.placeholder} name={props.name} />;
+	return <Input type="text" value={props.value} onChange={props.onChange} placeholder={props.placeholder} name={props.name} />;
 }
