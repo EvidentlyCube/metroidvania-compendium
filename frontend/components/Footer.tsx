@@ -1,16 +1,16 @@
 import * as React from 'react';
 import styled from 'styled-components';
-import { Styles } from './styles';
+import { Theme } from './styles/themes';
 
 const StyledFooter = styled.footer`
 	display: flex;
 	justify-content: center;
 	padding: 10px;
-	background: ${Styles.colorDarkBg};
-	color: ${Styles.colorTextOnDarkBg};
+	background: ${Theme.colorDarkBg};
+	color: ${Theme.colorTextOnDarkBg};
 
 	a {
-		color: ${Styles.colorTextOnDarkBg};
+		color: ${Theme.colorTextOnDarkBg};
 	}
 `;
 export const Footer: React.FC = () => {

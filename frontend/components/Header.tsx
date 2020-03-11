@@ -3,21 +3,21 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { AppStore } from '../storage/common';
 import styled from 'styled-components';
-import { Styles } from './styles';
+import { Theme } from './styles/themes';
 
 const StyledNav = styled.nav`
 	top: 0;
 	left: 0;
 	right: 0;
 	position: fixed;
-	height: ${Styles.headerHeight};
+	height: ${Theme.headerHeight};
 	align-items: center;
 	display: flex;
 	justify-content: space-between;
 	padding: 10px;
 	box-sizing: border-box;
-	background: ${Styles.colorDarkBg};
-	color: ${Styles.colorTextOnDarkBg};
+	background: ${Theme.colorDarkBg};
+	color: ${Theme.colorTextOnDarkBg};
 	a {
 		color: white;
 		display: inline-block;

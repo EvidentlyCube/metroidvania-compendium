@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { Store } from 'redux';
 import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
 import styled from 'styled-components';
-import { Narrow } from '../components/styles';
+import { Narrow } from '../components/styles/Narrow';
 
 const Box = styled.div`
 	display: flex;
