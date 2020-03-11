@@ -16,9 +16,7 @@ const StyledFooter = styled.footer`
 export const Footer: React.FC = () => {
 	return (
 		<StyledFooter>
-			<p>
-				Follow on <a href="https://github.com/EvidentlyCube/metroidvania-compendium">GitHub</a>
-			</p>
+			Follow on <a href="https://github.com/EvidentlyCube/metroidvania-compendium">GitHub</a>
 		</StyledFooter>
 	);
 };
