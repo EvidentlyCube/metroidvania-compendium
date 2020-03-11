@@ -1,4 +1,4 @@
-export const Styles = {
+export const Theme = {
 	colorAccentBg: '#F8F8F8',
 	colorAccentDarkBg: '#E8E8E8',
 	colorDarkBg: '#223843',
