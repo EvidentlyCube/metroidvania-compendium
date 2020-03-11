@@ -2,50 +2,43 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../storage/common';
+import { CheckboxRow } from './generics/CheckboxRow';
 import { Game } from '../storage/models/Game';
 interface GamesVisibilityListProps {
-	gameVisibilityToggles: Array<GameVisibilityProps>;
+	games: Array<Game>;
+	gamesVisibility: Map<number, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
+
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
-	const { gameVisibilityToggles } = props;
+	const dispatchGameVisibility = (value: string, checkValue: boolean) => {
+		const gameId = parseInt(value);
+		props.dispatch(GameVisibilityActions.setGameVisibility(gameId, !checkValue));
+	};
+	const { games, gamesVisibility } = props;
 	return (
 		<>
-			{gameVisibilityToggles.map(entry => {
-				return <GameVisibilityToggle key={entry.game.id} game={entry.game} isVisible={entry.isVisible} dispatch={props.dispatch} />;
+			{games.map(game => {
+				const isGameVisible = gamesVisibility.get(game.id) ?? true;
+				return (
+					<CheckboxRow
+						key={game.id}
+						id={`gameVisibility_${game.id}`}
+						label={game.name}
+						defaultCheckValue={isGameVisible}
+						value={`${game.id}`}
+						callback={dispatchGameVisibility}
+					/>
+				);
 			})}
 		</>
 	);
 };
-interface GameVisibilityProps {
-	game: Game;
-	isVisible: boolean;
-}
-interface GameVisibilityToggleProps extends GameVisibilityProps {
-	dispatch: Dispatch<AnyAction>;
-}
-
-const GameVisibilityToggle: React.FC<GameVisibilityToggleProps> = props => (
-	<div>
-		<input
-			type="checkbox"
-			onClick={() => props.dispatch(GameVisibilityActions.setGameVisibility(props.game.id, !props.isVisible))}
-			defaultChecked={props.isVisible}
-			name={`${props.game.name}: ${props.game.id}`}
-			id={`spoiler #${props.game.id}`}
-		/>{' '}
-		{props.game.name}
-	</div>
-);
 
 const mapStateToProps = (state: AppStore): Partial<GamesVisibilityListProps> => {
-	const { games, gamesVisibility } = state;
-	const gameVisibilityToggles = new Array<GameVisibilityProps>();
-	for (const game of games.values()) {
-		gameVisibilityToggles.push({ game: game, isVisible: gamesVisibility.get(game.id) ?? true });
-	}
 	return {
-		gameVisibilityToggles: gameVisibilityToggles,
+		games: Array.from(state.games.values()),
+		gamesVisibility: state.gamesVisibility,
 	};
 };
 
