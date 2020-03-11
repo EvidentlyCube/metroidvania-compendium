@@ -9,19 +9,13 @@ export interface CheckboxRowProps {
 	label: string;
 	id: string;
 	value: string;
-	defaultCheckValue: boolean;
+	checked: boolean;
 	callback: (value: string, checkValue: boolean) => void;
 }
 
 export const CheckboxRow: React.FC<CheckboxRowProps> = props => (
 	<Label htmlFor={props.id} style={{ display: 'block' }}>
-		<input
-			type="checkbox"
-			onClick={() => props.callback(props.value, props.defaultCheckValue)}
-			defaultChecked={props.defaultCheckValue}
-			name={props.value}
-			id={props.id}
-		/>
+		<input type="checkbox" onClick={() => props.callback(props.value, props.checked)} checked={props.checked} name={props.value} id={props.id} />
 		&nbsp;{props.label}
 	</Label>
 );

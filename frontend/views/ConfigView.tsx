@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Store } from 'redux';
-import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
+import { AppStore, AppActions, BreadcrumbActions, GameVisibilityActions } from '../storage/common';
 import GamesVisibilityList from '../components/GamesVisibilityList';
 import styled from 'styled-components';
 import { Theme } from '../components/styles/themes';
@@ -36,13 +36,27 @@ const Controls = styled.div`
 interface ConfigViewProps {
 	store: Store<AppStore, AppActions>;
 }
-
-export class ConfigView extends React.Component<ConfigViewProps> {
+interface ConfigViewState {
+	filterString: string;
+}
+export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState> {
+	constructor(props: ConfigViewProps) {
+		super(props);
+		this.state = {
+			filterString: '',
+		};
+		this.setGameFilter = this.setGameFilter.bind(this);
+	}
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 	}
-
-	public render(): React.ReactNode {
+	public changeEveryGameVisibility(isVisibile: boolean) {
+		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
+	}
+	public setGameFilter(event: React.ChangeEvent<HTMLInputElement>) {
+		this.setState({ filterString: event.target.value });
+	}
+	public render() {
 		return (
 			<Narrow>
 				<PageHeader>
@@ -56,14 +70,12 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 					</article>
 					<Controls>
 						<Buttons>
-							<Button>Select All</Button>
-							<Button>Unselect All</Button>
+							<Button onClick={() => this.changeEveryGameVisibility(true)}>Select All</Button>
+							<Button onClick={() => this.changeEveryGameVisibility(false)}>Unselect All</Button>
 						</Buttons>
-						<form action="#" method="post">
-							<SearchRow name="searchedGame" placeholder="Find a game" />
-						</form>
+						<SearchRow name="searchedGame" value={this.state.filterString} onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>
-					<GamesVisibilityList />
+					<GamesVisibilityList filterString={this.state.filterString} />
 				</PageSection>
 			</Narrow>
 		);

@@ -1,6 +1,7 @@
 import { Game } from './models/Game';
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
+export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
 
 export interface AppStore {
 	headerBreadcrumb: string;
@@ -14,6 +15,10 @@ export interface SetBreadcrumbAction {
 export interface SetGameVisibilityAction {
 	type: typeof SET_GAME_VISIBILITY;
 	gameId: number;
+	gamesVisibility: boolean;
+}
+export interface SetEveryGameVisibilityAction {
+	type: typeof SET_EVERY_GAME_VISIBILITY;
 	gamesVisibility: boolean;
 }
 export const BreadcrumbActions = {
@@ -32,6 +37,12 @@ export const GameVisibilityActions = {
 			gamesVisibility: gameVisibility,
 		};
 	},
+	setEveryGameVisibility: function(gamesVisibility: boolean): SetEveryGameVisibilityAction {
+		return {
+			type: SET_EVERY_GAME_VISIBILITY,
+			gamesVisibility: gamesVisibility,
+		};
+	},
 };
 
-export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction;
+export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction | SetEveryGameVisibilityAction;
