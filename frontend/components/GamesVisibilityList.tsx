@@ -24,7 +24,7 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 						key={entry[0].id}
 						id={`gameVisibility_${entry[0].id}`}
 						label={entry[0].name}
-						defaultCheckValue={entry[1] ?? true}
+						defaultCheckValue={entry[1]}
 						value={`${entry[0].id}`}
 						callback={callbackFunction}
 					/>
