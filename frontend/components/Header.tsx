@@ -5,6 +5,30 @@ import { AppStore } from '../storage/common';
 import styled from 'styled-components';
 import { Styles } from './styles';
 
+const StyledNav = styled.nav`
+	top: 0;
+	left: 0;
+	right: 0;
+	position: fixed;
+	height: ${Styles.headerHeight};
+	align-items: center;
+	display: flex;
+	justify-content: space-between;
+	padding: 10px;
+	box-sizing: border-box;
+	background: ${Styles.colorDarkBg};
+	color: ${Styles.colorTextOnDarkBg};
+	a {
+		color: white;
+		display: inline-block;
+		padding: 0 10px;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
+`;
+
 interface HeaderProps {
 	breadcrumb: string;
 }
@@ -34,27 +58,3 @@ const mapStateToProps = (state: AppStore): HeaderProps => {
 	};
 };
 export default connect(mapStateToProps)(Header);
-
-const StyledNav = styled.nav`
-	top: 0;
-	left: 0;
-	right: 0;
-	position: fixed;
-	height: ${Styles.headerHeight};
-	align-items: center;
-	display: flex;
-	justify-content: space-between;
-	padding: 10px;
-	box-sizing: border-box;
-	background: ${Styles.colorDarkBg};
-	color: ${Styles.colorTextOnDarkBg};
-	a {
-		color: white;
-		display: inline-block;
-		padding: 0 10px;
-		text-decoration: none;
-		&:hover {
-			text-decoration: underline;
-		}
-	}
-`;
