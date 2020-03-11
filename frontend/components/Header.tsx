@@ -12,7 +12,7 @@ const Header: React.FC<HeaderProps> = props => {
 	const { breadcrumb } = props;
 	return (
 		<>
-			<Container>
+			<StyledNav>
 				<div>
 					<strong>Metroidvania Compendium</strong>
 					<span> » {breadcrumb}</span>
@@ -28,8 +28,7 @@ const Header: React.FC<HeaderProps> = props => {
 					<Link to="/config">Config</Link>
 					<span> </span>
 				</div>
-			</Container>
-			<hr></hr>
+			</StyledNav>
 		</>
 	);
 };
@@ -41,7 +40,7 @@ const mapStateToProps = (state: AppStore): HeaderProps => {
 };
 export default connect(mapStateToProps)(Header);
 
-const Container = styled.nav`
+const StyledNav = styled.nav`
 	top: 0;
 	left: 0;
 	right: 0;

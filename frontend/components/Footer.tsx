@@ -4,14 +4,14 @@ import { Styles } from './styles';
 
 export const Footer: React.FC = () => {
 	return (
-		<Container>
+		<StyledFooter>
 			<p>
 				Follow on <a href="https://github.com/EvidentlyCube/metroidvania-compendium">GitHub</a>
 			</p>
-		</Container>
+		</StyledFooter>
 	);
 };
-const Container = styled.footer`
+const StyledFooter = styled.footer`
 	display: flex;
 	justify-content: center;
 	padding: 10px;
