@@ -2,21 +2,33 @@ import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../storage/common';
-import { CheckboxRowProps, CheckboxRow } from './generics/CheckboxRow';
+import { CheckboxRow } from './generics/CheckboxRow';
+import { Game } from '../storage/models/Game';
 interface GamesVisibilityListProps {
-	checkboxRows: Array<CheckboxRowProps>;
+	gamesVisibility: Map<Game, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
+
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
-	const callbackFunction = (name: string, checkValue: boolean) => {
-		const gameNumber = parseInt(name);
+	const callbackFunction = (value: string, checkValue: boolean) => {
+		const gameNumber = parseInt(value);
 		props.dispatch(GameVisibilityActions.setGameVisibility(gameNumber, !checkValue));
 	};
-	const { checkboxRows } = props;
+	const { gamesVisibility } = props;
+	const arrayOfGames = Array.from(gamesVisibility.entries());
 	return (
 		<>
-			{checkboxRows.map(entry => {
-				return <CheckboxRow key={entry.id} {...entry} callback={callbackFunction} />;
+			{arrayOfGames.map(entry => {
+				return (
+					<CheckboxRow
+						key={entry[0].id}
+						id={`gameVisibility_${entry[0].id}`}
+						label={entry[0].name}
+						defaultCheckValue={entry[1]}
+						value={`${entry[0].id}`}
+						callback={callbackFunction}
+					/>
+				);
 			})}
 		</>
 	);
@@ -24,18 +36,12 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 
 const mapStateToProps = (state: AppStore): Partial<GamesVisibilityListProps> => {
 	const { games, gamesVisibility } = state;
-	const checkboxRowProps = new Array<CheckboxRowProps>();
+	const gamesMap = new Map<Game, boolean>();
 	for (const game of games.values()) {
-		checkboxRowProps.push({
-			id: `${game.id}: gameVisibility`,
-			label: game.name,
-			defaultCheckValue: gamesVisibility.get(game.id) ?? true,
-			name: `${game.id}`,
-			callback: () => {},
-		});
+		gamesMap.set(game, gamesVisibility.get(game.id) ?? true);
 	}
 	return {
-		checkboxRows: checkboxRowProps,
+		gamesVisibility: gamesMap,
 	};
 };
 

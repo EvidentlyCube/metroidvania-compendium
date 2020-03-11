@@ -1,23 +1,23 @@
 import * as React from 'react';
-//Callback with id and value
 export interface CheckboxRowProps {
 	label: string;
 	id: string;
-	name: string;
+	value: string;
 	defaultCheckValue: boolean;
-	callback: (name: string, checkValue: boolean) => void;
+	callback: (value: string, checkValue: boolean) => void;
 }
 
 export const CheckboxRow: React.FC<CheckboxRowProps> = props => (
 	<>
-		<input
-			type="checkbox"
-			onClick={() => props.callback(props.name, props.defaultCheckValue)}
-			defaultChecked={props.defaultCheckValue}
-			name={props.name}
-			id={props.id}
-		/>
-		<label htmlFor={props.id}> {props.label}</label>
-		<br></br>
+		<label htmlFor={props.id} style={{ display: 'block' }}>
+			<input
+				type="checkbox"
+				onClick={() => props.callback(props.value, props.defaultCheckValue)}
+				defaultChecked={props.defaultCheckValue}
+				name={props.value}
+				id={props.id}
+			/>
+			{props.label}
+		</label>
 	</>
 );
