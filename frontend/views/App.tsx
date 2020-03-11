@@ -1,13 +1,11 @@
 import * as React from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
-// eslint-disable-next-line no-unused-vars
 import { Store } from 'redux';
 import { Footer } from '../components/Footer';
 import { HomeView } from './HomeView';
 import { ConfigView } from './ConfigView';
 import Header from '../components/Header';
-// eslint-disable-next-line no-unused-vars
 import { AppStore, AppActions } from '../storage/common';
 
 interface AppProps {
@@ -29,7 +27,6 @@ export class App extends React.Component<AppProps> {
 						</Switch>
 					</Router>
 				</Provider>
-				<hr></hr>
 				<Footer />
 			</>
 		);
