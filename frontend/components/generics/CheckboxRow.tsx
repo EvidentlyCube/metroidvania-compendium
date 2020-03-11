@@ -1,4 +1,10 @@
 import * as React from 'react';
+import styled from 'styled-components';
+
+const Label = styled.label`
+	display: block;
+	margin-bottom: 10px;
+`;
 export interface CheckboxRowProps {
 	label: string;
 	id: string;
@@ -8,7 +14,7 @@ export interface CheckboxRowProps {
 }
 
 export const CheckboxRow: React.FC<CheckboxRowProps> = props => (
-	<label htmlFor={props.id} style={{ display: 'block' }}>
+	<Label htmlFor={props.id} style={{ display: 'block' }}>
 		<input
 			type="checkbox"
 			onClick={() => props.callback(props.value, props.defaultCheckValue)}
@@ -16,6 +22,6 @@ export const CheckboxRow: React.FC<CheckboxRowProps> = props => (
 			name={props.value}
 			id={props.id}
 		/>
-		{props.label}
-	</label>
+		&nbsp;{props.label}
+	</Label>
 );
