@@ -18,7 +18,7 @@ export const CheckboxRow: React.FC<CheckboxRowProps> = props => (
 		<input
 			type="checkbox"
 			onClick={() => props.callback(props.value, props.defaultCheckValue)}
-			defaultChecked={props.defaultCheckValue}
+			checked={props.defaultCheckValue}
 			name={props.value}
 			id={props.id}
 		/>

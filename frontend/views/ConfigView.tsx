@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Store } from 'redux';
-import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
+import { AppStore, AppActions, BreadcrumbActions, GameVisibilityActions } from '../storage/common';
 import GamesVisibilityList from '../components/GamesVisibilityList';
 import styled from 'styled-components';
 import { Theme } from '../components/styles/themes';
@@ -41,7 +41,9 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 	}
-
+	public changeEveryGameVisibility(isVisibile: boolean): void {
+		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
+	}
 	public render(): React.ReactNode {
 		return (
 			<Narrow>
@@ -56,8 +58,8 @@ export class ConfigView extends React.Component<ConfigViewProps> {
 					</article>
 					<Controls>
 						<Buttons>
-							<Button>Select All</Button>
-							<Button>Unselect All</Button>
+							<Button onClick={() => this.changeEveryGameVisibility(true)}>Select All</Button>
+							<Button onClick={() => this.changeEveryGameVisibility(false)}>Unselect All</Button>
 						</Buttons>
 						<form action="#" method="post">
 							<SearchRow name="searchedGame" placeholder="Find a game" />
