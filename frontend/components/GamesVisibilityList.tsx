@@ -4,14 +4,15 @@ import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../storage/common';
 import { CheckboxRow } from './generics/CheckboxRow';
 import { Game } from '../storage/models/Game';
+interface GamesVisibilityFilterProps {
+	filterString: string;
+}
 interface GamesVisibilityListProps extends GamesVisibilityFilterProps {
 	games: Array<Game>;
 	gamesVisibility: Map<number, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
-export interface GamesVisibilityFilterProps {
-	filterString: string;
-}
+
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
 	const dispatchGameVisibility = (value: string, checkValue: boolean) => {
 		const gameId = parseInt(value);
@@ -28,7 +29,7 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 						key={game.id}
 						id={`gameVisibility_${game.id}`}
 						label={game.name}
-						defaultCheckValue={isGameVisible}
+						checked={isGameVisible}
 						value={`${game.id}`}
 						callback={dispatchGameVisibility}
 					/>
