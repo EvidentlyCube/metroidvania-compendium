@@ -5,28 +5,29 @@ import { AppStore, GameVisibilityActions } from '../storage/common';
 import { CheckboxRow } from './generics/CheckboxRow';
 import { Game } from '../storage/models/Game';
 interface GamesVisibilityListProps {
-	gamesVisibility: Map<Game, boolean>;
+	games: Array<Game>;
+	gamesVisibility: Map<number, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
 
 const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVisibilityListProps) => {
-	const callbackFunction = (value: string, checkValue: boolean) => {
-		const gameNumber = parseInt(value);
-		props.dispatch(GameVisibilityActions.setGameVisibility(gameNumber, !checkValue));
+	const dispatchGameVisibility = (value: string, checkValue: boolean) => {
+		const gameId = parseInt(value);
+		props.dispatch(GameVisibilityActions.setGameVisibility(gameId, !checkValue));
 	};
-	const { gamesVisibility } = props;
-	const arrayOfGames = Array.from(gamesVisibility.entries());
+	const { games, gamesVisibility } = props;
 	return (
 		<>
-			{arrayOfGames.map(entry => {
+			{games.map(entry => {
+				const isGameVisible = gamesVisibility.get(entry.id) ?? true;
 				return (
 					<CheckboxRow
-						key={entry[0].id}
-						id={`gameVisibility_${entry[0].id}`}
-						label={entry[0].name}
-						defaultCheckValue={entry[1]}
-						value={`${entry[0].id}`}
-						callback={callbackFunction}
+						key={entry.id}
+						id={`gameVisibility_${entry.id}`}
+						label={entry.name}
+						defaultCheckValue={isGameVisible}
+						value={`${entry.id}`}
+						callback={dispatchGameVisibility}
 					/>
 				);
 			})}
@@ -35,13 +36,9 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 };
 
 const mapStateToProps = (state: AppStore): Partial<GamesVisibilityListProps> => {
-	const { games, gamesVisibility } = state;
-	const gamesMap = new Map<Game, boolean>();
-	for (const game of games.values()) {
-		gamesMap.set(game, gamesVisibility.get(game.id) ?? true);
-	}
 	return {
-		gamesVisibility: gamesMap,
+		games: Array.from(state.games.values()),
+		gamesVisibility: state.gamesVisibility,
 	};
 };
 
