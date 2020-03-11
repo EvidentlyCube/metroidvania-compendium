@@ -4,8 +4,11 @@
   "description": "A compendium of all information about metroidvanias",
   "main": "index.js",
   "scripts": {
+    "lint": "eslint --fix -- backend/**/*.ts frontend/**/*.ts frontend/**/*.tsx",
+    "typeorm": "./node_modules/.bin/ts-node ./node_modules/typeorm/cli.js",
     "dev:frontend": "npx webpack-dev-server",
-    "dev:backend": "node -r ts-node/register backend/index.ts"
+    "dev:backend": "node -r ts-node/register backend/index.ts",
+    "backend:migrate": "npm run typeorm -- migration:run -f backend/ormconfig.js"
   },
   "repository": {
     "type": "git",
@@ -58,12 +61,14 @@
   },
   "dependencies": {
     "express": "^4.17.1",
+    "mysql": "^2.18.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",
     "redux": "^4.0.5",
     "styled-components": "^5.0.1",
-    "ts-node": "^8.6.2"
+    "ts-node": "^8.6.2",
+    "typeorm": "^0.2.24"
   }
 }
