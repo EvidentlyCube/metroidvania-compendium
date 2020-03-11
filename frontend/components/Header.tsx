@@ -18,15 +18,10 @@ const Header: React.FC<HeaderProps> = props => {
 					<span> » {breadcrumb}</span>
 				</div>
 				<div>
-					{/* Spans are placeholder before styling, to have a space between links */}
 					<Link to="/">Home</Link>
-					<span> </span>
 					<Link to="/games">Game List</Link>
-					<span> </span>
 					<Link to="/abilities">Abilities</Link>
-					<span> </span>
 					<Link to="/config">Config</Link>
-					<span> </span>
 				</div>
 			</StyledNav>
 		</>
