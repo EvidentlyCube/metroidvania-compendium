@@ -18,15 +18,15 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 	const { games, gamesVisibility } = props;
 	return (
 		<>
-			{games.map(entry => {
-				const isGameVisible = gamesVisibility.get(entry.id) ?? true;
+			{games.map(game => {
+				const isGameVisible = gamesVisibility.get(game.id) ?? true;
 				return (
 					<CheckboxRow
-						key={entry.id}
-						id={`gameVisibility_${entry.id}`}
-						label={entry.name}
+						key={game.id}
+						id={`gameVisibility_${game.id}`}
+						label={game.name}
 						defaultCheckValue={isGameVisible}
-						value={`${entry.id}`}
+						value={`${game.id}`}
 						callback={dispatchGameVisibility}
 					/>
 				);
