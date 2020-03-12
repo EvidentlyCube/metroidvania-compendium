@@ -8,6 +8,13 @@ const Header = styled.h2`
 	margin-top: 0;
 	margin-bottom: 0;
 	font-weight: lighter;
+	a {
+		display: inline-block;
+		text-decoration: none;
+		&:hover {
+			text-decoration: underline;
+		}
+	}
 `;
 
 export function PageSubtitle(props: any) {

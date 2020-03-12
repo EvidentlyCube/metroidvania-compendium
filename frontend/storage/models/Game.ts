@@ -6,12 +6,12 @@ export class Game {
 
 	public readonly series: string;
 
-	public readonly imgUrl: string;
+	public readonly img: any;
 
 	constructor(props: GameProps) {
 		this.id = props.id;
 		this.name = props.name;
 		this.series = props.series;
-		this.imgUrl = props.imgUrl;
+		this.img = props.img;
 	}
 }

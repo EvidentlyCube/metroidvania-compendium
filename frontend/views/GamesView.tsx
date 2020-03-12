@@ -8,6 +8,7 @@ import { SearchRow } from '../components/styles/SearchRow';
 import { Store } from 'redux';
 import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
 import GamesList from '../components/GamesList';
+import { Link } from 'react-router-dom';
 
 interface GamesViewProps {
 	store: Store<AppStore, AppActions>;
@@ -36,7 +37,9 @@ export class GamesView extends React.Component<GamesViewProps, GameViewState> {
 				<Narrow>
 					<PageHeader>
 						<PageTitle>Games</PageTitle>
-						<PageSubtitle>{"Check the spoilers options if you don't see a game!"}</PageSubtitle>
+						<PageSubtitle>
+							Check the <Link to="/config">spoilers options</Link> if you don&apos;t see a game!
+						</PageSubtitle>
 					</PageHeader>
 					<PageSection>
 						<p>Find your favorite Metroidvania and learn more about it!</p>
