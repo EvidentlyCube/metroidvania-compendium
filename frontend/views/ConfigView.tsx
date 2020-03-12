@@ -53,8 +53,9 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 	public changeEveryGameVisibility(isVisibile: boolean) {
 		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
 	}
-	public setGameFilter(event: React.ChangeEvent<HTMLInputElement>) {
-		this.setState({ filterString: event.target.value });
+
+	public setGameFilter(filterString: string) {
+		this.setState({ filterString });
 	}
 	public render() {
 		return (
@@ -73,7 +74,7 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 							<Button onClick={() => this.changeEveryGameVisibility(true)}>Select All</Button>
 							<Button onClick={() => this.changeEveryGameVisibility(false)}>Unselect All</Button>
 						</Buttons>
-						<SearchRow name="searchedGame" value={this.state.filterString} onChange={this.setGameFilter} placeholder="Find a game" />
+						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>
 					<GamesVisibilityList filterString={this.state.filterString} />
 				</PageSection>

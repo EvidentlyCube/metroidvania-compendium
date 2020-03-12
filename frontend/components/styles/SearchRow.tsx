@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import debounce from 'lodash.debounce';
 import { Theme } from './themes';
 
 const Input = styled.input`
@@ -12,5 +13,8 @@ const Input = styled.input`
 `;
 
 export function SearchRow(props: any) {
-	return <Input type="text" value={props.value} onChange={props.onChange} placeholder={props.placeholder} name={props.name} />;
+	const debouncedOnChange = debounce(value => props.onChange(value), 500);
+	return (
+		<Input type="text" value={props.value} onChange={event => debouncedOnChange(event.target.value)} placeholder={props.placeholder} name={props.name} />
+	);
 }
