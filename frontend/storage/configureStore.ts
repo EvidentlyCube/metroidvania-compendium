@@ -25,7 +25,12 @@ function createMockGamesVisibility(): Map<number, boolean> {
 function createMockGames(): Map<number, Game> {
 	let mockData: Map<number, Game> = new Map();
 	for (let i = 0; i < 20; i++) {
-		const mockGame = new Game({ id: i, name: `Super Metroid: ${i}` });
+		const mockGame = new Game({
+			id: i,
+			name: `Super Metroid: ${i}`,
+			series: 'Metroid',
+			imgUrl: 'https://steamuserimages-a.akamaihd.net/ugc/90469956945157107/05A816D9D18F48CEE9FE3E0AA8706B0BF81B669E/',
+		});
 		mockData.set(i, mockGame);
 	}
 	return mockData;
