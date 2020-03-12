@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Store } from 'redux';
-import { throttle } from 'lodash';
 import { AppStore, AppActions, BreadcrumbActions, GameVisibilityActions } from '../storage/common';
 import GamesVisibilityList from '../components/GamesVisibilityList';
 import styled from 'styled-components';
@@ -41,14 +40,12 @@ interface ConfigViewState {
 	filterString: string;
 }
 export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState> {
-	setFilterStateThrottled: ReturnType<typeof throttle>;
 	constructor(props: ConfigViewProps) {
 		super(props);
 		this.state = {
 			filterString: '',
 		};
 		this.setGameFilter = this.setGameFilter.bind(this);
-		this.setFilterStateThrottled = throttle(this.setFilterState, 500);
 	}
 	public componentDidMount() {
 		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
@@ -56,11 +53,9 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 	public changeEveryGameVisibility(isVisibile: boolean) {
 		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
 	}
-	public setFilterState(filterString: string) {
+
+	public setGameFilter(filterString: string) {
 		this.setState({ filterString });
-	}
-	public setGameFilter(event: React.ChangeEvent<HTMLInputElement>) {
-		this.setFilterStateThrottled(event.target.value);
 	}
 	public render() {
 		return (
