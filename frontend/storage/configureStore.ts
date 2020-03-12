@@ -25,7 +25,6 @@ function createMockGamesVisibility(): Map<number, boolean> {
 }
 function createMockGames(): Map<number, Game> {
 	let mockData: Map<number, Game> = new Map();
-	console.log(SuperMetroidCover);
 	for (let i = 0; i < 20; i++) {
 		const mockGame = new Game({
 			id: i,
