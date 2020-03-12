@@ -34,7 +34,6 @@ interface GameListRowProps {
 	imgUrl: string;
 	name: string;
 	series: string;
-	id: string;
 }
 export function GameListRow(props: GameListRowProps) {
 	return (
