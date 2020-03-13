@@ -2,7 +2,7 @@ import { Game } from './models/Game';
 import SuperMetroidCover from '../assets/cover_super_metroid.jpg';
 import { AppStore } from './common';
 import { GameSeries } from './models/GameSeries';
-import { File, Types } from './models/File';
+import { Image } from './models/Image';
 
 export function createInitialApplicationState(): AppStore {
 	return {
@@ -55,16 +55,15 @@ function createMockGameSeries(): Map<number, GameSeries> {
 	}
 	return mockData;
 }
-function createMockImages(): Map<number, File> {
-	const mockData: Map<number, File> = new Map();
+function createMockImages(): Map<number, Image> {
+	const mockData: Map<number, Image> = new Map();
 	for (let i = 0; i < 20; i++) {
 		mockData.set(
 			i,
-			new File({
+			new Image({
 				id: i,
 				name: 'Super Metroid IMG',
 				fileUrl: SuperMetroidCover,
-				type: Types.image,
 			})
 		);
 	}
