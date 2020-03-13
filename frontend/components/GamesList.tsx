@@ -10,8 +10,8 @@ interface GamesFilterProps {
 }
 interface GamesListProps extends GamesFilterProps {
 	games: Array<Game>;
-	gameSeries: Array<GameSeries>;
-	images: Array<File>;
+	gameSeries: Map<number, GameSeries>;
+	images: Map<number, File>;
 	gamesVisibility: Map<number, boolean>;
 }
 
@@ -22,18 +22,26 @@ const GamesList: React.FC<GamesListProps> = (props: GamesListProps) => {
 		<>
 			{filteredGames.map(game => {
 				if (gamesVisibility.get(game.id) ?? true) {
-					return <GameListRow key={game.id} img={props.images[game.id].fileUrl} name={game.title} series={props.gameSeries[game.id].name} />;
+					let imgUrl = '';
+					let gameSeries = '';
+					if (props.images.get(game.id)) {
+						imgUrl = props.images.get(game.id)!.fileUrl;
+					}
+					if (props.gameSeries.get(game.id)) {
+						gameSeries = props.gameSeries.get(game.id)!.name;
+					}
+					return <GameListRow key={game.id} img={imgUrl} name={game.title} series={gameSeries} />;
 				}
 			})}
 		</>
 	);
 };
 
-const mapStateToProps = (state: AppStore, ownProps: GamesFilterProps): Partial<GamesListProps> => {
+const mapStateToProps = (state: AppStore, ownProps: GamesFilterProps): GamesListProps => {
 	return {
 		games: Array.from(state.games.values()),
-		gameSeries: Array.from(state.gameSeries.values()),
-		images: Array.from(state.images.values()),
+		gameSeries: state.gameSeries,
+		images: state.images,
 		gamesVisibility: state.gamesVisibility,
 		filterString: ownProps.filterString,
 	};
