@@ -2,6 +2,7 @@ import { createStore, Store } from 'redux';
 import { AppActions, AppStore } from './common';
 import { appReducer } from './reducers';
 import { Game } from './models/Game';
+import SuperMetroidCover from '../assets/cover_super_metroid.jpg';
 
 export default function configureStore(): Store<AppStore, AppActions> {
 	const store = createStore(appReducer, createInitialApplicationState());
@@ -25,8 +26,15 @@ function createMockGamesVisibility(): Map<number, boolean> {
 function createMockGames(): Map<number, Game> {
 	let mockData: Map<number, Game> = new Map();
 	for (let i = 0; i < 20; i++) {
-		const mockGame = new Game({ id: i, name: `Super Metroid: ${i}` });
-		mockData.set(i, mockGame);
+		mockData.set(
+			i,
+			new Game({
+				id: i,
+				name: `Super Metroid: ${i}`,
+				series: 'Metroid',
+				img: SuperMetroidCover,
+			})
+		);
 	}
 	return mockData;
 }
