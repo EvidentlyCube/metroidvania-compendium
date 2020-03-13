@@ -1,4 +1,6 @@
 import { Game } from './models/Game';
+import { GameSeries } from './models/GameSeries';
+import { Image } from './models/Image';
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
 export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
@@ -7,6 +9,8 @@ export interface AppStore {
 	headerBreadcrumb: string;
 	gamesVisibility: Map<number, boolean>;
 	games: Map<number, Game>;
+	gameSeries: Map<number, GameSeries>;
+	images: Map<number, Image>;
 }
 export interface SetBreadcrumbAction {
 	type: typeof SET_BREADCRUMB;

@@ -19,7 +19,7 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 		props.dispatch(GameVisibilityActions.setGameVisibility(gameId, !checkValue));
 	};
 	const { games, gamesVisibility } = props;
-	const filteredGames = games.filter((game: Game) => game.name.startsWith(props.filterString));
+	const filteredGames = games.filter((game: Game) => game.title.startsWith(props.filterString));
 	return (
 		<>
 			{filteredGames.map(game => {
@@ -28,7 +28,7 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 					<CheckboxRow
 						key={game.id}
 						id={`gameVisibility_${game.id}`}
-						label={game.name}
+						label={game.title}
 						checked={isGameVisible}
 						value={`${game.id}`}
 						callback={dispatchGameVisibility}
