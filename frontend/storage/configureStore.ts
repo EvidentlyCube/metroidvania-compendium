@@ -26,13 +26,15 @@ function createMockGamesVisibility(): Map<number, boolean> {
 function createMockGames(): Map<number, Game> {
 	let mockData: Map<number, Game> = new Map();
 	for (let i = 0; i < 20; i++) {
-		const mockGame = new Game({
-			id: i,
-			name: `Super Metroid: ${i}`,
-			series: 'Metroid',
-			img: SuperMetroidCover,
-		});
-		mockData.set(i, mockGame);
+		mockData.set(
+			i,
+			new Game({
+				id: i,
+				name: `Super Metroid: ${i}`,
+				series: 'Metroid',
+				img: SuperMetroidCover,
+			})
+		);
 	}
 	return mockData;
 }

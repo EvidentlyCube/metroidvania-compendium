@@ -3,16 +3,19 @@ import styled from 'styled-components';
 import { Theme } from '../styles/themes';
 import { PageTitle } from '../styles/PageTitle';
 import { PageSubtitle } from '../styles/PageSubtitle';
+import { Link } from 'react-router-dom';
 
-const Box = styled.a`
-	display: flex;
-	flex-direction: row;
-	align-items: center;
-	margin-bottom: 20px;
-	text-decoration: none;
+const Box = styled.div`
+	a {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		margin-bottom: 20px;
+		text-decoration: none;
 
-	&:hover {
-		background: ${Theme.colorAccentBg};
+		&:hover {
+			background: ${Theme.colorAccentBg};
+		}
 	}
 `;
 
@@ -37,12 +40,14 @@ interface GameListRowProps {
 }
 export function GameListRow(props: GameListRowProps) {
 	return (
-		<Box href="#">
-			<BoxArt src={props.img} />
-			<Titles>
-				<PageTitle>{props.name}</PageTitle>
-				<PageSubtitle>{props.series}</PageSubtitle>
-			</Titles>
+		<Box>
+			<Link to="/games/#">
+				<BoxArt src={props.img} />
+				<Titles>
+					<PageTitle>{props.name}</PageTitle>
+					<PageSubtitle>{props.series}</PageSubtitle>
+				</Titles>
+			</Link>
 		</Box>
 	);
 }
