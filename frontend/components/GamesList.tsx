@@ -22,8 +22,8 @@ const GamesList: React.FC<GamesListProps> = (props: GamesListProps) => {
 		<>
 			{filteredGames.map(game => {
 				if (gamesVisibility.get(game.id) ?? true) {
-					const gameSeriesName = props.gameSeries.get(game.seriesId)?.name || ' ';
-					const imgUrl = props.images.get(game.imageId)?.fileUrl || ' ';
+					const gameSeriesName = props.gameSeries.get(game.seriesId)?.name || '';
+					const imgUrl = props.images.get(game.imageId)?.fileUrl || '';
 					return <GameListRow key={game.id} img={imgUrl} name={game.title} series={gameSeriesName} />;
 				}
 			})}
