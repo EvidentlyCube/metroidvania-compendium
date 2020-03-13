@@ -2,7 +2,7 @@ import { createStore, Store } from 'redux';
 import { AppActions, AppStore } from './common';
 import { appReducer } from './reducers';
 import { Game } from './models/Game';
-const SuperMetroidCover = require('../assets/cover_super_metroid.jpg');
+import SuperMetroidCover from '../assets/cover_super_metroid.jpg';
 
 export default function configureStore(): Store<AppStore, AppActions> {
 	const store = createStore(appReducer, createInitialApplicationState());

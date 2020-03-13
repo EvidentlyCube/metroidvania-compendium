@@ -6,7 +6,7 @@ export class Game {
 
 	public readonly series: string;
 
-	public readonly img: any;
+	public readonly img: string;
 
 	constructor(props: GameProps) {
 		this.id = props.id;
