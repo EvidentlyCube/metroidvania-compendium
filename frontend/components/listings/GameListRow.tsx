@@ -34,14 +34,16 @@ const Titles = styled.div`
 	flex-direction: column;
 `;
 interface GameListRowProps {
+	id: number;
 	img: string;
 	name: string;
 	series: string;
 }
 export function GameListRow(props: GameListRowProps) {
+	const link = `/game/${props.id}`;
 	return (
 		<Box>
-			<Link to="/games/#">
+			<Link to={link}>
 				<BoxArt src={props.img} />
 				<Titles>
 					<PageTitle>{props.name}</PageTitle>

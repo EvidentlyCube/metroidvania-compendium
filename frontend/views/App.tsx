@@ -10,6 +10,7 @@ import { AppStore, AppActions } from '../storage/common';
 import { PageLayout } from '../components/styles/PageLayout';
 import { Content } from '../components/styles/Content';
 import { GamesView } from './GamesView';
+import GameDetailedView from './GameDetailedView';
 
 interface AppProps {
 	store: Store<AppStore, AppActions>;
@@ -28,6 +29,7 @@ export class App extends React.Component<AppProps> {
 								<Route path="/games" render={() => <GamesView store={this.props.store} />} />
 								<Route path="/abilities" />
 								<Route path="/config" render={() => <ConfigView store={this.props.store} />} />
+								<Route path="/game/:chosenGame?" component={GameDetailedView} />
 							</Switch>
 						</Content>
 					</Router>
