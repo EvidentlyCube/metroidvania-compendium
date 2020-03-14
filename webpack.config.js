@@ -5,7 +5,11 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 module.exports = {
 	mode: 'production',
 	entry: './frontend',
-
+	output: {
+		path: path.join(__dirname, 'build'),
+		publicPath: '/',
+		filename: '[name].[contenthash].js',
+	},
 	// Enable sourcemaps for debugging webpack's output.
 	devtool: 'source-map',
 	devServer: {
