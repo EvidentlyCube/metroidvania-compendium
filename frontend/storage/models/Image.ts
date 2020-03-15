@@ -1,5 +1,5 @@
 export type ImageProps = Required<Image>;
-import UndefinedCover from '../../assets/cover_undefined.jpg';
+import DefaultImagePath from '../../assets/cover_default.jpg';
 export class Image {
 	public readonly id: number;
 
@@ -14,4 +14,4 @@ export class Image {
 	}
 }
 
-export const undefinedCover = new Image({ id: -1, name: 'undefined cover', fileUrl: UndefinedCover });
+export const DefaultImage = new Image({ id: -1, name: 'undefined cover', fileUrl: DefaultImagePath });

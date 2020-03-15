@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppStore } from '../storage/common';
 import { Game } from '../storage/models/Game';
 import { GameSeries } from '../storage/models/GameSeries';
-import { Image, undefinedCover } from '../storage/models/Image';
+import { Image, DefaultImage } from '../storage/models/Image';
 import { Narrow } from '../components/styles/Narrow';
 import { PageHeader } from '../components/styles/PageHeader';
 import { PageTitle } from '../components/styles/PageTitle';
@@ -43,7 +43,7 @@ export class GameDetailedView extends React.Component<GameDetailevViewProps, Gam
 					`Game with id: ${props.chosenGameId} have a missing game series associated with it. Game Series Id:${this.state.chosenGame.seriesId}`
 				);
 			}
-			this.chosenImage = props.images.get(this.state.chosenGame.imageId) || undefinedCover;
+			this.chosenImage = props.images.get(this.state.chosenGame.imageId) || DefaultImage;
 		} else {
 			this.gameFound = false;
 		}
