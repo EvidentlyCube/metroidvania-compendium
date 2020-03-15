@@ -1,4 +1,5 @@
 export type ImageProps = Required<Image>;
+import DefaultImagePath from '../../assets/cover_default.jpg';
 export class Image {
 	public readonly id: number;
 
@@ -12,3 +13,5 @@ export class Image {
 		this.fileUrl = props.fileUrl;
 	}
 }
+
+export const DefaultImage = new Image({ id: -1, name: 'undefined cover', fileUrl: DefaultImagePath });
