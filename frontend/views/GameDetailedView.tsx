@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { AppStore } from '../storage/common';
 import { Game } from '../storage/models/Game';
 import { GameSeries } from '../storage/models/GameSeries';
-import { Image } from '../storage/models/Image';
+import { Image, undefinedCover } from '../storage/models/Image';
 import { Narrow } from '../components/styles/Narrow';
 import { PageHeader } from '../components/styles/PageHeader';
 import { PageTitle } from '../components/styles/PageTitle';
@@ -11,10 +11,10 @@ import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { GameBox } from '../components/GameBox';
-import { RouteComponentProps } from 'react-router-dom';
+import { RouteComponentProps, Redirect } from 'react-router-dom';
 
 interface MatchParams {
-	chosenGame: string;
+	gameId: string;
 }
 interface GameDetailevViewProps {
 	games: Map<number, Game>;
@@ -27,45 +27,56 @@ interface GameDetailedViewState {
 }
 
 export class GameDetailedView extends React.Component<GameDetailevViewProps, GameDetailedViewState> {
+	gameFound: boolean;
 	chosenSeries: GameSeries;
 	chosenImage: Image;
 	constructor(props: GameDetailevViewProps) {
 		super(props);
-		this.state = {
-			chosenGame:
-				props.games.get(props.chosenGameId) ||
-				new Game({ title: 'Undefined', id: -1, seriesId: -1, imageId: -1, description: 'undefined', analysis: 'undefined' }),
-		};
-		this.chosenSeries =
-			props.gameSeries.get(this.state.chosenGame.seriesId) ||
-			new GameSeries({ id: -1, name: 'undefined', description: 'undefined', wikiUrl: 'undefined' });
-		this.chosenImage = props.images.get(this.state.chosenGame.imageId) || new Image({ id: -1, name: 'undefined', fileUrl: 'undefined' });
+		if (props.games.has(props.chosenGameId)) {
+			this.gameFound = true;
+			this.state = {
+				chosenGame: props.games.get(props.chosenGameId)!,
+			};
+			this.chosenSeries = props.gameSeries.get(this.state.chosenGame.seriesId)!;
+			if (!this.chosenSeries) {
+				throw new ReferenceError(
+					`Game with id: ${props.chosenGameId} have a missing game series associated with it. Game Series Id:${this.state.chosenGame.seriesId}`
+				);
+			}
+			this.chosenImage = props.images.get(this.state.chosenGame.imageId) || undefinedCover;
+		} else {
+			this.gameFound = false;
+		}
 	}
 	render() {
-		return (
-			<>
-				<Narrow>
-					<PageHeader>
-						<PageTitle>{this.state.chosenGame.title}</PageTitle>
-						<PageSubtitle>{this.chosenSeries.name}</PageSubtitle>
-					</PageHeader>
-					{/*TODO: Parametrised GameBox, to show image etc. */}
-					<GameBox />
-					<PageSection>
-						<SectionHeader>Description</SectionHeader>
-						<article>{this.state.chosenGame.description}</article>
-					</PageSection>
-					<PageSection>
-						<SectionHeader>Analysis</SectionHeader>
-						<article>{this.state.chosenGame.analysis}</article>
-					</PageSection>
-					<PageSection>
-						<SectionHeader>Abilities (List)</SectionHeader>
-						{/* TODO: Abilities List */}
-					</PageSection>
-				</Narrow>
-			</>
-		);
+		if (this.gameFound) {
+			return (
+				<>
+					<Narrow>
+						<PageHeader>
+							<PageTitle>{this.state.chosenGame.title}</PageTitle>
+							<PageSubtitle>{this.chosenSeries.name}</PageSubtitle>
+						</PageHeader>
+						{/*TODO: Parametrised GameBox, to show image etc. */}
+						<GameBox />
+						<PageSection>
+							<SectionHeader>Description</SectionHeader>
+							<article>{this.state.chosenGame.description}</article>
+						</PageSection>
+						<PageSection>
+							<SectionHeader>Analysis</SectionHeader>
+							<article>{this.state.chosenGame.analysis}</article>
+						</PageSection>
+						<PageSection>
+							<SectionHeader>Abilities (List)</SectionHeader>
+							{/* TODO: Abilities List */}
+						</PageSection>
+					</Narrow>
+				</>
+			);
+		} else {
+			return <Redirect to="/games" />;
+		}
 	}
 }
 
@@ -74,7 +85,7 @@ const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchPar
 		games: state.games,
 		gameSeries: state.gameSeries,
 		images: state.images,
-		chosenGameId: Number.parseInt(ownProps.match.params.chosenGame),
+		chosenGameId: Number.parseInt(ownProps.match.params.gameId),
 	};
 };
 

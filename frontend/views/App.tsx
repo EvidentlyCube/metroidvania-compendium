@@ -29,7 +29,7 @@ export class App extends React.Component<AppProps> {
 								<Route path="/games" render={() => <GamesView store={this.props.store} />} />
 								<Route path="/abilities" />
 								<Route path="/config" render={() => <ConfigView store={this.props.store} />} />
-								<Route path="/game/:chosenGame?" component={GameDetailedView} />
+								<Route path="/game/:gameId?" component={GameDetailedView} />
 							</Switch>
 						</Content>
 					</Router>
