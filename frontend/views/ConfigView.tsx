@@ -1,6 +1,4 @@
 import * as React from 'react';
-import { Store } from 'redux';
-import { AppStore, AppActions, BreadcrumbActions, GameVisibilityActions } from '../storage/common';
 import GamesVisibilityList from '../components/GamesVisibilityList';
 import styled from 'styled-components';
 import { Theme } from '../components/styles/themes';
@@ -34,7 +32,7 @@ const Controls = styled.div`
 `;
 
 interface ConfigViewProps {
-	store: Store<AppStore, AppActions>;
+	buttonAction: (allVisibile: boolean) => void;
 }
 interface ConfigViewState {
 	filterString: string;
@@ -46,12 +44,6 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 			filterString: '',
 		};
 		this.setGameFilter = this.setGameFilter.bind(this);
-	}
-	public componentDidMount() {
-		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
-	}
-	public changeEveryGameVisibility(isVisibile: boolean) {
-		this.props.store.dispatch(GameVisibilityActions.setEveryGameVisibility(isVisibile));
 	}
 
 	public setGameFilter(filterString: string) {
@@ -71,8 +63,8 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 					</article>
 					<Controls>
 						<Buttons>
-							<Button onClick={() => this.changeEveryGameVisibility(true)}>Select All</Button>
-							<Button onClick={() => this.changeEveryGameVisibility(false)}>Unselect All</Button>
+							<Button onClick={() => this.props.buttonAction(true)}>Select All</Button>
+							<Button onClick={() => this.props.buttonAction(false)}>Unselect All</Button>
 						</Buttons>
 						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>
