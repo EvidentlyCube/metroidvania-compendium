@@ -5,14 +5,11 @@ import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SearchRow } from '../components/styles/SearchRow';
-import { Store } from 'redux';
-import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
 import GamesList from '../components/GamesList';
 import { Link } from 'react-router-dom';
 
-interface GamesViewProps {
-	store: Store<AppStore, AppActions>;
-}
+//There has to be some kind of empty props, for constructor and state assigment in definition of Component
+interface GamesViewProps {}
 interface GameViewState {
 	filterString: string;
 }
@@ -28,9 +25,7 @@ export class GamesView extends React.Component<GamesViewProps, GameViewState> {
 	public setGameFilter(filterString: string) {
 		this.setState({ filterString });
 	}
-	public componentDidMount() {
-		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Game List'));
-	}
+
 	public render() {
 		return (
 			<>

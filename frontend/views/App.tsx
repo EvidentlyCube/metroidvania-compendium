@@ -3,14 +3,14 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { Store } from 'redux';
 import { Footer } from '../components/Footer';
-import { HomeView } from './HomeView';
 import Header from '../components/Header';
 import { AppStore, AppActions } from '../storage/common';
 import { PageLayout } from '../components/styles/PageLayout';
 import { Content } from '../components/styles/Content';
-import { GamesView } from './GamesView';
 import GameRoute from '../routes/GameRoute';
 import ConfigRoute from '../routes/ConfigRoute';
+import GamesRoute from '../routes/GamesRoute';
+import HomeRoute from '../routes/HomeRoute';
 
 interface AppProps {
 	store: Store<AppStore, AppActions>;
@@ -25,8 +25,8 @@ export class App extends React.Component<AppProps> {
 						<Header />
 						<Content>
 							<Switch>
-								<Route exact path="/" render={() => <HomeView store={this.props.store} />} />
-								<Route path="/games" render={() => <GamesView store={this.props.store} />} />
+								<Route exact path="/" component={HomeRoute} />
+								<Route path="/games" component={GamesRoute} />
 								<Route path="/abilities" />
 								<Route path="/config" component={ConfigRoute} />
 								<Route path="/game/:gameId" component={GameRoute} />

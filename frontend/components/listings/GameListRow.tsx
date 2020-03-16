@@ -27,6 +27,7 @@ const BoxArt = styled.img`
 	background-repeat: no-repeat;
 	margin-right: 40px;
 	flex: 0 0 150px;
+	background-image: url("${props => props.src}");
 `;
 
 const Titles = styled.div`

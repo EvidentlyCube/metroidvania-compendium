@@ -1,7 +1,5 @@
 import * as React from 'react';
 import { Link } from 'react-router-dom';
-import { Store } from 'redux';
-import { AppStore, AppActions, BreadcrumbActions } from '../storage/common';
 import styled from 'styled-components';
 import { Narrow } from '../components/styles/Narrow';
 
@@ -28,15 +26,7 @@ const Description = styled.article`
 		}
 	}
 `;
-
-interface HomeViewProps {
-	store: Store<AppStore, AppActions>;
-}
-export class HomeView extends React.Component<HomeViewProps> {
-	public componentDidMount() {
-		this.props.store.dispatch(BreadcrumbActions.setBreadcrumb('Home'));
-	}
-
+export class HomeView extends React.Component {
 	public render() {
 		return (
 			<Box>
