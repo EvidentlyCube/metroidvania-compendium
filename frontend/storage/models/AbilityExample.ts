@@ -1,8 +1,11 @@
 export type AbilityExampleProps = Required<AbilityExample>;
 export class AbilityExample {
 	public readonly id: number;
+
 	public readonly abilityId: number;
+
 	public readonly gameId: number;
+
 	public readonly name: string;
 
 	public readonly description: string;

@@ -9,11 +9,13 @@ import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { GameBox } from '../components/GameBox';
+import { Environment } from '../storage/models/Environment';
 
 interface GameViewProps {
 	game: Game;
 	series: GameSeries;
 	image: Image;
+	environments: Array<Environment>;
 }
 
 export class GameView extends React.Component<GameViewProps> {
@@ -26,7 +28,7 @@ export class GameView extends React.Component<GameViewProps> {
 						<PageSubtitle>{this.props.series.name}</PageSubtitle>
 					</PageHeader>
 					{/*TODO: Parametrised GameBox, to show image etc. */}
-					<GameBox />
+					<GameBox image={this.props.image} environments={this.props.environments} />
 					<PageSection>
 						<SectionHeader>Description</SectionHeader>
 						<article>{this.props.game.description}</article>

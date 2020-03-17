@@ -1,7 +1,9 @@
 export type AbilityGroupProps = Required<AbilityGroup>;
 export class AbilityGroup {
 	public readonly id: number;
+
 	public readonly categoryId: number;
+
 	public readonly name: string;
 
 	public readonly description: string;

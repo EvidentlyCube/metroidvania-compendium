@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './styles/themes';
+import { Image } from '../storage/models/Image';
+import { Environment } from '../storage/models/Environment';
 
 const Box = styled.div`
 	float: right;
@@ -32,21 +34,24 @@ const Item = styled.a`
 	display: list-item;
 	list-style: circle;
 `;
-
-export function GameBox() {
+interface GameBoxProps {
+	image: Image;
+	environments: Array<Environment>;
+}
+export const GameBox: React.FC<GameBoxProps> = (props: GameBoxProps) => {
 	return (
 		<Box>
-			<BoxArt src="https://steamuserimages-a.akamaihd.net/ugc/90469956945157107/05A816D9D18F48CEE9FE3E0AA8706B0BF81B669E/" />
+			<BoxArt src={props.image.fileUrl} />
 			<Header>Released on:</Header>
 			<List>
-				<Item href="#">SNES</Item>
-				<Item href="#">DS (Ambassador Program)</Item>
-			</List>
-			<Header>Links:</Header>
-			<List>
-				<Item href="#">SNES</Item>
-				<Item href="#">DS (Ambassador Program)</Item>
+				{props.environments.map(environment => {
+					return (
+						<Item key={environment.id} href={environment.wikiUrl}>
+							{environment.name}
+						</Item>
+					);
+				})}
 			</List>
 		</Box>
 	);
-}
+};

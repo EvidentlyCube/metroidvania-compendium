@@ -7,11 +7,15 @@ import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { GameView } from '../views/GameView';
+import { GameEnvironment } from '../storage/models/GameEnvironment';
+import { Environment } from '../storage/models/Environment';
 
 interface GameRouteProps {
 	games: Map<number, Game>;
 	gameSeries: Map<number, GameSeries>;
 	images: Map<number, Image>;
+	gameEnvironemnts: Array<GameEnvironment>;
+	environemnts: Map<number, Environment>;
 	chosenGameId: number;
 	dispatch: Dispatch<AnyAction>;
 }
@@ -46,7 +50,11 @@ export class GameRoute extends React.Component<GameRouteProps> {
 			const game = this.props.games.get(this.props.chosenGameId)!;
 			const series = this.props.gameSeries.get(game.seriesId)!;
 			const image = this.props.images.get(game.imageId) || DefaultImage;
-			return <GameView game={game} series={series} image={image} />;
+			const gameEnvironmentsFilteredList = this.props.gameEnvironemnts.filter((gameEnvironment: GameEnvironment) => gameEnvironment.gameId == game.id);
+			const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
+				return this.props.environemnts.get(gameEnvironment.environmentId)!;
+			});
+			return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} />;
 		} else {
 			return <Redirect to="/games" />;
 		}
@@ -54,6 +62,8 @@ export class GameRoute extends React.Component<GameRouteProps> {
 }
 const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchParams>): Partial<GameRouteProps> => {
 	return {
+		gameEnvironemnts: state.gameEnvironments,
+		environemnts: state.environments,
 		games: state.games,
 		gameSeries: state.gameSeries,
 		images: state.images,
