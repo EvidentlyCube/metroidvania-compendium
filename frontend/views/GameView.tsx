@@ -10,6 +10,7 @@ import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { GameBox } from '../components/GameBox';
 import { Environment } from '../storage/models/Environment';
+import GameAbilitiesList from '../components/GameAbilitiesList';
 
 interface GameViewProps {
 	game: Game;
@@ -27,7 +28,6 @@ export class GameView extends React.Component<GameViewProps> {
 						<PageTitle>{this.props.game.title}</PageTitle>
 						<PageSubtitle>{this.props.series.name}</PageSubtitle>
 					</PageHeader>
-					{/*TODO: Parametrised GameBox, to show image etc. */}
 					<GameBox image={this.props.image} environments={this.props.environments} />
 					<PageSection>
 						<SectionHeader>Description</SectionHeader>
@@ -39,7 +39,7 @@ export class GameView extends React.Component<GameViewProps> {
 					</PageSection>
 					<PageSection>
 						<SectionHeader>Abilities (List)</SectionHeader>
-						{/* TODO: Abilities List */}
+						<GameAbilitiesList gameId={this.props.game.id} />
 					</PageSection>
 				</Narrow>
 			</>

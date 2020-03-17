@@ -5,6 +5,10 @@ import { GameSeries } from './models/GameSeries';
 import { Image } from './models/Image';
 import { GameEnvironment } from './models/GameEnvironment';
 import { Environment } from './models/Environment';
+import { AbilityGroup } from './models/AbilityGroup';
+import { AbilityCategory } from './models/AbilityCategory';
+import { Ability } from './models/Ability';
+import { AbilityExample } from './models/AbilityExample';
 
 export function createInitialApplicationState(): AppStore {
 	return {
@@ -15,6 +19,10 @@ export function createInitialApplicationState(): AppStore {
 		images: createMockImages(),
 		environments: createMockEnvironemnts(),
 		gameEnvironments: createMockGameEnvironments(),
+		abilityExamples: createMockAbilityExamples(),
+		abilities: createMockAbilities(),
+		abilityGroups: createMockAbilityGroups(),
+		abilityCategories: createMockAbilityCategories(),
 	};
 }
 function createMockGamesVisibility(): Map<number, boolean> {
@@ -116,5 +124,108 @@ function createMockGameEnvironments(): Array<GameEnvironment> {
 			})
 		);
 	}
+	return mockData;
+}
+function createMockAbilityGroups(): Map<number, AbilityGroup> {
+	const mockData: Map<number, AbilityGroup> = new Map();
+	mockData.set(0, new AbilityGroup({ id: 0, categoryId: 0, name: 'Jump', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(1, new AbilityGroup({ id: 1, categoryId: 1, name: 'Wall-run', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(2, new AbilityGroup({ id: 2, categoryId: 2, name: 'Beam-weapons', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(3, new AbilityGroup({ id: 3, categoryId: 3, name: 'Map', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	return mockData;
+}
+function createMockAbilityCategories(): Map<number, AbilityCategory> {
+	const mockData: Map<number, AbilityCategory> = new Map();
+	mockData.set(0, new AbilityCategory({ id: 0, name: 'Default', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(1, new AbilityCategory({ id: 1, name: 'Routing', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(2, new AbilityCategory({ id: 2, name: 'Combat', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	mockData.set(3, new AbilityCategory({ id: 3, name: 'Accessibility', description: 'Ullamco sint ullamco eu Lorem nulla Lorem laboris.' }));
+	return mockData;
+}
+function createMockAbilities(): Map<number, Ability> {
+	const mockData: Map<number, Ability> = new Map();
+	mockData.set(
+		0,
+		new Ability({
+			id: 0,
+			groupId: 0,
+			name: 'Jump',
+			description: 'Incididunt sint ea dolore cupidatat dolore quis tempor cupidatat ex enim velit proident sunt pariatur.',
+		})
+	);
+	mockData.set(
+		1,
+		new Ability({
+			id: 1,
+			groupId: 1,
+			name: 'Increased Jump Height',
+			description: 'Incididunt sint ea dolore cupidatat dolore quis tempor cupidatat ex enim velit proident sunt pariatur.',
+		})
+	);
+	mockData.set(
+		2,
+		new Ability({
+			id: 2,
+			groupId: 2,
+			name: 'Beam-weapon',
+			description: 'Incididunt sint ea dolore cupidatat dolore quis tempor cupidatat ex enim velit proident sunt pariatur.',
+		})
+	);
+	mockData.set(
+		3,
+		new Ability({
+			id: 3,
+			groupId: 3,
+			name: 'Game-Map',
+			description: 'Incididunt sint ea dolore cupidatat dolore quis tempor cupidatat ex enim velit proident sunt pariatur.',
+		})
+	);
+	return mockData;
+}
+function createMockAbilityExamples(): Array<AbilityExample> {
+	const mockData: Array<AbilityExample> = new Array();
+	for (let i = 0; i < 20; i++) {
+		for (let j = 0; j < Math.random() * 10 + 1; j++)
+			mockData.push(
+				new AbilityExample({
+					id: 40 * i + j,
+					gameId: i,
+					abilityId: 0,
+					name: 'Jumping boots',
+					description: 'Do exercitation in incididunt magna.',
+				})
+			);
+		for (let j = 0; j < Math.random() * 10 + 1; j++)
+			mockData.push(
+				new AbilityExample({
+					id: 40 * i + j + 10,
+					gameId: i,
+					abilityId: 1,
+					name: 'High Jumping boots',
+					description: 'Fugiat laborum et laborum ex laborum magna adipisicing.',
+				})
+			);
+		for (let j = 0; j < Math.random() * 10 + 1; j++)
+			mockData.push(
+				new AbilityExample({
+					id: 40 * i + j + 20,
+					gameId: i,
+					abilityId: 2,
+					name: 'Laser-gun',
+					description: 'Cillum aliquip quis ipsum nisi incididunt non cillum veniam deserunt.',
+				})
+			);
+		for (let j = 0; j < Math.random() * 10 + 1; j++)
+			mockData.push(
+				new AbilityExample({
+					id: 40 * i + j + 30,
+					gameId: i,
+					abilityId: 3,
+					name: 'Map of the colony',
+					description: 'Duis Lorem irure minim sunt est commodo laborum voluptate minim nisi.',
+				})
+			);
+	}
+	console.log(mockData);
 	return mockData;
 }
