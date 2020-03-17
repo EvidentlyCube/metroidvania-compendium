@@ -32,7 +32,7 @@ const Controls = styled.div`
 `;
 
 interface ConfigViewProps {
-	buttonAction: (allVisibile: boolean) => void;
+	changeGamesVisibility: (allVisibile: boolean) => void;
 }
 interface ConfigViewState {
 	filterString: string;
@@ -63,8 +63,8 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 					</article>
 					<Controls>
 						<Buttons>
-							<Button onClick={() => this.props.buttonAction(true)}>Select All</Button>
-							<Button onClick={() => this.props.buttonAction(false)}>Unselect All</Button>
+							<Button onClick={() => this.props.changeGamesVisibility(true)}>Select All</Button>
+							<Button onClick={() => this.props.changeGamesVisibility(false)}>Unselect All</Button>
 						</Buttons>
 						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>

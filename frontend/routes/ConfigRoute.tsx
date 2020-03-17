@@ -13,10 +13,10 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 	}
 	public render() {
-		const buttonCallback = (allVisible: boolean) => {
+		const changeGamesVisibilityCallback = (allVisible: boolean) => {
 			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(allVisible));
 		};
-		return <ConfigView buttonAction={buttonCallback} />;
+		return <ConfigView changeGamesVisibility={changeGamesVisibilityCallback} />;
 	}
 }
 const mapStateToProps = (): Partial<ConfigRouteProps> => {

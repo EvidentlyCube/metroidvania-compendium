@@ -8,13 +8,11 @@ import { SearchRow } from '../components/styles/SearchRow';
 import GamesList from '../components/GamesList';
 import { Link } from 'react-router-dom';
 
-//There has to be some kind of empty props, for constructor and state assigment in definition of Component
-interface GamesViewProps {}
 interface GameViewState {
 	filterString: string;
 }
-export class GamesView extends React.Component<GamesViewProps, GameViewState> {
-	constructor(props: GamesViewProps) {
+export class GamesView extends React.Component<{}, GameViewState> {
+	constructor(props: {}) {
 		super(props);
 		this.state = {
 			filterString: '',
