@@ -51,10 +51,9 @@ export class GameRoute extends React.Component<GameRouteProps> {
 			const series = this.props.gameSeries.get(game.seriesId)!;
 			const image = this.props.images.get(game.imageId) || DefaultImage;
 			const gameEnvironmentsFilteredList = this.props.gameEnvironemnts.filter((gameEnvironment: GameEnvironment) => gameEnvironment.gameId == game.id);
-			const chosenGameEnvironments = new Array<Environment>();
-			for (const gameEnvironment of gameEnvironmentsFilteredList) {
-				chosenGameEnvironments.push(this.props.environemnts.get(gameEnvironment.environmentId)!);
-			}
+			const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
+				return this.props.environemnts.get(gameEnvironment.environmentId)!;
+			});
 			return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} />;
 		} else {
 			return <Redirect to="/games" />;
