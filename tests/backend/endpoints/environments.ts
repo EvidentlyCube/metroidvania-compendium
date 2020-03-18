@@ -1,3 +1,4 @@
+import 'mocha';
 import request from 'supertest';
 import { BackendTestConfig } from '../BackendTestConfig';
 import { Environment } from '../../../backend/database/entities/Environment';
