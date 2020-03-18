@@ -13,16 +13,14 @@ interface GameAbilitiesListInitialProps {
 }
 export function createGameAbilitiesListData(props: GameAbilitiesListInitialProps): GameAbilitiesListProps {
 	const { abilities, abilityExamples, abilityGroups, abilityCategories, gameId } = props;
-	const gameAbilitiesListData: GameAbilitiesListProps = { abilities: new Map(), categories: new Array() };
-	const abilityExamplesThisGame = abilityExamples.filter((abilityExample: AbilityExample) => {
-		return abilityExample.gameId == gameId;
-	});
+	const gameAbilitiesListData: GameAbilitiesListProps = { abilities: new Map(), categories: [] };
+	const abilityExamplesThisGame = abilityExamples.filter(abilityExample => abilityExample.gameId === gameId);
 	for (const abilityExample of abilityExamplesThisGame) {
 		const ability = abilities.get(abilityExample.abilityId)!;
 		const group = abilityGroups.get(ability.groupId)!;
 		const category = abilityCategories.get(group.categoryId)!;
 		if (!gameAbilitiesListData.abilities.has(category.id)) {
-			gameAbilitiesListData.abilities.set(category.id, new Array());
+			gameAbilitiesListData.abilities.set(category.id, []);
 			gameAbilitiesListData.categories.push(category);
 		}
 		gameAbilitiesListData.abilities.get(category.id)!.push({
