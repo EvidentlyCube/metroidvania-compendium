@@ -5,8 +5,9 @@ import { Link } from 'react-router-dom';
 const Row = styled.tr`
 	line-height: 150%;
 `;
-interface GameAbilityRowProps {
+export interface GameAbilityRowProps {
 	abilityId: number;
+	exampleId: number;
 	abilityName: string;
 	exampleName: string;
 	description: string;

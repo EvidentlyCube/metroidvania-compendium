@@ -9,6 +9,11 @@ import { Dispatch, AnyAction } from 'redux';
 import { GameView } from '../views/GameView';
 import { GameEnvironment } from '../storage/models/GameEnvironment';
 import { Environment } from '../storage/models/Environment';
+import { AbilityExample } from '../storage/models/AbilityExample';
+import { Ability } from '../storage/models/Ability';
+import { AbilityGroup } from '../storage/models/AbilityGroup';
+import { AbilityCategory } from '../storage/models/AbilityCategory';
+import { createGameAbilitiesListData } from '../storage/utils/createGameAbilitiesListData';
 
 interface GameRouteProps {
 	games: Map<number, Game>;
@@ -16,6 +21,10 @@ interface GameRouteProps {
 	images: Map<number, Image>;
 	gameEnvironemnts: Array<GameEnvironment>;
 	environemnts: Map<number, Environment>;
+	abilityExamples: Array<AbilityExample>;
+	abilities: Map<number, Ability>;
+	abilityGroups: Map<number, AbilityGroup>;
+	abilityCategories: Map<number, AbilityCategory>;
 	chosenGameId: number;
 	dispatch: Dispatch<AnyAction>;
 }
@@ -54,7 +63,14 @@ export class GameRoute extends React.Component<GameRouteProps> {
 			const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
 				return this.props.environemnts.get(gameEnvironment.environmentId)!;
 			});
-			return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} />;
+			const gameAbilitiesListProps = createGameAbilitiesListData({
+				abilities: this.props.abilities,
+				abilityCategories: this.props.abilityCategories,
+				abilityExamples: this.props.abilityExamples,
+				abilityGroups: this.props.abilityGroups,
+				gameId: this.props.chosenGameId,
+			});
+			return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} abilityListProps={gameAbilitiesListProps} />;
 		} else {
 			return <Redirect to="/games" />;
 		}
@@ -68,6 +84,10 @@ const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchPar
 		gameSeries: state.gameSeries,
 		images: state.images,
 		chosenGameId: Number.parseInt(ownProps.match.params.gameId),
+		abilityExamples: state.abilityExamples,
+		abilities: state.abilities,
+		abilityGroups: state.abilityGroups,
+		abilityCategories: state.abilityCategories,
 	};
 };
 
