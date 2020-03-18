@@ -5,8 +5,8 @@ export class BaseEntity {
 	public id: number;
 
 	@CreateDateColumn({ name: 'created_at' })
-	public createdAt: null;
+	public createdAt: Date;
 
 	@UpdateDateColumn({ name: 'updated_at' })
-	public updatedAt: null;
+	public updatedAt: Date;
 }
