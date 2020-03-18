@@ -1,21 +1,21 @@
 import { Request, Response } from 'express';
-import { Connection } from 'typeorm';
+import { Database } from '../database/Database';
 
 export class EndpointFactory {
-	private db: Connection;
+	private db: Database;
 
-	constructor(db: Connection) {
+	constructor(db: Database) {
 		this.db = db;
 	}
 
 	public async getMany(entity: any, req: Request, res: Response): Promise<void> {
-		const models = await this.db.getRepository(entity).find();
+		const models = await this.db.findAll(entity);
 
 		res.json(this.wrapResponse(models));
 	}
 
 	public async getOneById(entity: any, req: Request, res: Response): Promise<void> {
-		const model = await this.db.getRepository(entity).findOne({ where: { id: req.params.id } });
+		const model = await this.db.findOneById(entity, req.params.id);
 
 		if (!model) {
 			res.status(404);

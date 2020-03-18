@@ -1,15 +1,18 @@
-import { Connection } from 'typeorm';
 import { Express } from 'express';
 import { EndpointFactory } from '../endpoints/EndpointFactory';
+import { Database } from '../database/Database';
+import { Server } from 'http';
 
 export class Dependencies {
-	public readonly connection: Connection;
+	public readonly database: Database;
 	public readonly express: Express;
+	public readonly server: Server;
 	public readonly endpointFactory: EndpointFactory;
 
-	constructor(connection: Connection, express: Express) {
-		this.connection = connection;
+	constructor(database: Database, express: Express, server: Server) {
+		this.database = database;
 		this.express = express;
-		this.endpointFactory = new EndpointFactory(connection);
+		this.server = server;
+		this.endpointFactory = new EndpointFactory(database);
 	}
 }

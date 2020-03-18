@@ -1,10 +1,19 @@
 import express from 'express';
+import { Server } from 'http';
+require('express-async-errors');
 
 const port = 9001;
 
-export async function initializeExpress(): Promise<express.Express> {
+interface InitializeExpressResult {
+	app: express.Express;
+	server: Server;
+}
+
+export async function initializeExpress(): Promise<InitializeExpressResult> {
 	return new Promise(resolve => {
 		const app = express();
-		app.listen(port, () => resolve(app));
+		const server = app.listen(port, () => {
+			resolve({ app, server });
+		});
 	});
 }
