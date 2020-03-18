@@ -1,6 +1,7 @@
 import * as Faker from 'faker';
 import { Environment } from '../../../backend/database/entities/Environment';
 import { BaseEntity } from '../../../backend/database/entities/BaseEntity';
+import { Image } from '../../../backend/database/entities/Image';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
@@ -16,6 +17,18 @@ export class FakeEntityFactory {
 
 	public static environments(count: number): Environment[] {
 		return FakeEntityFactory.repeat(count, FakeEntityFactory.environment);
+	}
+
+	public static image(): Image {
+		return {
+			...FakeEntityFactory.common(),
+			name: Faker.name.firstName(),
+			fileUrl: Faker.internet.domainWord() + '.png',
+		};
+	}
+
+	public static images(count: number): Image[] {
+		return FakeEntityFactory.repeat(count, FakeEntityFactory.image);
 	}
 
 	private static common(): BaseEntity {
