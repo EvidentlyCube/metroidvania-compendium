@@ -8,6 +8,7 @@ import { SectionHeader } from '../components/styles/SectionHeader';
 import { AbilityVariantRow } from '../components/listings/AbilityVariantRow';
 import { AbilityExamplesTable } from '../components/listings/AbilityExamplesTable';
 import { AbilityExampleRow } from '../components/listings/AbilityExampleRow';
+import { AbilityVariant } from '../storage/models/AbilityVariant';
 
 interface AbilityViewProps {
 	name: string;
@@ -15,6 +16,7 @@ interface AbilityViewProps {
 	group: string;
 	description: string;
 	analysis: string;
+	abilityVariants: Array<AbilityVariant>;
 }
 
 export class AbilityView extends React.Component<AbilityViewProps> {
@@ -38,21 +40,11 @@ export class AbilityView extends React.Component<AbilityViewProps> {
 							<p>{this.props.analysis}</p>
 						</article>
 					</PageSection>
-					{/* TODO: Variant list */}
 					<PageSection>
 						<SectionHeader>Variants</SectionHeader>
-						<AbilityVariantRow>May be used in top-down games as a time-to-time or regular mechanic for added gameplay.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in non-action games (like RPGs or 3/4 perspective games).</AbilityVariantRow>
-						<AbilityVariantRow>May be an ability that needs to be collected by the protagonist.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in top-down games as a time-to-time or regular mechanic for added gameplay.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in non-action games (like RPGs or 3/4 perspective games).</AbilityVariantRow>
-						<AbilityVariantRow>May be an ability that needs to be collected by the protagonist.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in top-down games as a time-to-time or regular mechanic for added gameplay.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in non-action games (like RPGs or 3/4 perspective games).</AbilityVariantRow>
-						<AbilityVariantRow>May be an ability that needs to be collected by the protagonist.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in top-down games as a time-to-time or regular mechanic for added gameplay.</AbilityVariantRow>
-						<AbilityVariantRow>May be used in non-action games (like RPGs or 3/4 perspective games).</AbilityVariantRow>
-						<AbilityVariantRow>May be an ability that needs to be collected by the protagonist.</AbilityVariantRow>
+						{this.props.abilityVariants.map(abilityVariant => (
+							<AbilityVariantRow key={abilityVariant.id}>{abilityVariant.description}</AbilityVariantRow>
+						))}
 					</PageSection>
 					{/* TODO GameExamples list */}
 					<PageSection>

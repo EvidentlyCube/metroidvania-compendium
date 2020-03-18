@@ -9,6 +9,7 @@ import { AbilityGroup } from './models/AbilityGroup';
 import { AbilityCategory } from './models/AbilityCategory';
 import { Ability } from './models/Ability';
 import { AbilityExample } from './models/AbilityExample';
+import { AbilityVariant } from './models/AbilityVariant';
 
 export function createInitialApplicationState(): AppStore {
 	return {
@@ -23,6 +24,7 @@ export function createInitialApplicationState(): AppStore {
 		abilities: createMockAbilities(),
 		abilityGroups: createMockAbilityGroups(),
 		abilityCategories: createMockAbilityCategories(),
+		abilityVariants: createMockAbilityVariants(),
 	};
 }
 function createMockGamesVisibility(): Map<number, boolean> {
@@ -238,6 +240,19 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 				})
 			);
 	}
-	console.log(mockData);
+	return mockData;
+}
+function createMockAbilityVariants(): Array<AbilityVariant> {
+	const mockData: Array<AbilityVariant> = new Array();
+	for (let i = 0; i < 20; i++) {
+		for (let j = 0; j < Math.random() * 20 + 1; j++)
+			mockData.push(
+				new AbilityVariant({
+					id: i * 20 + j,
+					abilityId: i,
+					description: 'Cupidatat dolore deserunt excepteur cupidatat laboris laboris culpa aliqua eiusmod sit ex magna culpa.',
+				})
+			);
+	}
 	return mockData;
 }

@@ -9,10 +9,12 @@ import { Ability } from '../storage/models/Ability';
 import { AbilityGroup } from '../storage/models/AbilityGroup';
 import { AbilityCategory } from '../storage/models/AbilityCategory';
 import { AbilityView } from '../views/AbilityView';
+import { AbilityVariant } from '../storage/models/AbilityVariant';
 
 interface AbilityRouteProps {
 	images: Map<number, Image>;
 	abilityExamples: Array<AbilityExample>;
+	abilityVariants: Array<AbilityVariant>;
 	abilities: Map<number, Ability>;
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;
@@ -39,10 +41,11 @@ export class AbilityRoute extends React.Component<AbilityRouteProps> {
 	}
 	public render() {
 		if (this.abilityExists) {
-			const { abilities, abilityGroups, abilityCategories, chosenAbilityId } = this.props;
+			const { abilities, abilityGroups, abilityCategories, chosenAbilityId, abilityVariants } = this.props;
 			const ability = abilities.get(chosenAbilityId)!;
 			const abilityGroup = abilityGroups.get(ability.groupId)!;
 			const abilityCategory = abilityCategories.get(abilityGroup.categoryId)!;
+			const filteredAbilityVariants = abilityVariants.filter(abilityVariant => abilityVariant.abilityId === chosenAbilityId);
 			return (
 				<AbilityView
 					name={ability.name}
@@ -50,6 +53,7 @@ export class AbilityRoute extends React.Component<AbilityRouteProps> {
 					analysis={ability.analysis}
 					category={abilityCategory.name}
 					group={abilityGroup.name}
+					abilityVariants={filteredAbilityVariants}
 				/>
 			);
 		} else {
@@ -65,6 +69,7 @@ const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchPar
 		abilities: state.abilities,
 		abilityGroups: state.abilityGroups,
 		abilityCategories: state.abilityCategories,
+		abilityVariants: state.abilityVariants,
 	};
 };
 
