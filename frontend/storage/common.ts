@@ -3,6 +3,10 @@ import { GameSeries } from './models/GameSeries';
 import { Image } from './models/Image';
 import { Environment } from './models/Environment';
 import { GameEnvironment } from './models/GameEnvironment';
+import { AbilityExample } from './models/AbilityExample';
+import { Ability } from './models/Ability';
+import { AbilityGroup } from './models/AbilityGroup';
+import { AbilityCategory } from './models/AbilityCategory';
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
 export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
@@ -15,6 +19,10 @@ export interface AppStore {
 	images: Map<number, Image>;
 	environments: Map<number, Environment>;
 	gameEnvironments: Array<GameEnvironment>;
+	abilityExamples: Array<AbilityExample>;
+	abilities: Map<number, Ability>;
+	abilityGroups: Map<number, AbilityGroup>;
+	abilityCategories: Map<number, AbilityCategory>;
 }
 export interface SetBreadcrumbAction {
 	type: typeof SET_BREADCRUMB;
