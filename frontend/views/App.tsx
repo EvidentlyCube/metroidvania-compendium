@@ -11,6 +11,7 @@ import GameRoute from '../routes/GameRoute';
 import ConfigRoute from '../routes/ConfigRoute';
 import GamesRoute from '../routes/GamesRoute';
 import HomeRoute from '../routes/HomeRoute';
+import AbilityRoute from '../routes/AbilityRoute';
 
 interface AppProps {
 	store: Store<AppStore, AppActions>;
@@ -30,6 +31,7 @@ export class App extends React.Component<AppProps> {
 								<Route path="/abilities" />
 								<Route path="/config" component={ConfigRoute} />
 								<Route path="/game/:gameId" component={GameRoute} />
+								<Route path="/ability/:abilityId" component={AbilityRoute} />
 							</Switch>
 						</Content>
 					</Router>
