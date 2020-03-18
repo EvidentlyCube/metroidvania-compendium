@@ -13,6 +13,8 @@ export class Initial1583745968571 implements MigrationInterface {
 		await this.createAbilities(queryRunner);
 		await this.createAbilityVariant(queryRunner);
 		await this.createAbilityExample(queryRunner);
+		await this.createGameEnvironment(queryRunner);
+		await this.createGameLinks(queryRunner);
 	}
 
 	private createEnvironmentsTable(queryRunner: QueryRunner) {
@@ -139,6 +141,41 @@ export class Initial1583745968571 implements MigrationInterface {
 					this.getTextColumn('description'),
 					...this.getCommonColumns(),
 				],
+			})
+		);
+	}
+
+	private createGameEnvironment(queryRunner: QueryRunner) {
+		return queryRunner.createTable(
+			new Table({
+				name: 'game_environments',
+				columns: [
+					this.getIdColumn('id', true),
+					this.getIdColumn('game_id', false),
+					this.getIdColumn('environment_id', false),
+					...this.getCommonColumns(),
+				],
+				indices: [{ columnNames: ['game_id', 'environment_id'], isUnique: true }],
+				foreignKeys: [
+					this.getForeignKey('game_environments', 'game_id', 'games', 'id'),
+					this.getForeignKey('game_environments', 'environment_id', 'environments', 'id'),
+				],
+			})
+		);
+	}
+
+	private createGameLinks(queryRunner: QueryRunner) {
+		return queryRunner.createTable(
+			new Table({
+				name: 'game_links',
+				columns: [
+					this.getIdColumn('id', true),
+					this.getIdColumn('game_id', false),
+					this.getVarcharColumn('name'),
+					this.getTextColumn('url'),
+					...this.getCommonColumns(),
+				],
+				foreignKeys: [this.getForeignKey('game_links', 'game_id', 'games', 'id')],
 			})
 		);
 	}

@@ -4,7 +4,7 @@ import { BaseEntity } from './BaseEntity';
 @Entity('ability_groups')
 export class AbilityGroup extends BaseEntity {
 	@Column({ name: 'category_id', type: 'int', unsigned: true })
-	public categoryId: string;
+	public categoryId: number;
 
 	@Column({ type: 'varchar', length: 255 })
 	public name: string;
