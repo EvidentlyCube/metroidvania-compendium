@@ -16,7 +16,7 @@ export const GameAbilityRow: React.FC<GameAbilityRowProps> = (props: GameAbility
 	return (
 		<Row>
 			<td>
-				<Link to={`abilities/${props.abilityId}`}>{props.abilityName}</Link>
+				<Link to={`/ability/${props.abilityId}`}>{props.abilityName}</Link>
 			</td>
 			<td>{props.exampleName}</td>
 			<td>{props.description}</td>

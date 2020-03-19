@@ -26,7 +26,7 @@ export function createGameAbilitiesListData(props: GameAbilitiesListInitialProps
 		gameAbilitiesListData.abilities.get(category.id)!.push({
 			abilityId: ability.id,
 			abilityName: ability.name,
-			description: ability.description,
+			description: abilityExample.description,
 			exampleId: abilityExample.id,
 			exampleName: abilityExample.name,
 		});
