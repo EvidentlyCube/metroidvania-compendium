@@ -207,6 +207,7 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 					abilityId: 0,
 					name: 'Jumping boots',
 					description: 'Do exercitation in incididunt magna.',
+					imageId: 22,
 				})
 			);
 		for (let j = 0; j < Math.random() * 10 + 1; j++)
@@ -217,6 +218,7 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 					abilityId: 1,
 					name: 'High Jumping boots',
 					description: 'Fugiat laborum et laborum ex laborum magna adipisicing.',
+					imageId: 22,
 				})
 			);
 		for (let j = 0; j < Math.random() * 10 + 1; j++)
@@ -227,6 +229,7 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 					abilityId: 2,
 					name: 'Laser-gun',
 					description: 'Cillum aliquip quis ipsum nisi incididunt non cillum veniam deserunt.',
+					imageId: 22,
 				})
 			);
 		for (let j = 0; j < Math.random() * 10 + 1; j++)
@@ -237,6 +240,7 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 					abilityId: 3,
 					name: 'Map of the colony',
 					description: 'Duis Lorem irure minim sunt est commodo laborum voluptate minim nisi.',
+					imageId: 22,
 				})
 			);
 	}

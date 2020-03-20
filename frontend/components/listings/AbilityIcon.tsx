@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import HijumpIcon from '../../assets/cover_default.jpg';
 import { Theme } from '../styles/themes';
+import { Image } from '../../storage/models/Image';
 
 const Container = styled.tr`
 	width: 54px;
@@ -19,11 +19,13 @@ const Img = styled.img`
 	display: block;
 	background: black;
 `;
-
-export function AbilityIcon() {
+interface AbilityIconProps {
+	image: Image;
+}
+export const AbilityIcon: React.FC<AbilityIconProps> = (props: AbilityIconProps) => {
 	return (
 		<Container>
-			<Img src={HijumpIcon} />
+			<Img src={props.image.fileUrl} />
 		</Container>
 	);
-}
+};

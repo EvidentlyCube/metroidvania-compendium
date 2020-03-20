@@ -10,11 +10,14 @@ export class AbilityExample {
 
 	public readonly description: string;
 
+	public readonly imageId: number;
+
 	constructor(props: AbilityExampleProps) {
 		this.id = props.id;
 		this.name = props.name;
 		this.description = props.description;
 		this.gameId = props.gameId;
 		this.abilityId = props.abilityId;
+		this.imageId = props.imageId;
 	}
 }

@@ -7,7 +7,7 @@ import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { AbilityVariantRow } from '../components/listings/AbilityVariantRow';
 import { AbilityExamplesTable } from '../components/listings/AbilityExamplesTable';
-import { AbilityExampleRow } from '../components/listings/AbilityExampleRow';
+import { AbilityExampleRow, AbilityExampleRowProps } from '../components/listings/AbilityExampleRow';
 import { AbilityVariant } from '../storage/models/AbilityVariant';
 
 interface AbilityViewProps {
@@ -17,6 +17,7 @@ interface AbilityViewProps {
 	description: string;
 	analysis: string;
 	abilityVariants: Array<AbilityVariant>;
+	abilityExamples: Array<AbilityExampleRowProps>;
 }
 
 export class AbilityView extends React.Component<AbilityViewProps> {
@@ -50,13 +51,9 @@ export class AbilityView extends React.Component<AbilityViewProps> {
 					<PageSection>
 						<SectionHeader>Appearances</SectionHeader>
 						<AbilityExamplesTable>
-							<AbilityExampleRow />
-							<AbilityExampleRow />
-							<AbilityExampleRow />
-							<AbilityExampleRow />
-							<AbilityExampleRow />
-							<AbilityExampleRow />
-							<AbilityExampleRow />
+							{this.props.abilityExamples.map(abilityExample => (
+								<AbilityExampleRow key={abilityExample.id} {...abilityExample} />
+							))}
 						</AbilityExamplesTable>
 					</PageSection>
 				</Narrow>
