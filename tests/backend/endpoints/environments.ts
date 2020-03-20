@@ -7,7 +7,7 @@ import { ApiAssert } from '../_helpers/ApiAssert';
 export function registerBackendEndpointEnvironmentTests(): void {
 	describe('/environments', () => {
 		it('Returns empty data when no models in the database', async () => {
-			BackendTestConfig.mockDatabase.$mockFindAll(Environment, []);
+			BackendTestConfig.mockDatabase.$mockFindManyBy(Environment, {}, []);
 
 			await ApiAssert.getResponse(`/environments`, null, [], 200);
 
@@ -16,9 +16,35 @@ export function registerBackendEndpointEnvironmentTests(): void {
 
 		it('Returns models from database', async () => {
 			const expected = FakeEntityFactory.environments(3);
-			BackendTestConfig.mockDatabase.$mockFindAll(Environment, expected);
+			BackendTestConfig.mockDatabase.$mockFindManyBy(Environment, {}, expected);
 
 			await ApiAssert.getResponse(`/environments`, null, expected, 200);
+
+			BackendTestConfig.mockDatabase.$teardown();
+		});
+
+		it('Filters by single ID', async () => {
+			const expected = FakeEntityFactory.environment();
+
+			BackendTestConfig.mockDatabase.$mockFindManyBy(Environment, { id: [expected.id.toString()] }, [expected]);
+
+			await ApiAssert.getResponse(`/environments?id=${expected.id}`, null, [expected], 200);
+
+			BackendTestConfig.mockDatabase.$teardown();
+		});
+
+		it('Filters by many IDs', async () => {
+			const expected = FakeEntityFactory.environments(2);
+
+			BackendTestConfig.mockDatabase.$mockFindManyBy(Environment, { id: [expected[0].id.toString(), expected[1].id.toString()] }, expected);
+
+			await ApiAssert.getResponse(`/environments?id=${expected[0].id},${expected[1].id}`, null, expected, 200);
+
+			BackendTestConfig.mockDatabase.$teardown();
+		});
+
+		it('Error when id filter is not numeric', async () => {
+			await ApiAssert.getResponse(`/environments?id=text`, "Non-numeric value passed in 'id' query filter", null, 400);
 
 			BackendTestConfig.mockDatabase.$teardown();
 		});

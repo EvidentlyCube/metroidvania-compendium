@@ -1,13 +1,13 @@
-import { Request, Response } from 'express';
 import { Dependencies } from '../core/Dependencies';
 import { Image } from '../database/entities/Image';
+import { Context } from 'koa';
 
 export function registerImageEndpoints(deps: Dependencies): void {
-	deps.express.get('/images/:id', async (req: Request, res: Response) => {
-		await deps.endpointFactory.getOneById(Image, req, res);
+	deps.router.get('/images/:id', async (ctx: Context) => {
+		return await deps.endpointFactory.getOneById(Image, ctx);
 	});
 
-	deps.express.get('/images', async (req: Request, res: Response) => {
-		await deps.endpointFactory.getMany(Image, req, res);
+	deps.router.get('/images', async (ctx: Context) => {
+		return await deps.endpointFactory.getManyWithFilters(Image, { id: 'id' }, ctx);
 	});
 }

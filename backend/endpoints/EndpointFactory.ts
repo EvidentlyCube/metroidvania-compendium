@@ -1,5 +1,9 @@
-import { Request, Response } from 'express';
+import { Context } from 'koa';
 import { Database } from '../database/Database';
+import { ApiError } from '../core/ApiError';
+
+type FilterMap = { [key: string]: string };
+type Dictionary = { [key: string]: any };
 
 export class EndpointFactory {
 	private db: Database;
@@ -8,35 +12,41 @@ export class EndpointFactory {
 		this.db = db;
 	}
 
-	public async getMany(entity: any, req: Request, res: Response): Promise<void> {
-		const models = await this.db.findAll(entity);
-
-		res.json(this.wrapResponse(models));
+	public async getMany(entity: any): Promise<any> {
+		return await this.db.findAll(entity);
 	}
 
-	public async getOneById(entity: any, req: Request, res: Response): Promise<void> {
-		const model = await this.db.findOneById(entity, req.params.id);
+	public async getManyWithFilters(entity: any, filterMap: FilterMap, ctx: Context): Promise<any> {
+		const filters: Dictionary = {};
+		for (const queryName in filterMap) {
+			if (!Object.prototype.hasOwnProperty.call(filterMap, queryName)) {
+				continue;
+			}
 
-		if (!model) {
-			res.status(404);
-			res.json(this.wrapError('Model not found'));
-			return;
+			if (typeof ctx.query[queryName] === 'string') {
+				const fieldName = filterMap[queryName];
+				const values: string[] = ctx.query[queryName].split(',');
+
+				for (const value of values) {
+					if (isNaN(+value)) {
+						throw new ApiError(`Non-numeric value passed in '${queryName}' query filter`, 400);
+					}
+				}
+
+				filters[fieldName] = values;
+			}
 		}
 
-		res.json(this.wrapResponse(model));
+		return await this.db.findManyBy(entity, filters);
 	}
 
-	private wrapResponse(response: any): any {
-		return {
-			error: null,
-			data: response,
-		};
-	}
+	public async getOneById(entity: any, ctx: Context): Promise<any> {
+		const model = await this.db.findOneById(entity, ctx.params.id);
 
-	private wrapError(error: string): any {
-		return {
-			error,
-			data: null,
-		};
+		if (!model) {
+			throw new ApiError('Model not found', 404);
+		}
+
+		return model;
 	}
 }
