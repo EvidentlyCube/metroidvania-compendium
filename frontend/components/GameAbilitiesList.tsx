@@ -13,7 +13,7 @@ export const GameAbilitiesList: React.FC<GameAbilitiesListProps> = (props: GameA
 	return (
 		<>
 			<GameAbilityTable>
-				{props.categories.map((abilityCategory: AbilityCategory) => {
+				{props.categories.map(abilityCategory => {
 					const abilityRowPropsArray = props.abilities.get(abilityCategory.id)!;
 					return (
 						<>

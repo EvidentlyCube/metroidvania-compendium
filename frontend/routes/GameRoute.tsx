@@ -58,7 +58,7 @@ export class GameRoute extends React.Component<GameRouteProps> {
 		if (this.gameExists) {
 			const game = this.props.games.get(this.props.chosenGameId)!;
 			const series = this.props.gameSeries.get(game.seriesId)!;
-			const image = this.props.images.get(game.imageId) || DefaultImage;
+			const image = this.props.images.get(game.imageId ?? -1) || DefaultImage;
 			const gameEnvironmentsFilteredList = this.props.gameEnvironemnts.filter((gameEnvironment: GameEnvironment) => gameEnvironment.gameId == game.id);
 			const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
 				return this.props.environemnts.get(gameEnvironment.environmentId)!;

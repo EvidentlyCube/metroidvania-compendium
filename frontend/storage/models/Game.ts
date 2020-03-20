@@ -6,7 +6,7 @@ export class Game {
 
 	public readonly seriesId: number;
 
-	public readonly imageId: number;
+	public readonly imageId?: number;
 
 	public readonly description: string;
 
