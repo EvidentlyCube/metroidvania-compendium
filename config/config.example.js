@@ -5,5 +5,6 @@ module.exports = {
 		username: "root",
 		password: "",
 		database: "metroidvania_compendium",
-	}
+	},
+	apiUrl: "http://localhost:9001/"
 };

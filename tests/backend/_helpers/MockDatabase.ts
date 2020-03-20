@@ -1,10 +1,14 @@
-import { Database } from '../../../backend/database/Database';
+import { Database, EntityConditions } from '../../../backend/database/Database';
 import { ObjectType } from 'typeorm/common/ObjectType';
 import { assert } from 'chai';
 
 interface Mock {
 	args: any[];
 	response: any;
+}
+
+interface WithId {
+	id: any;
 }
 
 type MethodToMocksMap = Map<string, Mock[]>;
@@ -50,7 +54,7 @@ export class MockDatabase implements Database {
 		return this.logExceptions(() => this.executeMock('findAll', [entity]));
 	}
 
-	public $mockFindOneById<Entity extends { id: any }>(entity: ObjectType<Entity>, id: string | number, response: Entity | undefined): void {
+	public $mockFindOneById<Entity extends WithId>(entity: ObjectType<Entity>, id: string | number, response: Entity | undefined): void {
 		this.appendMock('findOneById', {
 			args: [entity, id.toString()],
 			response,
@@ -61,13 +65,27 @@ export class MockDatabase implements Database {
 		return this.logExceptions(() => this.executeMock('findOneById', [entity, id]));
 	}
 
+	public $mockFindManyBy<Entity extends WithId>(entity: ObjectType<Entity>, conditions: EntityConditions<Entity>, response: Entity[]): void {
+		this.appendMock('findManyBy', {
+			args: [entity, conditions],
+			response,
+		});
+	}
+
+	public async findManyBy<Entity>(entity: ObjectType<Entity>, conditions: EntityConditions<Entity>): Promise<Entity[]> {
+		return this.logExceptions(() => this.executeMock('findManyBy', [entity, conditions]));
+	}
+
 	private async executeMock(name: string, args: any[]): Promise<any> {
 		const mocks = this.$mocks.get(name) as Mock[];
-		assert.typeOf(mocks, 'array');
+		assert.typeOf(mocks, 'array', `No mock was defined for '${name}'`);
 
 		const mock = mocks.shift() as Mock;
-		assert.isNotNull(mock);
-		assert.deepEqual(args, mock.args);
+		assert.isNotNull(mock, `All mocks were used up for '${name}'`);
+		assert.lengthOf(mock.args, args.length, `Argument length does not match for '${name}'`);
+		for (let i = 0; i < args.length; i++) {
+			assert.deepEqual(args[i], mock.args[i], `Arguments mismatch for index '${i}' for '${name}'`);
+		}
 
 		return mock.response;
 	}

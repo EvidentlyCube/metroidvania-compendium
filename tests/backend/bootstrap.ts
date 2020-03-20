@@ -1,6 +1,6 @@
 import 'mocha';
 import { bootstrapApplication } from '../../backend/bootstrapApplication';
-import { MockDatabase } from './_mocks/MockDatabase';
+import { MockDatabase } from './_helpers/MockDatabase';
 import { registerBackendEndpointTests } from './endpoints';
 import { BackendTestConfig } from './BackendTestConfig';
 
@@ -14,7 +14,15 @@ before(async () => {
 
 registerBackendEndpointTests();
 
-afterEach(async () => {
+// Can't be arrow function to allow `this` binding
+afterEach(async function() {
+	if ((this as any).currentTest.state === 'failed') {
+		try {
+			BackendTestConfig.mockDatabase.$teardown();
+		} catch (e) {
+			// Ignore
+		}
+	}
 	BackendTestConfig.mockDatabase.$assertWasTeardownCalled();
 });
 
