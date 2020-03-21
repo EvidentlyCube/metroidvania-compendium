@@ -5,6 +5,7 @@ import { Database } from './database/Database';
 import { registerImageEndpoints } from './endpoints/registerImageEndpoints';
 import { registerMiddlewares } from './endpoints/registerMiddlewares';
 import { registerAbilityCategoryEndpoints } from './endpoints/registerAbilityCategoryEndpoints';
+import { registerAbilityGroupEndpoints } from './endpoints/registerAbilityGroupEndpoints';
 
 export interface BoostrapConfig {
 	initializeDatabase: { (): Promise<Database> };
@@ -17,6 +18,7 @@ export async function bootstrapApplication(config: BoostrapConfig): Promise<Depe
 
 	await registerMiddlewares(dependencies);
 	await registerAbilityCategoryEndpoints(dependencies);
+	await registerAbilityGroupEndpoints(dependencies);
 	await registerEnvironmentEndpoints(dependencies);
 	await registerImageEndpoints(dependencies);
 
