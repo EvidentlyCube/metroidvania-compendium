@@ -6,6 +6,7 @@ import { registerBackendEndpointAbilityGroupsTests } from './abilityGroups';
 import { registerBackendEndpointAbilityTests } from './abilities';
 import { registerBackendEndpointGameSeriesTests } from './gameSeries';
 import { registerBackendEndpointGamesTests } from './games';
+import { registerBackendEndpointGameLinksTests } from './gameLinks';
 
 export function registerBackendEndpointTests(): void {
 	describe('Endpoints', () => {
@@ -13,6 +14,7 @@ export function registerBackendEndpointTests(): void {
 		registerBackendEndpointAbilityGroupsTests();
 		registerBackendEndpointAbilityTests();
 		registerBackendEndpointGamesTests();
+		registerBackendEndpointGameLinksTests();
 		registerBackendEndpointGameSeriesTests();
 		registerBackendEndpointEnvironmentTests();
 		registerBackendEndpointImagesTests();

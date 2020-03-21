@@ -9,6 +9,7 @@ import { registerAbilityGroupEndpoints } from './endpoints/registerAbilityGroupE
 import { registerAbilityEndpoints } from './endpoints/registerAbilityEndpoints';
 import { registerGameSeriesEndpoints } from './endpoints/registerGameSeriesEndpoints';
 import { registerGameEndpoints } from './endpoints/registerGameEndpoints';
+import { registerGameLinkEndpoints } from './endpoints/registerGameLinkEndpoints';
 
 export interface BoostrapConfig {
 	initializeDatabase: { (): Promise<Database> };
@@ -24,6 +25,7 @@ export async function bootstrapApplication(config: BoostrapConfig): Promise<Depe
 	await registerAbilityGroupEndpoints(dependencies);
 	await registerAbilityEndpoints(dependencies);
 	await registerGameEndpoints(dependencies);
+	await registerGameLinkEndpoints(dependencies);
 	await registerGameSeriesEndpoints(dependencies);
 	await registerEnvironmentEndpoints(dependencies);
 	await registerImageEndpoints(dependencies);
