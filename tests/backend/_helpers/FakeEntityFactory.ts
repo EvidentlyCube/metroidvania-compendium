@@ -5,6 +5,7 @@ import { Image } from '../../../backend/database/entities/Image';
 import { AbilityCategory } from '../../../backend/database/entities/AbilityCategory';
 import { AbilityGroup } from '../../../backend/database/entities/AbilityGroup';
 import { Ability } from '../../../backend/database/entities/Ability';
+import { GameSeries } from '../../../backend/database/entities/GameSeries';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
@@ -45,6 +46,19 @@ export class FakeEntityFactory {
 
 	public static abilities(groupIds: number[], count: number): Ability[] {
 		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.ability(groupIds));
+	}
+
+	public static gameSerie(): GameSeries {
+		return {
+			...FakeEntityFactory.common(),
+			name: Faker.name.firstName(),
+			description: Faker.lorem.words(10),
+			wikiUrl: Faker.internet.url(),
+		};
+	}
+
+	public static gameSeries(count: number): GameSeries[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.gameSerie());
 	}
 
 	public static environment(): Environment {
