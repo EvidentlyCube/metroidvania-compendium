@@ -23,30 +23,30 @@ export class FakeEntityFactory {
 		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityCategory());
 	}
 
-	public static abilityGroup(categoryIds: number[]): AbilityGroup {
+	public static abilityGroup(categories: AbilityCategory[]): AbilityGroup {
 		return {
 			...FakeEntityFactory.common(),
-			categoryId: Faker.random.arrayElement(categoryIds),
+			categoryId: Faker.random.arrayElement(categories).id,
 			name: Faker.name.firstName(),
 			description: Faker.lorem.words(10),
 		};
 	}
 
-	public static abilityGroups(categoryIds: number[], count: number): AbilityGroup[] {
-		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityGroup(categoryIds));
+	public static abilityGroups(categories: AbilityCategory[], count: number): AbilityGroup[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityGroup(categories));
 	}
 
-	public static ability(groupIds: number[]): Ability {
+	public static ability(groups: AbilityGroup[]): Ability {
 		return {
 			...FakeEntityFactory.common(),
-			groupId: Faker.random.arrayElement(groupIds),
+			groupId: Faker.random.arrayElement(groups).id,
 			name: Faker.name.firstName(),
 			description: Faker.lorem.words(10),
 		};
 	}
 
-	public static abilities(groupIds: number[], count: number): Ability[] {
-		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.ability(groupIds));
+	public static abilities(groups: AbilityGroup[], count: number): Ability[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.ability(groups));
 	}
 
 	public static gameSerie(): GameSeries {

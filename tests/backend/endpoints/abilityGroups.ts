@@ -5,7 +5,7 @@ import { FakeEntityFactory } from '../_helpers/FakeEntityFactory';
 import { ApiAssert } from '../_helpers/ApiAssert';
 
 export function registerBackendEndpointAbilityGroupsTests(): void {
-	const categoryIds = FakeEntityFactory.abilityCategories(3).map(category => category.id);
+	const categories = FakeEntityFactory.abilityCategories(3);
 
 	describe('/ability-groups', () => {
 		it('Returns empty data when no models in the database', async () => {
@@ -17,7 +17,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Returns models from database', async () => {
-			const expected = FakeEntityFactory.abilityGroups(categoryIds, 3);
+			const expected = FakeEntityFactory.abilityGroups(categories, 3);
 			BackendTestConfig.mockDatabase.$mockFindManyBy(AbilityGroup, {}, expected);
 
 			await ApiAssert.getResponse(`/ability-groups`, null, expected, 200);
@@ -26,7 +26,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Filters by single ID', async () => {
-			const expected = FakeEntityFactory.abilityGroup(categoryIds);
+			const expected = FakeEntityFactory.abilityGroup(categories);
 
 			BackendTestConfig.mockDatabase.$mockFindManyBy(AbilityGroup, { id: [expected.id.toString()] }, [expected]);
 
@@ -36,7 +36,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Filters by many IDs', async () => {
-			const expected = FakeEntityFactory.abilityGroups(categoryIds, 2);
+			const expected = FakeEntityFactory.abilityGroups(categories, 2);
 
 			BackendTestConfig.mockDatabase.$mockFindManyBy(AbilityGroup, { id: [expected[0].id.toString(), expected[1].id.toString()] }, expected);
 
@@ -52,7 +52,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Filters by single category ID', async () => {
-			const expected = FakeEntityFactory.abilityGroup(categoryIds);
+			const expected = FakeEntityFactory.abilityGroup(categories);
 
 			BackendTestConfig.mockDatabase.$mockFindManyBy(AbilityGroup, { categoryId: [expected.categoryId.toString()] }, [expected]);
 
@@ -62,7 +62,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Filters by many category IDs', async () => {
-			const expected = FakeEntityFactory.abilityGroups(categoryIds, 2);
+			const expected = FakeEntityFactory.abilityGroups(categories, 2);
 
 			BackendTestConfig.mockDatabase.$mockFindManyBy(
 				AbilityGroup,
@@ -84,7 +84,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 
 	describe('/ability-groups/:id', () => {
 		it('Returns the specified ability', async () => {
-			const expected = FakeEntityFactory.abilityGroup(categoryIds);
+			const expected = FakeEntityFactory.abilityGroup(categories);
 			BackendTestConfig.mockDatabase.$mockFindOneById(AbilityGroup, expected.id, expected);
 
 			await ApiAssert.getResponse(`/ability-groups/${expected.id}`, null, expected, 200);
@@ -93,7 +93,7 @@ export function registerBackendEndpointAbilityGroupsTests(): void {
 		});
 
 		it('Throws error when ability does not exist', async () => {
-			const expected = FakeEntityFactory.abilityGroup(categoryIds);
+			const expected = FakeEntityFactory.abilityGroup(categories);
 			BackendTestConfig.mockDatabase.$mockFindOneById(AbilityGroup, expected.id, undefined);
 
 			await ApiAssert.getResponse(`/ability-groups/${expected.id}`, 'Model not found', null, 404);
