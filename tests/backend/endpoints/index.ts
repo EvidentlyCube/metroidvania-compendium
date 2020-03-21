@@ -7,12 +7,14 @@ import { registerBackendEndpointAbilityTests } from './abilities';
 import { registerBackendEndpointGameSeriesTests } from './gameSeries';
 import { registerBackendEndpointGamesTests } from './games';
 import { registerBackendEndpointGameLinksTests } from './gameLinks';
+import { registerBackendEndpointAbilityVariantTests } from './abilityVariants';
 
 export function registerBackendEndpointTests(): void {
 	describe('Endpoints', () => {
 		registerBackendEndpointAbilityCategoryTests();
 		registerBackendEndpointAbilityGroupsTests();
 		registerBackendEndpointAbilityTests();
+		registerBackendEndpointAbilityVariantTests();
 		registerBackendEndpointGamesTests();
 		registerBackendEndpointGameLinksTests();
 		registerBackendEndpointGameSeriesTests();

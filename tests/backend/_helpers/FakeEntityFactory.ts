@@ -8,6 +8,7 @@ import { Ability } from '../../../backend/database/entities/Ability';
 import { GameSeries } from '../../../backend/database/entities/GameSeries';
 import { Game } from '../../../backend/database/entities/Game';
 import { GameLink } from '../../../backend/database/entities/GameLink';
+import { AbilityVariant } from '../../../backend/database/entities/AbilityVariant';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
@@ -48,6 +49,18 @@ export class FakeEntityFactory {
 
 	public static abilities(groups: AbilityGroup[], count: number): Ability[] {
 		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.ability(groups));
+	}
+
+	public static abilityVariant(abilities: Ability[]): AbilityVariant {
+		return {
+			...FakeEntityFactory.common(),
+			abilityId: Faker.random.arrayElement(abilities).id,
+			description: Faker.lorem.words(10),
+		};
+	}
+
+	public static abilityVariants(abilities: Ability[], count: number): AbilityVariant[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityVariant(abilities));
 	}
 
 	public static gameSerie(): GameSeries {
