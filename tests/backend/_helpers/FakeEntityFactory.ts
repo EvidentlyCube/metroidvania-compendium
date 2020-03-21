@@ -9,6 +9,7 @@ import { GameSeries } from '../../../backend/database/entities/GameSeries';
 import { Game } from '../../../backend/database/entities/Game';
 import { GameLink } from '../../../backend/database/entities/GameLink';
 import { AbilityVariant } from '../../../backend/database/entities/AbilityVariant';
+import { AbilityExample } from '../../../backend/database/entities/AbilityExample';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
@@ -61,6 +62,21 @@ export class FakeEntityFactory {
 
 	public static abilityVariants(abilities: Ability[], count: number): AbilityVariant[] {
 		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityVariant(abilities));
+	}
+
+	public static abilityExample(abilities: Ability[], games: Game[], images: (Image | null)[]): AbilityExample {
+		return {
+			...FakeEntityFactory.common(),
+			abilityId: Faker.random.arrayElement(abilities).id,
+			gameId: Faker.random.arrayElement(games).id,
+			imageId: Faker.random.arrayElement(images)?.id ?? null,
+			description: Faker.lorem.words(10),
+			name: Faker.name.firstName(),
+		};
+	}
+
+	public static abilityExamples(abilities: Ability[], games: Game[], images: (Image | null)[], count: number): AbilityExample[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityExample(abilities, games, images));
 	}
 
 	public static gameSerie(): GameSeries {
