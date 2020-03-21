@@ -11,7 +11,9 @@ import { AbilityVariant } from './models/AbilityVariant';
 export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
 export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
+export const SET_GAMES = 'SET_GAMES';
 
+export const SERVER_ADRESS = 'http://localhost:9001/';
 export interface AppStore {
 	headerBreadcrumb: string;
 	gamesVisibility: Map<number, boolean>;
@@ -39,6 +41,10 @@ export interface SetEveryGameVisibilityAction {
 	type: typeof SET_EVERY_GAME_VISIBILITY;
 	gamesVisibility: boolean;
 }
+export interface SetGamesAction {
+	type: typeof SET_GAMES;
+	games: Array<Game>;
+}
 export const BreadcrumbActions = {
 	setBreadcrumb: function(headerBreadcrumb: string): SetBreadcrumbAction {
 		return {
@@ -62,5 +68,12 @@ export const GameVisibilityActions = {
 		};
 	},
 };
-
-export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction | SetEveryGameVisibilityAction;
+export const DownloadActions = {
+	setGames: function(games: Array<Game>): SetGamesAction {
+		return {
+			type: SET_GAMES,
+			games,
+		};
+	},
+};
+export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction | SetEveryGameVisibilityAction | SetGamesAction;
