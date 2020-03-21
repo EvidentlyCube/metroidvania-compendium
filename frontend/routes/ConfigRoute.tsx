@@ -14,9 +14,9 @@ interface ConfigRouteProps {
 export class ConfigRoute extends React.Component<ConfigRouteProps> {
 	public componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
-		if (this.props.games.size === 0) {
-			fetchGameData()(this.props.dispatch);
-		}
+		// if (this.props.games.size === 0) {
+		fetchGameData()(this.props.dispatch);
+		// }
 	}
 	public render() {
 		const changeGamesVisibilityCallback = (allVisible: boolean) => {

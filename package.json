@@ -74,6 +74,7 @@
     "webpack-dev-server": "^3.10.3"
   },
   "dependencies": {
+    "@koa/cors": "^2.2.3",
     "@types/koa-json": "^2.0.18",
     "koa": "^2.11.0",
     "koa-json": "^2.0.2",
