@@ -9,6 +9,7 @@ import { registerBackendEndpointGamesTests } from './games';
 import { registerBackendEndpointGameLinksTests } from './gameLinks';
 import { registerBackendEndpointAbilityVariantTests } from './abilityVariants';
 import { registerBackendEndpointAbilityExampleTests } from './abilityExamples';
+import { registerBackendEndpointGameEnvironmentTests } from './gameEnvironments';
 
 export function registerBackendEndpointTests(): void {
 	describe('Endpoints', () => {
@@ -19,6 +20,7 @@ export function registerBackendEndpointTests(): void {
 		registerBackendEndpointAbilityExampleTests();
 		registerBackendEndpointGamesTests();
 		registerBackendEndpointGameLinksTests();
+		registerBackendEndpointGameEnvironmentTests();
 		registerBackendEndpointGameSeriesTests();
 		registerBackendEndpointEnvironmentTests();
 		registerBackendEndpointImagesTests();

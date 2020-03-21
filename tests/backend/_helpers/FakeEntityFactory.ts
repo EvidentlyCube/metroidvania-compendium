@@ -10,6 +10,7 @@ import { Game } from '../../../backend/database/entities/Game';
 import { GameLink } from '../../../backend/database/entities/GameLink';
 import { AbilityVariant } from '../../../backend/database/entities/AbilityVariant';
 import { AbilityExample } from '../../../backend/database/entities/AbilityExample';
+import { GameEnvironment } from '../../../backend/database/entities/GameEnvironment';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
@@ -118,6 +119,18 @@ export class FakeEntityFactory {
 
 	public static gameLinks(games: Game[], count: number): GameLink[] {
 		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.gameLink(games));
+	}
+
+	public static gameEnvironment(games: Game[], environments: Environment[]): GameEnvironment {
+		return {
+			...FakeEntityFactory.common(),
+			gameId: Faker.random.arrayElement(games).id,
+			environmentId: Faker.random.arrayElement(environments).id,
+		};
+	}
+
+	public static gameEnvironments(games: Game[], environments: Environment[], count: number): GameEnvironment[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.gameEnvironment(games, environments));
 	}
 
 	public static environment(): Environment {
