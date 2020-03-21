@@ -2,9 +2,22 @@ import * as Faker from 'faker';
 import { Environment } from '../../../backend/database/entities/Environment';
 import { BaseEntity } from '../../../backend/database/entities/BaseEntity';
 import { Image } from '../../../backend/database/entities/Image';
+import { AbilityCategory } from '../../../backend/database/entities/AbilityCategory';
 
 export class FakeEntityFactory {
 	private static idCounter: number = 1;
+
+	public static abilityCategory(): AbilityCategory {
+		return {
+			...FakeEntityFactory.common(),
+			name: Faker.name.firstName(),
+			description: Faker.lorem.words(10),
+		};
+	}
+
+	public static abilityCategories(count: number): AbilityCategory[] {
+		return FakeEntityFactory.repeat(count, () => FakeEntityFactory.abilityCategory());
+	}
 
 	public static environment(): Environment {
 		return {
