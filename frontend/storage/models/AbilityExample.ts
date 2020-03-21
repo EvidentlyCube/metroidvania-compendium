@@ -10,7 +10,7 @@ export class AbilityExample {
 
 	public readonly description: string;
 
-	public readonly imageId: number;
+	public readonly imageId?: number;
 
 	constructor(props: AbilityExampleProps) {
 		this.id = props.id;

@@ -4,7 +4,7 @@ import { AppStore } from '../storage/common';
 import { Game } from '../storage/models/Game';
 import { GameListRow } from './listings/GameListRow';
 import { GameSeries } from '../storage/models/GameSeries';
-import { Image } from '../storage/models/Image';
+import { Image, DefaultImage } from '../storage/models/Image';
 interface GamesFilterProps {
 	filterString: string;
 }
@@ -22,8 +22,8 @@ const GamesList: React.FC<GamesListProps> = (props: GamesListProps) => {
 		<>
 			{filteredGames.map(game => {
 				if (gamesVisibility.get(game.id) ?? true) {
-					const gameSeriesName = props.gameSeries.get(game.seriesId)?.name || '';
-					const imgUrl = props.images.get(game.imageId)?.fileUrl || '';
+					const gameSeriesName = props.gameSeries.get(game.seriesId)!.name;
+					const imgUrl = props.images.get(game.imageId ?? -1)?.fileUrl ?? DefaultImage.fileUrl;
 					return <GameListRow key={game.id} id={game.id} img={imgUrl} name={game.title} series={gameSeriesName} />;
 				}
 			})}

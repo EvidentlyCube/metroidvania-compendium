@@ -18,7 +18,7 @@ export function createAbilitiesExampleListData(props: AbilitiesExampleListInitia
 			gameId: abilityExample.gameId,
 			gameName: games.get(abilityExample.gameId)!.title,
 			name: abilityExample.name,
-			image: images.get(abilityExample.imageId) || DefaultImage,
+			image: images.get(abilityExample.imageId || -1) || DefaultImage,
 			description: abilityExample.description,
 			id: abilityExample.id,
 		});
