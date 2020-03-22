@@ -14,6 +14,7 @@ interface ConfigRouteProps {
 export class ConfigRoute extends React.Component<ConfigRouteProps> {
 	public componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
+
 		// if (this.props.games.size === 0) {
 		fetchGameData()(this.props.dispatch);
 		// }
@@ -34,6 +35,7 @@ function fetchGameData() {
 			.get(SERVER_ADRESS + 'games')
 			.then((response: any) => {
 				dispatch(DownloadActions.setGames(response.data.data));
+				dispatch(GameVisibilityActions.setEveryGameVisibility(true));
 			})
 			.catch(function(error) {
 				console.log(error);
