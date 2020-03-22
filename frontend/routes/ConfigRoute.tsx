@@ -31,9 +31,8 @@ const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 function fetchGameData() {
 	return (dispatch: Dispatch<AppActions>) => {
 		return axios
-			.get(SERVER_ADRESS + 'environments')
+			.get(SERVER_ADRESS + 'games')
 			.then((response: any) => {
-				console.log(response);
 				dispatch(DownloadActions.setGames(response.data.data));
 			})
 			.catch(function(error) {
