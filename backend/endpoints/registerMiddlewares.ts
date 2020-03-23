@@ -5,6 +5,7 @@ import json from 'koa-json';
 const cors = require('@koa/cors');
 
 export function registerMiddlewares(deps: Dependencies): void {
+	deps.application.use(cors());
 	deps.application.use(json());
 	deps.application.use(async (ctx: Context, next: Next) => {
 		try {
@@ -25,5 +26,4 @@ export function registerMiddlewares(deps: Dependencies): void {
 			};
 		}
 	});
-	deps.application.use(cors());
 }
