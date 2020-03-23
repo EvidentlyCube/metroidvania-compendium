@@ -2,6 +2,7 @@ import { Dependencies } from '../core/Dependencies';
 import { Context, Next } from 'koa';
 import { ApiError } from '../core/ApiError';
 import json from 'koa-json';
+const cors = require('@koa/cors');
 
 export function registerMiddlewares(deps: Dependencies): void {
 	deps.application.use(json());
@@ -24,4 +25,5 @@ export function registerMiddlewares(deps: Dependencies): void {
 			};
 		}
 	});
+	deps.application.use(cors());
 }
