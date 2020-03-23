@@ -68,7 +68,7 @@ export const GameVisibilityActions = {
 		};
 	},
 };
-export const DownloadActions = {
+export const DataLoadActions = {
 	setGames: function(games: Array<Game>): SetGamesAction {
 		return {
 			type: SET_GAMES,

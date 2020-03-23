@@ -1,6 +1,6 @@
 import * as React from 'react';
 import axios from 'axios';
-import { BreadcrumbActions, GameVisibilityActions, SERVER_ADRESS, DownloadActions, AppActions, AppStore } from '../storage/common';
+import { BreadcrumbActions, GameVisibilityActions, SERVER_ADRESS, DataLoadActions, AppActions, AppStore } from '../storage/common';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ConfigView } from '../views/ConfigView';
@@ -34,7 +34,7 @@ function fetchGameData() {
 		return axios
 			.get(SERVER_ADRESS + 'games')
 			.then((response: any) => {
-				dispatch(DownloadActions.setGames(response.data.data));
+				dispatch(DataLoadActions.setGames(response.data.data));
 				dispatch(GameVisibilityActions.setEveryGameVisibility(true));
 			})
 			.catch(function(error) {
