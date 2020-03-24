@@ -17,8 +17,8 @@ import { createGameAbilitiesListData } from '../storage/utils/createGameAbilitie
 import { requestGameData } from '../storage/utils/downloadGameData';
 
 interface GameRouterState {
-	dataFetched: boolean;
-	gameExists: boolean;
+	isDataFetched: boolean;
+	doesGameExistsInDb: boolean;
 }
 
 interface GameRouteProps {
@@ -41,18 +41,18 @@ export class GameRoute extends React.Component<GameRouteProps, GameRouterState> 
 	constructor(props: GameRouteProps) {
 		super(props);
 		this.state = {
-			dataFetched: false,
-			gameExists: true,
+			isDataFetched: false,
+			doesGameExistsInDb: true,
 		};
 	}
 	public componentDidMount() {
 		requestGameData(this.props.chosenGameId, this.props.dispatch, (gameFound: boolean) => {
-			this.setState({ dataFetched: true, gameExists: gameFound });
+			this.setState({ isDataFetched: true, doesGameExistsInDb: gameFound });
 		});
 	}
 	public render() {
-		if (this.state.dataFetched) {
-			if (this.state.gameExists) {
+		if (this.state.isDataFetched) {
+			if (this.state.doesGameExistsInDb) {
 				const game = this.props.games.get(this.props.chosenGameId)!;
 				const series = this.props.gameSeries.get(game.seriesId)!;
 				const image = this.props.images.get(game.imageId ?? -1) || DefaultImage;
