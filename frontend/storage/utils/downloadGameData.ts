@@ -8,14 +8,14 @@ import { GameEnvironment } from '../models/GameEnvironment';
 import { Environment } from '../models/Environment';
 
 export async function requestGameData(id: number, dispatch: Dispatch<AnyAction>, changeGameExistsState: (doesGameExistsInDb: boolean) => void) {
-	const gameResponse = await axios.get(SERVER_ADRESS + 'games/' + id).catch(function(error) {
+	const gameResponse = await axios.get(SERVER_ADRESS + '/games/' + id).catch(function(error) {
 		changeGameExistsState(false);
 		console.log(error);
 		return;
 	});
 	if (gameResponse && gameResponse.data.data) {
 		const game: Game = gameResponse.data.data;
-		const requestArray = [axios.get(SERVER_ADRESS + 'game-series/' + game.seriesId), axios.get(SERVER_ADRESS + 'game-environments?gameId=' + game.id)];
+		const requestArray = [axios.get(SERVER_ADRESS + '/game-series/' + game.seriesId), axios.get(SERVER_ADRESS + '/game-environments?gameId=' + game.id)];
 		const gameDetailsResponses = await axios.all(requestArray).catch(function(error) {
 			changeGameExistsState(false);
 			console.log(error);
@@ -31,7 +31,7 @@ export async function requestGameData(id: number, dispatch: Dispatch<AnyAction>,
 			const environemntRequests: Promise<AxiosResponse<any>>[] = [];
 			const environments: Array<Environment> = new Array();
 			for (const gameEnvironment of gameEnvironments) {
-				environemntRequests.push(axios.get(SERVER_ADRESS + 'environments/' + gameEnvironment.environmentId));
+				environemntRequests.push(axios.get(SERVER_ADRESS + '/environments/' + gameEnvironment.environmentId));
 			}
 			const environmentResponses = await axios.all(environemntRequests).catch(function(error) {
 				changeGameExistsState(false);

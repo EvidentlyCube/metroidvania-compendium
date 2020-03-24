@@ -32,7 +32,7 @@ const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 function fetchGamesData() {
 	return (dispatch: Dispatch<AppActions>) => {
 		return axios
-			.get(SERVER_ADRESS + 'games')
+			.get(SERVER_ADRESS + '/games')
 			.then((response: any) => {
 				dispatch(DataLoadActions.setGames(response.data.data));
 				dispatch(GameVisibilityActions.setEveryGameVisibility(true));
