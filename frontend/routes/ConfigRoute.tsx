@@ -16,7 +16,7 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 
 		// if (this.props.games.size === 0) {
-		fetchGameData()(this.props.dispatch);
+		fetchGamesData()(this.props.dispatch);
 		// }
 	}
 	public render() {
@@ -29,7 +29,7 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 	return { games: state.games };
 };
-function fetchGameData() {
+function fetchGamesData() {
 	return (dispatch: Dispatch<AppActions>) => {
 		return axios
 			.get(SERVER_ADRESS + 'games')

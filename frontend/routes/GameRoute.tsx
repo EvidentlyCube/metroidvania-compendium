@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BreadcrumbActions, AppStore } from '../storage/common';
+import { AppStore } from '../storage/common';
 import { Game } from '../storage/models/Game';
 import { GameSeries } from '../storage/models/GameSeries';
 import { Image, DefaultImage } from '../storage/models/Image';
@@ -14,6 +14,12 @@ import { Ability } from '../storage/models/Ability';
 import { AbilityGroup } from '../storage/models/AbilityGroup';
 import { AbilityCategory } from '../storage/models/AbilityCategory';
 import { createGameAbilitiesListData } from '../storage/utils/createGameAbilitiesListData';
+import { requestGameData } from '../storage/utils/downloadGameData';
+
+interface GameRouterState {
+	dataFetched: boolean;
+	gameExists: boolean;
+}
 
 interface GameRouteProps {
 	games: Map<number, Game>;
@@ -31,51 +37,48 @@ interface GameRouteProps {
 interface MatchParams {
 	gameId: string;
 }
-export class GameRoute extends React.Component<GameRouteProps> {
-	gameExists: boolean;
+export class GameRoute extends React.Component<GameRouteProps, GameRouterState> {
 	constructor(props: GameRouteProps) {
 		super(props);
-		if (props.games.has(props.chosenGameId)) {
-			this.gameExists = true;
-			const chosenSeries = props.gameSeries.get(props.games.get(props.chosenGameId)!.seriesId)!;
-			if (!chosenSeries) {
-				throw new ReferenceError(
-					`Game with id: ${props.chosenGameId} have a missing game series associated with it. Game Series Id:${
-						this.props.games.get(this.props.chosenGameId)!.seriesId
-					}`
-				);
-			}
-		} else {
-			this.gameExists = false;
-		}
+		this.state = {
+			dataFetched: false,
+			gameExists: true,
+		};
 	}
 	public componentDidMount() {
-		if (this.gameExists) {
-			this.props.dispatch(BreadcrumbActions.setBreadcrumb(this.props.games.get(this.props.chosenGameId)!.title));
-		}
+		requestGameData(this.props.chosenGameId, this.props.dispatch, (gameFound: boolean) => {
+			this.setState({ dataFetched: true, gameExists: gameFound });
+		});
 	}
 	public render() {
-		if (this.gameExists) {
-			const game = this.props.games.get(this.props.chosenGameId)!;
-			const series = this.props.gameSeries.get(game.seriesId)!;
-			const image = this.props.images.get(game.imageId ?? -1) || DefaultImage;
-			const gameEnvironmentsFilteredList = this.props.gameEnvironemnts.filter((gameEnvironment: GameEnvironment) => gameEnvironment.gameId == game.id);
-			const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
-				return this.props.environemnts.get(gameEnvironment.environmentId)!;
-			});
-			const gameAbilitiesListProps = createGameAbilitiesListData({
-				abilities: this.props.abilities,
-				abilityCategories: this.props.abilityCategories,
-				abilityExamples: this.props.abilityExamples,
-				abilityGroups: this.props.abilityGroups,
-				gameId: this.props.chosenGameId,
-			});
-			return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} abilityListProps={gameAbilitiesListProps} />;
+		if (this.state.dataFetched) {
+			if (this.state.gameExists) {
+				const game = this.props.games.get(this.props.chosenGameId)!;
+				const series = this.props.gameSeries.get(game.seriesId)!;
+				const image = this.props.images.get(game.imageId ?? -1) || DefaultImage;
+				const gameEnvironmentsFilteredList = this.props.gameEnvironemnts.filter(
+					(gameEnvironment: GameEnvironment) => gameEnvironment.gameId == game.id
+				);
+				const chosenGameEnvironments = gameEnvironmentsFilteredList.map(gameEnvironment => {
+					return this.props.environemnts.get(gameEnvironment.environmentId)!;
+				});
+				const gameAbilitiesListProps = createGameAbilitiesListData({
+					abilities: this.props.abilities,
+					abilityCategories: this.props.abilityCategories,
+					abilityExamples: this.props.abilityExamples,
+					abilityGroups: this.props.abilityGroups,
+					gameId: this.props.chosenGameId,
+				});
+				return <GameView game={game} series={series} image={image} environments={chosenGameEnvironments} abilityListProps={gameAbilitiesListProps} />;
+			} else {
+				return <Redirect to="/games" />;
+			}
 		} else {
-			return <Redirect to="/games" />;
+			return <></>;
 		}
 	}
 }
+
 const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchParams>): Partial<GameRouteProps> => {
 	return {
 		gameEnvironemnts: state.gameEnvironments,
