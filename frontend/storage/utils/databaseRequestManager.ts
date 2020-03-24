@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { SERVER_ADRESS } from '../common';
 
-export async function singleApiRequestGet(endpoint: string, queryParams: Map<string, any>) {
+export async function apiRequestGet(endpoint: string, queryParams: Map<string, any>) {
 	const endpointFullString = fullEndpointAddressCreator(endpoint, queryParams);
 	try {
 		const response = await axios.get(endpointFullString);
