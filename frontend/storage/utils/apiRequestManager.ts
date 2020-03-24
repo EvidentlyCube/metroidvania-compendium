@@ -1,14 +1,16 @@
 import axios from 'axios';
 import { SERVER_ADRESS } from '../common';
 
-export async function apiRequestGet(endpoint: string, queryParams: Map<string, any>) {
-	const endpointFullString = fullEndpointAddressCreator(endpoint, queryParams);
+export async function apiRequestGet(endpoint: string, queryParams: { [key: string]: any }) {
+	const endpointFullString = createApiRequestUrl(endpoint, queryParams);
 	try {
-		const response = await axios.get(endpointFullString);
-		if (typeof response.data === 'object' && response.data.error === null) {
-			return response.data.data;
+		const { data } = await axios.get(endpointFullString);
+		if (typeof data !== 'object') {
+			throw new Error('Response was not an object. Response acquired from the server: ' + data);
+		} else if (data.error !== null) {
+			throw new Error(data.error);
 		} else {
-			throw new Error('Invalid structure of the response. Response acquired from the server: ' + response);
+			return data.data;
 		}
 	} catch (error) {
 		console.log(error);
@@ -16,13 +18,16 @@ export async function apiRequestGet(endpoint: string, queryParams: Map<string, a
 	}
 }
 
-function fullEndpointAddressCreator(endpoint: string, queryParams: Map<string, any>): string {
-	let endpointFullString = SERVER_ADRESS + endpoint;
-	if (queryParams.size !== 0) {
-		endpointFullString += '?';
-		for (const [key, value] of queryParams.entries()) {
-			endpointFullString += key + '=' + value + '&';
+function createApiRequestUrl(endpoint: string, queryParams: { [key: string]: any }): string {
+	let endpointFullString = SERVER_ADRESS + endpoint + '?';
+	for (const key in queryParams) {
+		endpointFullString += key + '=';
+		if (Array.isArray(queryParams[key])) {
+			endpointFullString += queryParams[key].join(',');
+		} else {
+			endpointFullString += queryParams[key];
 		}
+		endpointFullString += '&';
 	}
 	return endpointFullString;
 }
