@@ -34,7 +34,7 @@ const Item = styled.a`
 	display: list-item;
 	list-style: circle;
 `;
-interface GameBoxProps {
+export interface GameBoxProps {
 	image: Image;
 	environments: Array<Environment>;
 }
