@@ -24,9 +24,7 @@ function createApiRequestUrl(endpoint: string, queryParams: Dictionary): string 
 	let endpointFullString = config.apiUrl + endpoint;
 	const keysArray = Object.keys(queryParams);
 	if (keysArray.length > 0) {
-		endpointFullString += '?';
-		const queryParamsString = keysArray.map(key => `${key}=${queryParams[key]}`).join('&');
-		endpointFullString += queryParamsString;
+		endpointFullString += '?' + keysArray.map(key => `${key}=${queryParams[key]}`).join('&');
 	}
 	return endpointFullString;
 }
