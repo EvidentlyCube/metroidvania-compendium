@@ -45,11 +45,13 @@ export const GameBox: React.FC<GameBoxProps> = (props: GameBoxProps) => {
 			<Header>Released on:</Header>
 			<List>
 				{props.environments.map(environment => {
-					return (
-						<Item key={environment.id} href={environment.wikiUrl}>
-							{environment.name}
-						</Item>
-					);
+					if (environment) {
+						return (
+							<Item key={environment.id} href={environment.wikiUrl}>
+								{environment.name}
+							</Item>
+						);
+					}
 				})}
 			</List>
 		</Box>

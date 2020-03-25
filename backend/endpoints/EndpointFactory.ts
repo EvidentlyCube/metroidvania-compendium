@@ -1,9 +1,9 @@
 import { Context } from 'koa';
 import { Database } from '../database/Database';
 import { ApiError } from '../core/ApiError';
+import { Dictionary } from '../../common/types';
 
 type FilterMap = { [key: string]: string };
-type Dictionary = { [key: string]: any };
 
 export class EndpointFactory {
 	private db: Database;

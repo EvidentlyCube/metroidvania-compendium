@@ -12,8 +12,8 @@ export const SET_BREADCRUMB = 'SET_BREADCRUMB';
 export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
 export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
 export const SET_GAMES = 'SET_GAMES';
+export const SET_GAME_DATA = 'SET_GAME_DATA';
 
-export const SERVER_ADRESS = 'http://localhost:9001/';
 export interface AppStore {
 	headerBreadcrumb: string;
 	gamesVisibility: Map<number, boolean>;
@@ -45,6 +45,14 @@ export interface SetGamesAction {
 	type: typeof SET_GAMES;
 	games: Array<Game>;
 }
+export interface SetGameDataAction {
+	type: typeof SET_GAME_DATA;
+	game: Game;
+	gameSeries: GameSeries;
+	image: Image;
+	gameEnvironments: Array<GameEnvironment>;
+	environments: Array<Environment>;
+}
 export const BreadcrumbActions = {
 	setBreadcrumb: function(headerBreadcrumb: string): SetBreadcrumbAction {
 		return {
@@ -75,5 +83,21 @@ export const DataLoadActions = {
 			games,
 		};
 	},
+	setGameData: function(
+		game: Game,
+		gameSeries: GameSeries,
+		image: Image,
+		gameEnvironments: Array<GameEnvironment>,
+		environments: Array<Environment>
+	): SetGameDataAction {
+		return {
+			type: SET_GAME_DATA,
+			game,
+			gameSeries,
+			gameEnvironments,
+			image,
+			environments,
+		};
+	},
 };
-export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction | SetEveryGameVisibilityAction | SetGamesAction;
+export type AppActions = SetBreadcrumbAction | SetGameVisibilityAction | SetEveryGameVisibilityAction | SetGamesAction | SetGameDataAction;
