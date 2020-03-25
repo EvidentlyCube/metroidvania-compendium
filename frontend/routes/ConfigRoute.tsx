@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ConfigView } from '../views/ConfigView';
 import { Game } from '../storage/models/Game';
-import { apiRequestGet } from '../storage/utils/apiRequestManager';
+import { ApiRequests } from '../storage/utils/apiRequestManager';
 
 interface ConfigRouteProps {
 	games: Map<number, Game>;
@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 	return { games: state.games };
 };
 async function fetchGamesData(dispatch: Dispatch<AppActions>) {
-	const gamesData: Array<Game> = await apiRequestGet('/games', {});
+	const gamesData: Array<Game> = await ApiRequests.apiRequestGet('games', {});
 	if (gamesData !== null) {
 		dispatch(DataLoadActions.setGames(gamesData));
 		dispatch(GameVisibilityActions.setEveryGameVisibility(true));

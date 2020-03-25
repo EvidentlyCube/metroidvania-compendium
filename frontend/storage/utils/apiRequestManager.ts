@@ -1,33 +1,33 @@
 import axios from 'axios';
-import { SERVER_ADRESS } from '../common';
+const config = require('../../../config/config.js');
+import { Dictionary } from '../../../common/types';
 
-export async function apiRequestGet(endpoint: string, queryParams: { [key: string]: any }) {
-	const endpointFullString = createApiRequestUrl(endpoint, queryParams);
-	try {
-		const { data } = await axios.get(endpointFullString);
-		if (typeof data !== 'object') {
-			throw new Error('Response was not an object. Response acquired from the server: ' + data);
-		} else if (data.error !== null) {
-			throw new Error(data.error);
-		} else {
-			return data.data;
+export const ApiRequests = {
+	apiRequestGet: async function(endpoint: string, queryParams: { [key: string]: any }) {
+		const endpointFullString = createApiRequestUrl(endpoint, queryParams);
+		try {
+			const { data } = await axios.get(endpointFullString);
+			if (typeof data !== 'object') {
+				throw new Error('Response was not an object. Response acquired from the server: ' + data);
+			} else if (data.error !== null) {
+				throw new Error(data.error);
+			} else {
+				return data.data;
+			}
+		} catch (error) {
+			throw new Error(error);
 		}
-	} catch (error) {
-		console.log(error);
-		return null;
-	}
-}
+	},
+};
 
-function createApiRequestUrl(endpoint: string, queryParams: { [key: string]: any }): string {
-	let endpointFullString = SERVER_ADRESS + endpoint + '?';
-	for (const key in queryParams) {
-		endpointFullString += key + '=';
-		if (Array.isArray(queryParams[key])) {
-			endpointFullString += queryParams[key].join(',');
-		} else {
-			endpointFullString += queryParams[key];
-		}
-		endpointFullString += '&';
+function createApiRequestUrl(endpoint: string, queryParams: Dictionary): string {
+	let endpointFullString = config.apiUrl + endpoint;
+	const keysArray = Object.keys(queryParams);
+	if (keysArray.length > 0) {
+		endpointFullString += '?';
+		const queryParamsString = keysArray.map(key => `${key}=${queryParams[key]}`).join('&');
+		endpointFullString += queryParamsString;
 	}
+	console.log(endpointFullString);
 	return endpointFullString;
 }

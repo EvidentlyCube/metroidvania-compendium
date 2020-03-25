@@ -13,7 +13,7 @@ export const SET_GAME_VISIBILITY = 'SET_GAME_VISIBILITY';
 export const SET_EVERY_GAME_VISIBILITY = 'SET_EVERY_GAME_VISIBILITY';
 export const SET_GAMES = 'SET_GAMES';
 export const SET_GAME_DATA = 'SET_GAME_DATA';
-export const SERVER_ADRESS = 'http://localhost:9001';
+
 export interface AppStore {
 	headerBreadcrumb: string;
 	gamesVisibility: Map<number, boolean>;
