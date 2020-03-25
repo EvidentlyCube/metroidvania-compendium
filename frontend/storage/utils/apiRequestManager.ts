@@ -3,7 +3,7 @@ const config = require('../../../config/config.js');
 import { Dictionary } from '../../../common/types';
 
 export const ApiRequests = {
-	Get: async function(endpoint: string, queryParams: Dictionary) {
+	get: async function(endpoint: string, queryParams: Dictionary) {
 		const endpointFullString = createApiRequestUrl(endpoint, queryParams);
 		try {
 			const { data } = await axios.get(endpointFullString);

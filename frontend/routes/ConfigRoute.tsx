@@ -30,7 +30,7 @@ const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 	return { games: state.games };
 };
 async function fetchGamesData(dispatch: Dispatch<AppActions>) {
-	const gamesData: Array<Game> = await ApiRequests.Get('games', {});
+	const gamesData: Array<Game> = await ApiRequests.get('games', {});
 	if (gamesData !== null) {
 		dispatch(DataLoadActions.setGames(gamesData));
 		dispatch(GameVisibilityActions.setEveryGameVisibility(true));
