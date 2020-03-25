@@ -28,6 +28,5 @@ function createApiRequestUrl(endpoint: string, queryParams: Dictionary): string 
 		const queryParamsString = keysArray.map(key => `${key}=${queryParams[key]}`).join('&');
 		endpointFullString += queryParamsString;
 	}
-	console.log(endpointFullString);
 	return endpointFullString;
 }
