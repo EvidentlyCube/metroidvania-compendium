@@ -8,8 +8,8 @@ import { Environment } from '../models/Environment';
 import { ApiRequests } from './apiRequestManager';
 
 export async function requestGameData(id: number, dispatch: Dispatch<AnyAction>, changeGameExistsState: (doesGameExistsInDb: boolean) => void) {
-	const game: Game = await ApiRequests.get(`games/${id}`, {});
-	if (game) {
+	try {
+		const game: Game = await ApiRequests.get(`games/${id}`, {});
 		const series: GameSeries = await ApiRequests.get(`game-series/${game.seriesId}`, {});
 		const gameEnvironments: Array<GameEnvironment> = await ApiRequests.get(`game-environments`, { gameId: game.id });
 		let image: Image | null = null;
@@ -23,7 +23,8 @@ export async function requestGameData(id: number, dispatch: Dispatch<AnyAction>,
 		dispatch(DataLoadActions.setGameData(game, series, image!, gameEnvironments, environments));
 		dispatch(BreadcrumbActions.setBreadcrumb(game.title));
 		changeGameExistsState(true);
-	} else {
+	} catch (error) {
+		console.log(error);
 		changeGameExistsState(false);
 	}
 }
