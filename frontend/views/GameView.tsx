@@ -8,7 +8,7 @@ import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
 import { SmartGameAbilitiesList } from '../smartComponents/SmartGameAbilitiesList';
-import { SmartGameBox } from '../smartComponents/SmartGameBox';
+import { GameBox } from '../components/GameBox';
 
 export interface GameViewProps {
 	game: Game;
@@ -24,7 +24,7 @@ export class GameView extends React.Component<GameViewProps> {
 						<PageTitle>{this.props.game.title}</PageTitle>
 						<PageSubtitle>{this.props.series.name}</PageSubtitle>
 					</PageHeader>
-					<SmartGameBox gameId={this.props.game.id} />
+					<GameBox gameId={this.props.game.id} />
 					<PageSection>
 						<SectionHeader>Description</SectionHeader>
 						<article>{this.props.game.description}</article>

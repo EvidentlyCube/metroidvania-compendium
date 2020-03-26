@@ -2,8 +2,6 @@ import { GameSeries } from '../models/GameSeries';
 import { Game } from '../models/Game';
 import { ApiRequests } from './apiRequestManager';
 import { GameEnvironment } from '../models/GameEnvironment';
-import { Environment } from '../models/Environment';
-import { DefaultImage, Image } from '../models/Image';
 import { AbilityExample } from '../models/AbilityExample';
 import { Ability } from '../models/Ability';
 import { AbilityGroup } from '../models/AbilityGroup';
@@ -19,18 +17,23 @@ export async function fetchGameViewData(id: number) {
 		throw new Error(error);
 	}
 }
-export async function fetchGameBoxData(gameId: number) {
+
+export async function fetchEnvironments(gameId: number) {
+	try {
+		const gameEnvironments: Array<GameEnvironment> = await ApiRequests.get(`game-environments`, { gameId: gameId });
+		return await ApiRequests.get('environments/', { id: unique(gameEnvironments.map(x => x.environmentId)) });
+	} catch (error) {
+		throw new Error(error);
+	}
+}
+export async function fetchGameBoxArt(gameId: number) {
 	try {
 		const game: Game = await ApiRequests.get(`games/${gameId}`, {});
-		const gameEnvironments: Array<GameEnvironment> = await ApiRequests.get(`game-environments`, { gameId: gameId });
-		let image: Image;
 		if (game.imageId) {
-			image = await ApiRequests.get(`images/${game.imageId}`, {});
+			return await ApiRequests.get(`images/${game.imageId}`, {});
 		} else {
-			image = DefaultImage;
+			return null;
 		}
-		const environments: Array<Environment> = await ApiRequests.get('environments/', { id: unique(gameEnvironments.map(x => x.environmentId)) });
-		return { image, environments };
 	} catch (error) {
 		throw new Error(error);
 	}

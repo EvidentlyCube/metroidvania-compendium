@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './styles/themes';
-import { Image } from '../storage/models/Image';
-import { Environment } from '../storage/models/Environment';
+import { GameBoxArt } from './gameBoxComponents/GameBoxArt';
+import { GameBoxEnvironmentList } from './gameBoxComponents/GameBoxEnvironmentList';
 
 const Box = styled.div`
 	float: right;
@@ -11,11 +11,6 @@ const Box = styled.div`
 	flex-direction: column;
 	margin-left: 10px;
 	background: ${Theme.colorAccentBg};
-`;
-
-const BoxArt = styled.img`
-	width: 320px;
-	margin-bottom: 20px;
 `;
 
 const Header = styled.h6`
@@ -28,31 +23,17 @@ const List = styled.div`
 	flex-direction: column;
 	margin-bottom: 20px;
 `;
-const Item = styled.a`
-	font-size: 12px;
-	margin-left: 20px;
-	display: list-item;
-	list-style: circle;
-`;
+
 export interface GameBoxProps {
-	image: Image;
-	environments: Array<Environment>;
+	gameId: number;
 }
 export const GameBox: React.FC<GameBoxProps> = (props: GameBoxProps) => {
 	return (
 		<Box>
-			<BoxArt src={props.image.fileUrl} />
+			<GameBoxArt gameId={props.gameId} />
 			<Header>Released on:</Header>
 			<List>
-				{props.environments.map(environment => {
-					if (environment) {
-						return (
-							<Item key={environment.id} href={environment.wikiUrl}>
-								{environment.name}
-							</Item>
-						);
-					}
-				})}
+				<GameBoxEnvironmentList gameId={props.gameId} />
 			</List>
 		</Box>
 	);
