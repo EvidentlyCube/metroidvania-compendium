@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { fetchEnvironments } from '../../storage/utils/fetchGameData';
+import { FetchGame } from '../../storage/utils/fetchGameData';
 import { Environment } from '../../storage/models/Environment';
 
 const Item = styled.a`
@@ -10,17 +10,17 @@ const Item = styled.a`
 	list-style: circle;
 `;
 
-interface GameBoxEnvironmentListState {
+interface SmartGameBoxEnvironmentListState {
 	isDataAvailable: boolean;
 	environments: Array<Environment> | null;
 }
 
-interface GameBoxEnvironmentListProps {
+interface SmartGameBoxEnvironmentListProps {
 	gameId: number;
 }
 
-export class GameBoxEnvironmentList extends React.Component<GameBoxEnvironmentListProps, GameBoxEnvironmentListState> {
-	constructor(props: GameBoxEnvironmentListProps) {
+export class SmartGameBoxEnvironmentList extends React.Component<SmartGameBoxEnvironmentListProps, SmartGameBoxEnvironmentListState> {
+	constructor(props: SmartGameBoxEnvironmentListProps) {
 		super(props);
 		this.state = {
 			isDataAvailable: false,
@@ -29,7 +29,7 @@ export class GameBoxEnvironmentList extends React.Component<GameBoxEnvironmentLi
 	}
 	public async componentDidMount() {
 		try {
-			this.setState({ environments: await fetchEnvironments(this.props.gameId), isDataAvailable: true });
+			this.setState({ environments: await FetchGame.environments(this.props.gameId), isDataAvailable: true });
 		} catch (error) {
 			console.log(error);
 			this.setState({ isDataAvailable: false });

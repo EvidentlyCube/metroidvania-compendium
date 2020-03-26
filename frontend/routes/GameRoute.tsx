@@ -2,7 +2,7 @@ import * as React from 'react';
 
 import { Redirect, RouteComponentProps } from 'react-router-dom';
 import { GameView, GameViewProps } from '../views/GameView';
-import { fetchGameViewData } from '../storage/utils/fetchGameData';
+import { FetchGame } from '../storage/utils/fetchGameData';
 
 interface GameRouterState {
 	isDataFetched: boolean;
@@ -25,7 +25,7 @@ export class GameRoute extends React.Component<RouteComponentProps<GameRouteProp
 	}
 	public async componentDidMount() {
 		try {
-			const gameViewProps = await fetchGameViewData(Number.parseInt(this.props.match.params.gameId));
+			const gameViewProps = await FetchGame.viewData(Number.parseInt(this.props.match.params.gameId));
 			this.setState({ gameViewProps, doesGameExistsInDb: true, isDataFetched: true });
 		} catch (error) {
 			console.log(error);

@@ -15,7 +15,7 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 	public async componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 		try {
-			const gamesData: Array<Game> = await ApiRequests.get('games', {});
+			const gamesData = await ApiRequests.get<Array<Game>>('games', {});
 			this.props.dispatch(DataLoadActions.setGames(gamesData));
 			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(true));
 		} catch (error) {

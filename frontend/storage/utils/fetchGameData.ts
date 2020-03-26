@@ -7,55 +7,61 @@ import { Ability } from '../models/Ability';
 import { AbilityGroup } from '../models/AbilityGroup';
 import { AbilityCategory } from '../models/AbilityCategory';
 import { createGameAbilitiesListData } from './createGameAbilitiesListData';
+import { Image } from '../models/Image';
+import { Environment } from '../models/Environment';
 
-export async function fetchGameViewData(id: number) {
-	try {
-		const game: Game = await ApiRequests.get(`games/${id}`, {});
-		const series: GameSeries = await ApiRequests.get(`game-series/${game.seriesId}`, {});
-		return { game, series };
-	} catch (error) {
-		throw new Error(error);
-	}
-}
-
-export async function fetchEnvironments(gameId: number) {
-	try {
-		const gameEnvironments: Array<GameEnvironment> = await ApiRequests.get(`game-environments`, { gameId: gameId });
-		return await ApiRequests.get('environments/', { id: unique(gameEnvironments.map(x => x.environmentId)) });
-	} catch (error) {
-		throw new Error(error);
-	}
-}
-export async function fetchGameBoxArt(gameId: number) {
-	try {
-		const game: Game = await ApiRequests.get(`games/${gameId}`, {});
-		if (game.imageId) {
-			return await ApiRequests.get(`images/${game.imageId}`, {});
-		} else {
-			return null;
+export const FetchGame = {
+	viewData: async function(id: number) {
+		try {
+			const game = await ApiRequests.get<Game>(`games/${id}`, {});
+			const series = await ApiRequests.get<GameSeries>(`game-series/${game.seriesId}`, {});
+			return { game, series };
+		} catch (error) {
+			throw new Error(error);
 		}
-	} catch (error) {
-		throw new Error(error);
-	}
-}
-export async function fetchGameAbilitiesListData(gameId: number) {
-	try {
-		const abilityExamples: Array<AbilityExample> = await ApiRequests.get(`ability-examples`, { gameId: gameId });
-		const abilities: Array<Ability> = await ApiRequests.get(`abilities/`, { id: unique(abilityExamples.map(x => x.abilityId)) });
-		const abilityGroups: Array<AbilityGroup> = await ApiRequests.get(`ability-groups/`, { id: unique(abilities.map(x => x.groupId)) });
-		const abilityCategories: Array<AbilityCategory> = await ApiRequests.get(`ability-groups/`, { id: unique(abilityGroups.map(x => x.categoryId)) });
-		return createGameAbilitiesListData({
-			abilityExamples,
-			abilities: mapValues(abilities, 'id'),
-			abilityGroups: mapValues(abilityGroups, 'id'),
-			abilityCategories: mapValues(abilityCategories, 'id'),
-		});
-	} catch (error) {
-		throw new Error(error);
-	}
-}
-function unique<T>(values: Array<T>): Array<T> {
-	const set = new Set(values);
+	},
+	environments: async function(gameId: number) {
+		try {
+			const gameEnvironments = await ApiRequests.get<Array<GameEnvironment>>(`game-environments`, { gameId: gameId });
+			return await ApiRequests.get<Array<Environment>>('environments/', { id: createArrayOfUniqueValues(gameEnvironments, 'environmentId') });
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	boxArt: async function(gameId: number) {
+		try {
+			const game = await ApiRequests.get<Game>(`games/${gameId}`, {});
+			if (game.imageId) {
+				return await ApiRequests.get<Image>(`images/${game.imageId}`, {});
+			} else {
+				return null;
+			}
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	abilitiesListData: async function(gameId: number) {
+		try {
+			const abilityExamples = await ApiRequests.get<Array<AbilityExample>>(`ability-examples`, { gameId: gameId });
+			const abilities = await ApiRequests.get<Array<Ability>>(`abilities/`, { id: createArrayOfUniqueValues(abilityExamples, 'abilityId') });
+			const abilityGroups = await ApiRequests.get<Array<AbilityGroup>>(`ability-groups/`, { id: createArrayOfUniqueValues(abilities, 'groupId') });
+			const abilityCategories = await ApiRequests.get<Array<AbilityCategory>>(`ability-groups/`, {
+				id: createArrayOfUniqueValues(abilityGroups, 'categoryId'),
+			});
+			return createGameAbilitiesListData({
+				abilityExamples,
+				abilities: mapValues(abilities, 'id'),
+				abilityGroups: mapValues(abilityGroups, 'id'),
+				abilityCategories: mapValues(abilityCategories, 'id'),
+			});
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+};
+
+function createArrayOfUniqueValues<TEntity, TField extends keyof TEntity>(values: Array<TEntity>, field: TField): Array<TEntity[TField]> {
+	const set = new Set(values.map(x => x[field]));
 	return Array.from(set.values());
 }
 function mapValues<TEntity, TField extends keyof TEntity>(models: Array<TEntity>, field: TField): Map<TEntity[TField], TEntity> {

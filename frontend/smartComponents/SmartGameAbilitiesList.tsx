@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { fetchGameAbilitiesListData } from '../storage/utils/fetchGameData';
+import { FetchGame } from '../storage/utils/fetchGameData';
 import { GameAbilitiesListProps, GameAbilitiesList } from '../components/GameAbilitiesList';
 
 interface SmartGameAbilitiesListState {
@@ -21,7 +21,7 @@ export class SmartGameAbilitiesList extends React.Component<SmartGameAbilitiesLi
 	}
 	public async componentDidMount() {
 		try {
-			const gameAbilitiesListProps = await fetchGameAbilitiesListData(this.props.gameId);
+			const gameAbilitiesListProps = await FetchGame.abilitiesListData(this.props.gameId);
 			this.setState({ gameAbilitiesListProps, isDataAvailable: true });
 		} catch (error) {
 			console.log(error);

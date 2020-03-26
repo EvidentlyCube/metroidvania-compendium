@@ -1,22 +1,22 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Image, DefaultImage } from '../../storage/models/Image';
-import { fetchGameBoxArt } from '../../storage/utils/fetchGameData';
+import { FetchGame } from '../../storage/utils/fetchGameData';
 const BoxArt = styled.img`
 	width: 320px;
 	margin-bottom: 20px;
 `;
-interface GameBoxArtState {
+interface SmartGameBoxArtState {
 	isDataAvailable: boolean;
 	image: Image | null;
 }
 
-interface GameBoxArtProps {
+interface SmartGameBoxArtProps {
 	gameId: number;
 }
 
-export class GameBoxArt extends React.Component<GameBoxArtProps, GameBoxArtState> {
-	constructor(props: GameBoxArtProps) {
+export class SmartGameBoxArt extends React.Component<SmartGameBoxArtProps, SmartGameBoxArtState> {
+	constructor(props: SmartGameBoxArtProps) {
 		super(props);
 		this.state = {
 			isDataAvailable: false,
@@ -25,7 +25,7 @@ export class GameBoxArt extends React.Component<GameBoxArtProps, GameBoxArtState
 	}
 	public async componentDidMount() {
 		try {
-			this.setState({ image: (await fetchGameBoxArt(this.props.gameId)) || DefaultImage, isDataAvailable: true });
+			this.setState({ image: (await FetchGame.boxArt(this.props.gameId)) || DefaultImage, isDataAvailable: true });
 		} catch (error) {
 			console.log(error);
 			this.setState({ isDataAvailable: false });

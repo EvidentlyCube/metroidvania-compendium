@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './styles/themes';
-import { GameBoxArt } from './gameBox/GameBoxArt';
-import { GameBoxEnvironmentList } from './gameBox/GameBoxEnvironmentList';
+import { SmartGameBoxArt } from './gameBox/SmartGameBoxArt';
+import { SmartGameBoxEnvironmentList } from './gameBox/SmartGameBoxEnvironmentList';
 
 const Box = styled.div`
 	float: right;
@@ -30,10 +30,10 @@ export interface GameBoxProps {
 export const GameBox: React.FC<GameBoxProps> = (props: GameBoxProps) => {
 	return (
 		<Box>
-			<GameBoxArt gameId={props.gameId} />
+			<SmartGameBoxArt gameId={props.gameId} />
 			<Header>Released on:</Header>
 			<List>
-				<GameBoxEnvironmentList gameId={props.gameId} />
+				<SmartGameBoxEnvironmentList gameId={props.gameId} />
 			</List>
 		</Box>
 	);
