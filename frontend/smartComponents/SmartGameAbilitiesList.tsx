@@ -19,15 +19,14 @@ export class SmartGameAbilitiesList extends React.Component<SmartGameAbilitiesLi
 			gameAbilitiesListProps: null,
 		};
 	}
-	public componentDidMount() {
-		fetchGameAbilitiesListData(this.props.gameId)
-			.then(gameAbilitiesListProps => {
-				this.setState({ gameAbilitiesListProps, isDataAvailable: true });
-			})
-			.catch(error => {
-				console.log(error);
-				this.setState({ isDataAvailable: false });
-			});
+	public async componentDidMount() {
+		try {
+			const gameAbilitiesListProps = await fetchGameAbilitiesListData(this.props.gameId);
+			this.setState({ gameAbilitiesListProps, isDataAvailable: true });
+		} catch (error) {
+			console.log(error);
+			this.setState({ isDataAvailable: false });
+		}
 	}
 	public render() {
 		if (this.state.isDataAvailable) {

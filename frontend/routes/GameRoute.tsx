@@ -23,15 +23,14 @@ export class GameRoute extends React.Component<RouteComponentProps<GameRouteProp
 			gameViewProps: null,
 		};
 	}
-	public componentDidMount() {
-		fetchGameViewData(Number.parseInt(this.props.match.params.gameId))
-			.then(gameViewProps => {
-				this.setState({ gameViewProps, doesGameExistsInDb: true, isDataFetched: true });
-			})
-			.catch(error => {
-				console.log(error);
-				this.setState({ doesGameExistsInDb: false, isDataFetched: true });
-			});
+	public async componentDidMount() {
+		try {
+			const gameViewProps = await fetchGameViewData(Number.parseInt(this.props.match.params.gameId));
+			this.setState({ gameViewProps, doesGameExistsInDb: true, isDataFetched: true });
+		} catch (error) {
+			console.log(error);
+			this.setState({ doesGameExistsInDb: false, isDataFetched: true });
+		}
 	}
 	public render() {
 		if (this.state.isDataFetched) {

@@ -19,12 +19,13 @@ export async function fetchGameViewData(id: number) {
 		throw new Error(error);
 	}
 }
-export async function fetchGameBoxData(gameId: number, imageId: number | undefined) {
+export async function fetchGameBoxData(gameId: number) {
 	try {
+		const game: Game = await ApiRequests.get(`games/${gameId}`, {});
 		const gameEnvironments: Array<GameEnvironment> = await ApiRequests.get(`game-environments`, { gameId: gameId });
 		let image: Image;
-		if (imageId) {
-			image = await ApiRequests.get(`images/${imageId}`, {});
+		if (game.imageId) {
+			image = await ApiRequests.get(`images/${game.imageId}`, {});
 		} else {
 			image = DefaultImage;
 		}
@@ -40,25 +41,20 @@ export async function fetchGameBoxData(gameId: number, imageId: number | undefin
 export async function fetchGameAbilitiesListData(gameId: number) {
 	try {
 		const abilityExamples: Array<AbilityExample> = await ApiRequests.get(`ability-examples`, { gameId: gameId });
-		const idsToFetch: Set<number> = new Set();
-		for (const abilityExample of abilityExamples) {
-			idsToFetch.add(abilityExample.abilityId);
-		}
-		const abilities: Array<Ability> = await ApiRequests.get(`abilities/`, { id: Array.from(idsToFetch.values()) });
+		let idsToFetch: Array<number> = unique(abilityExamples.map(x => x.abilityId));
+		const abilities: Array<Ability> = await ApiRequests.get(`abilities/`, { id: idsToFetch });
 		const abilitiesMap: Map<number, Ability> = new Map();
-		idsToFetch.clear();
 		for (const ability of abilities) {
-			idsToFetch.add(ability.groupId);
 			abilitiesMap.set(ability.id, ability);
 		}
-		const abilityGroups: Array<AbilityGroup> = await ApiRequests.get(`ability-groups/`, { id: Array.from(idsToFetch.values()) });
-		idsToFetch.clear();
+		idsToFetch = unique(abilities.map(x => x.groupId));
+		const abilityGroups: Array<AbilityGroup> = await ApiRequests.get(`ability-groups/`, { id: idsToFetch });
 		const abilityGroupsMap: Map<number, AbilityGroup> = new Map();
 		for (const abilityGroup of abilityGroups) {
-			idsToFetch.add(abilityGroup.categoryId);
 			abilityGroupsMap.set(abilityGroup.id, abilityGroup);
 		}
-		const abilityCategories: Array<AbilityCategory> = await ApiRequests.get(`ability-groups/`, { id: Array.from(idsToFetch.values()) });
+		idsToFetch = unique(abilityGroups.map(x => x.categoryId));
+		const abilityCategories: Array<AbilityCategory> = await ApiRequests.get(`ability-groups/`, { id: idsToFetch });
 		const abilityCategoriesMap: Map<number, AbilityCategory> = new Map();
 		for (const abilityCategory of abilityCategories) {
 			abilityCategoriesMap.set(abilityCategory.id, abilityCategory);
@@ -72,4 +68,9 @@ export async function fetchGameAbilitiesListData(gameId: number) {
 	} catch (error) {
 		throw new Error(error);
 	}
+}
+function unique<T>(values: Array<T>): Array<T> {
+	const set = new Set(values);
+
+	return Array.from(set.values());
 }

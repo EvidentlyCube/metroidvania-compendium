@@ -9,7 +9,6 @@ interface SmartGameBoxState {
 
 interface SmartGameBoxProps {
 	gameId: number;
-	imageId: number | undefined;
 }
 
 export class SmartGameBox extends React.Component<SmartGameBoxProps, SmartGameBoxState> {
@@ -20,15 +19,14 @@ export class SmartGameBox extends React.Component<SmartGameBoxProps, SmartGameBo
 			gameBoxProps: null,
 		};
 	}
-	public componentDidMount() {
-		fetchGameBoxData(this.props.gameId, this.props.imageId)
-			.then(gameBoxProps => {
-				this.setState({ gameBoxProps, isDataAvailable: true });
-			})
-			.catch(error => {
-				console.log(error);
-				this.setState({ isDataAvailable: false });
-			});
+	public async componentDidMount() {
+		try {
+			const gameBoxProps = await fetchGameBoxData(this.props.gameId);
+			this.setState({ gameBoxProps, isDataAvailable: true });
+		} catch (error) {
+			console.log(error);
+			this.setState({ isDataAvailable: false });
+		}
 	}
 	public render() {
 		if (this.state.isDataAvailable) {

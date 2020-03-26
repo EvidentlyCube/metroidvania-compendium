@@ -13,9 +13,6 @@ import { SmartGameBox } from '../smartComponents/SmartGameBox';
 export interface GameViewProps {
 	game: Game;
 	series: GameSeries;
-	// image: Image;
-	// environments: Array<Environment>;
-	// abilityListProps: GameAbilitiesListProps;
 }
 
 export class GameView extends React.Component<GameViewProps> {
@@ -27,7 +24,7 @@ export class GameView extends React.Component<GameViewProps> {
 						<PageTitle>{this.props.game.title}</PageTitle>
 						<PageSubtitle>{this.props.series.name}</PageSubtitle>
 					</PageHeader>
-					<SmartGameBox imageId={this.props.game.imageId} gameId={this.props.game.id} />
+					<SmartGameBox gameId={this.props.game.id} />
 					<PageSection>
 						<SectionHeader>Description</SectionHeader>
 						<article>{this.props.game.description}</article>

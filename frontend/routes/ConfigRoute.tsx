@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { BreadcrumbActions, GameVisibilityActions, DataLoadActions, AppActions, AppStore } from '../storage/common';
+import { BreadcrumbActions, GameVisibilityActions, DataLoadActions, AppStore } from '../storage/common';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ConfigView } from '../views/ConfigView';
@@ -12,12 +12,15 @@ interface ConfigRouteProps {
 }
 
 export class ConfigRoute extends React.Component<ConfigRouteProps> {
-	public componentDidMount() {
+	public async componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
-
-		// if (this.props.games.size === 0) {
-		fetchGamesData(this.props.dispatch);
-		// }
+		try {
+			const gamesData: Array<Game> = await ApiRequests.get('games', {});
+			this.props.dispatch(DataLoadActions.setGames(gamesData));
+			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(true));
+		} catch (error) {
+			console.log(error);
+		}
 	}
 	public render() {
 		const changeGamesVisibilityCallback = (allVisible: boolean) => {
@@ -29,11 +32,5 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {
 	return { games: state.games };
 };
-async function fetchGamesData(dispatch: Dispatch<AppActions>) {
-	const gamesData: Array<Game> = await ApiRequests.get('games', {});
-	if (gamesData !== null) {
-		dispatch(DataLoadActions.setGames(gamesData));
-		dispatch(GameVisibilityActions.setEveryGameVisibility(true));
-	}
-}
+
 export default connect(mapStateToProps)(ConfigRoute);
