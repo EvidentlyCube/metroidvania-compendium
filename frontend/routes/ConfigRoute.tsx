@@ -12,6 +12,9 @@ interface ConfigRouteProps {
 }
 
 export class ConfigRoute extends React.Component<ConfigRouteProps> {
+	changeGamesVisibilityCallback = (allVisible: boolean) => {
+		this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(allVisible));
+	};
 	public async componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 		try {
@@ -23,10 +26,7 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 		}
 	}
 	public render() {
-		const changeGamesVisibilityCallback = (allVisible: boolean) => {
-			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(allVisible));
-		};
-		return <ConfigView changeGamesVisibility={changeGamesVisibilityCallback} />;
+		return <ConfigView changeGamesVisibility={this.changeGamesVisibilityCallback} />;
 	}
 }
 const mapStateToProps = (state: AppStore): Partial<ConfigRouteProps> => {

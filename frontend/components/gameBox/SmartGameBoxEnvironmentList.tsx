@@ -1,14 +1,7 @@
 import React from 'react';
-import styled from 'styled-components';
 import { FetchGame } from '../../storage/utils/fetchGameData';
 import { Environment } from '../../storage/models/Environment';
-
-const Item = styled.a`
-	font-size: 12px;
-	margin-left: 20px;
-	display: list-item;
-	list-style: circle;
-`;
+import { GameBoxEnvironmentList } from './GameBoxEnvironmentList';
 
 interface SmartGameBoxEnvironmentListState {
 	isDataAvailable: boolean;
@@ -39,15 +32,7 @@ export class SmartGameBoxEnvironmentList extends React.Component<SmartGameBoxEnv
 		if (this.state.isDataAvailable) {
 			return (
 				<>
-					{this.state.environments!.map(environment => {
-						if (environment) {
-							return (
-								<Item key={environment.id} href={environment.wikiUrl}>
-									{environment.name}
-								</Item>
-							);
-						}
-					})}
+					<GameBoxEnvironmentList environments={this.state.environments!} />
 				</>
 			);
 		} else {

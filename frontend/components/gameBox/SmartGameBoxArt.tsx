@@ -1,11 +1,8 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Image, DefaultImage } from '../../storage/models/Image';
 import { FetchGame } from '../../storage/utils/fetchGameData';
-const BoxArt = styled.img`
-	width: 320px;
-	margin-bottom: 20px;
-`;
+import { GameBoxArt } from './GameBoxArt';
+
 interface SmartGameBoxArtState {
 	isDataAvailable: boolean;
 	image: Image | null;
@@ -33,7 +30,7 @@ export class SmartGameBoxArt extends React.Component<SmartGameBoxArtProps, Smart
 	}
 	public render() {
 		if (this.state.isDataAvailable) {
-			return <BoxArt src={this.state.image!.fileUrl} />;
+			return <GameBoxArt imageUrl={this.state.image!.fileUrl} />;
 		} else {
 			return <></>;
 		}
