@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Theme } from './styles/themes';
-import { GameBoxArt } from './gameBoxComponents/GameBoxArt';
-import { GameBoxEnvironmentList } from './gameBoxComponents/GameBoxEnvironmentList';
+import { GameBoxArt } from './gameBox/GameBoxArt';
+import { GameBoxEnvironmentList } from './gameBox/GameBoxEnvironmentList';
 
 const Box = styled.div`
 	float: right;
