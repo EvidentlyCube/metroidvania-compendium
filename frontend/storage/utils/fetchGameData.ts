@@ -23,7 +23,7 @@ export const FetchGame = {
 	environments: async function(gameId: number) {
 		try {
 			const gameEnvironments = await ApiRequests.get<Array<GameEnvironment>>(`game-environments`, { gameId: gameId });
-			return await ApiRequests.get<Array<Environment>>('environments/', { id: createArrayOfUniqueValues(gameEnvironments, 'environmentId') });
+			return await ApiRequests.get<Array<Environment>>('environments/', { id: getUniqueValues(gameEnvironments, 'environmentId') });
 		} catch (error) {
 			throw new Error(error);
 		}
@@ -43,10 +43,10 @@ export const FetchGame = {
 	abilitiesListData: async function(gameId: number) {
 		try {
 			const abilityExamples = await ApiRequests.get<Array<AbilityExample>>(`ability-examples`, { gameId: gameId });
-			const abilities = await ApiRequests.get<Array<Ability>>(`abilities/`, { id: createArrayOfUniqueValues(abilityExamples, 'abilityId') });
-			const abilityGroups = await ApiRequests.get<Array<AbilityGroup>>(`ability-groups/`, { id: createArrayOfUniqueValues(abilities, 'groupId') });
+			const abilities = await ApiRequests.get<Array<Ability>>(`abilities/`, { id: getUniqueValues(abilityExamples, 'abilityId') });
+			const abilityGroups = await ApiRequests.get<Array<AbilityGroup>>(`ability-groups/`, { id: getUniqueValues(abilities, 'groupId') });
 			const abilityCategories = await ApiRequests.get<Array<AbilityCategory>>(`ability-groups/`, {
-				id: createArrayOfUniqueValues(abilityGroups, 'categoryId'),
+				id: getUniqueValues(abilityGroups, 'categoryId'),
 			});
 			return createGameAbilitiesListData({
 				abilityExamples,
@@ -60,7 +60,7 @@ export const FetchGame = {
 	},
 };
 
-function createArrayOfUniqueValues<TEntity, TField extends keyof TEntity>(values: Array<TEntity>, field: TField): Array<TEntity[TField]> {
+function getUniqueValues<TEntity, TField extends keyof TEntity>(values: Array<TEntity>, field: TField): Array<TEntity[TField]> {
 	const set = new Set(values.map(x => x[field]));
 	return Array.from(set.values());
 }
