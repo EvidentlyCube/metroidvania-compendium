@@ -1,10 +1,10 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
-import { AppStore } from '../storage/common';
-import { Game } from '../storage/models/Game';
-import { GameListRow } from './listings/GameListRow';
-import { GameSeries } from '../storage/models/GameSeries';
-import { Image, DefaultImage } from '../storage/models/Image';
+import { AppStore } from '../../storage/common';
+import { Game } from '../../storage/models/Game';
+import { GameListRow } from './GameListRow';
+import { GameSeries } from '../../storage/models/GameSeries';
+import { Image, DefaultImage } from '../../storage/models/Image';
 interface GamesFilterProps {
 	filterString: string;
 }

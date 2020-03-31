@@ -5,7 +5,7 @@ import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SearchRow } from '../components/styles/SearchRow';
-import GamesList from '../components/GamesList';
+import GamesList from '../components/gamesList/GamesList';
 import { Link } from 'react-router-dom';
 
 interface GameViewState {
