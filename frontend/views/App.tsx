@@ -7,7 +7,7 @@ import Header from '../components/Header';
 import { AppStore, AppActions } from '../storage/common';
 import { PageLayout } from '../components/styles/PageLayout';
 import { Content } from '../components/styles/Content';
-import GameRoute from '../routes/GameRoute';
+import { GameRoute } from '../routes/GameRoute';
 import ConfigRoute from '../routes/ConfigRoute';
 import GamesRoute from '../routes/GamesRoute';
 import HomeRoute from '../routes/HomeRoute';

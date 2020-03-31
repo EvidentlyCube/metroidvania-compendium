@@ -9,13 +9,11 @@ interface GameAbilitiesListInitialProps {
 	abilities: Map<number, Ability>;
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;
-	gameId: number;
 }
 export function createGameAbilitiesListData(props: GameAbilitiesListInitialProps): GameAbilitiesListProps {
-	const { abilities, abilityExamples, abilityGroups, abilityCategories, gameId } = props;
+	const { abilities, abilityExamples, abilityGroups, abilityCategories } = props;
 	const gameAbilitiesListData: GameAbilitiesListProps = { abilities: new Map(), categories: [] };
-	const abilityExamplesThisGame = abilityExamples.filter(abilityExample => abilityExample.gameId === gameId);
-	for (const abilityExample of abilityExamplesThisGame) {
+	for (const abilityExample of abilityExamples) {
 		const ability = abilities.get(abilityExample.abilityId)!;
 		const group = abilityGroups.get(ability.groupId)!;
 		const category = abilityCategories.get(group.categoryId)!;
