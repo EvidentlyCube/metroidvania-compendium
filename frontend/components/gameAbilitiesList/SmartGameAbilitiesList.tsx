@@ -1,6 +1,8 @@
 import * as React from 'react';
-import { FetchGame } from '../../storage/utils/fetchGameData';
 import { GameAbilitiesListProps, GameAbilitiesList } from './GameAbilitiesList';
+import { FetchAbilities } from '../../storage/utils/fetchAbilitiesData';
+import { FetchHelperFunctions } from '../../storage/utils/fetchHelperFunctions';
+import { createGameAbilitiesListData } from '../../storage/utils/createGameAbilitiesListData';
 
 interface SmartGameAbilitiesListState {
 	isDataAvailable: boolean;
@@ -21,7 +23,16 @@ export class SmartGameAbilitiesList extends React.Component<SmartGameAbilitiesLi
 	}
 	public async componentDidMount() {
 		try {
-			const gameAbilitiesListProps = await FetchGame.abilitiesListData(this.props.gameId);
+			const abilityExamples = await FetchAbilities.lookupAbilityExamplesByGameId(this.props.gameId);
+			const abilities = await FetchAbilities.lookupAbilitiesByIds(FetchHelperFunctions.getUniqueValues(abilityExamples, 'abilityId'));
+			const abilityGroups = await FetchAbilities.lookupAbilityGroupsByIds(FetchHelperFunctions.getUniqueValues(abilities, 'groupId'));
+			const abilityCategories = await FetchAbilities.lookupAbilityCategoriesByIds(FetchHelperFunctions.getUniqueValues(abilityGroups, 'categoryId'));
+			const gameAbilitiesListProps = createGameAbilitiesListData({
+				abilityExamples,
+				abilities: FetchHelperFunctions.mapValues(abilities, 'id'),
+				abilityGroups: FetchHelperFunctions.mapValues(abilityGroups, 'id'),
+				abilityCategories: FetchHelperFunctions.mapValues(abilityCategories, 'id'),
+			});
 			this.setState({ gameAbilitiesListProps, isDataAvailable: true });
 		} catch (error) {
 			console.log(error);
