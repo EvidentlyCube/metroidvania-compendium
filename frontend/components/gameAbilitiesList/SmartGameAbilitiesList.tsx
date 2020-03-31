@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { FetchGame } from '../storage/utils/fetchGameData';
-import { GameAbilitiesListProps, GameAbilitiesList } from '../components/GameAbilitiesList';
+import { FetchGame } from '../../storage/utils/fetchGameData';
+import { GameAbilitiesListProps, GameAbilitiesList } from './GameAbilitiesList';
 
 interface SmartGameAbilitiesListState {
 	isDataAvailable: boolean;

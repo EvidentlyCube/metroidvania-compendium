@@ -7,7 +7,7 @@ import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SectionHeader } from '../components/styles/SectionHeader';
-import { SmartGameAbilitiesList } from '../smartComponents/SmartGameAbilitiesList';
+import { SmartGameAbilitiesList } from '../components/gameAbilitiesList/SmartGameAbilitiesList';
 import { GameBox } from '../components/GameBox';
 
 export interface GameViewProps {
