@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ConfigView } from '../views/ConfigView';
 import { Game } from '../storage/models/Game';
-import { ApiRequests } from '../storage/utils/apiRequestManager';
+import { FetchGame } from '../storage/utils/fetchGameData';
 
 interface ConfigRouteProps {
 	games: Map<number, Game>;
@@ -18,7 +18,7 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 	public async componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
 		try {
-			const gamesData = await ApiRequests.get<Array<Game>>('games', {});
+			const gamesData = await FetchGame.lookupGames();
 			this.props.dispatch(DataLoadActions.setGames(gamesData));
 			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(true));
 		} catch (error) {

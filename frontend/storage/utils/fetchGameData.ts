@@ -13,6 +13,13 @@ export const FetchGame = {
 			throw new Error(error);
 		}
 	},
+	lookupGames: async function() {
+		try {
+			return await ApiRequests.get<Array<Game>>(`games/`, {});
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
 	findSeriesById: async function(id: number) {
 		try {
 			return await ApiRequests.get<GameSeries>(`game-series/${id}`, {});
