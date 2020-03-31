@@ -2,6 +2,7 @@ import React from 'react';
 import { FetchGame } from '../../storage/utils/fetchGameData';
 import { Environment } from '../../storage/models/Environment';
 import { GameBoxEnvironmentList } from './GameBoxEnvironmentList';
+import { FetchHelperFunctions } from '../../storage/utils/fetchHelperFunctions';
 
 interface SmartGameBoxEnvironmentListState {
 	isDataAvailable: boolean;
@@ -22,7 +23,11 @@ export class SmartGameBoxEnvironmentList extends React.Component<SmartGameBoxEnv
 	}
 	public async componentDidMount() {
 		try {
-			this.setState({ environments: await FetchGame.environments(this.props.gameId), isDataAvailable: true });
+			const gameEnvironments = await FetchGame.lookupGameEnvironmentsByGameId(this.props.gameId);
+			this.setState({
+				environments: await FetchGame.lookupEnvironmentsByIds(FetchHelperFunctions.getUniqueValues(gameEnvironments, 'environmentId')),
+				isDataAvailable: true,
+			});
 		} catch (error) {
 			console.log(error);
 			this.setState({ isDataAvailable: false });

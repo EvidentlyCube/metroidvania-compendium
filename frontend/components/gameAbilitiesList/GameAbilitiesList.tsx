@@ -1,8 +1,8 @@
 import * as React from 'react';
-import { AbilityCategory } from '../storage/models/AbilityCategory';
-import { GameAbilityTable } from './listings/GameAbilityTable';
-import { GameAbilityRowSeparator } from './listings/GameAbilityRowSeparator';
-import { GameAbilityRow, GameAbilityRowProps } from './listings/GameAbilityRow';
+import { AbilityCategory } from '../../storage/models/AbilityCategory';
+import { GameAbilityTable } from './GameAbilityTable';
+import { GameAbilityRowSeparator } from './GameAbilityRowSeparator';
+import { GameAbilityRow, GameAbilityRowProps } from './GameAbilityRow';
 
 export interface GameAbilitiesListProps {
 	abilities: Map<number, Array<GameAbilityRowProps>>;

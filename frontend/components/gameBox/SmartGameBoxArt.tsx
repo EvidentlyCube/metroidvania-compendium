@@ -22,7 +22,9 @@ export class SmartGameBoxArt extends React.Component<SmartGameBoxArtProps, Smart
 	}
 	public async componentDidMount() {
 		try {
-			this.setState({ image: (await FetchGame.boxArt(this.props.gameId)) || DefaultImage, isDataAvailable: true });
+			const game = await FetchGame.findGameById(this.props.gameId);
+			const image = game.imageId ? await FetchGame.findImageById(game.imageId) : DefaultImage;
+			this.setState({ image, isDataAvailable: true });
 		} catch (error) {
 			console.log(error);
 			this.setState({ isDataAvailable: false });

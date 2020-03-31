@@ -25,8 +25,9 @@ export class GameRoute extends React.Component<RouteComponentProps<GameRouteProp
 	}
 	public async componentDidMount() {
 		try {
-			const gameViewProps = await FetchGame.viewData(Number.parseInt(this.props.match.params.gameId));
-			this.setState({ gameViewProps, doesGameExistsInDb: true, isDataFetched: true });
+			const game = await FetchGame.findGameById(Number.parseInt(this.props.match.params.gameId));
+			const series = await FetchGame.findSeriesById(game.seriesId);
+			this.setState({ gameViewProps: { game, series }, doesGameExistsInDb: true, isDataFetched: true });
 		} catch (error) {
 			console.log(error);
 			this.setState({ doesGameExistsInDb: false, isDataFetched: true });

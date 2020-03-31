@@ -2,7 +2,7 @@ import { AbilityExample } from '../models/AbilityExample';
 import { Ability } from '../models/Ability';
 import { AbilityGroup } from '../models/AbilityGroup';
 import { AbilityCategory } from '../models/AbilityCategory';
-import { GameAbilitiesListProps } from '../../components/GameAbilitiesList';
+import { GameAbilitiesListProps } from '../../components/gameAbilitiesList/GameAbilitiesList';
 
 interface GameAbilitiesListInitialProps {
 	abilityExamples: Array<AbilityExample>;
