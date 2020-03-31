@@ -11,11 +11,16 @@ import { Image } from '../models/Image';
 import { Environment } from '../models/Environment';
 
 export const FetchGame = {
-	viewData: async function(id: number) {
+	findGamesById: async function(id: number) {
 		try {
-			const game = await ApiRequests.get<Game>(`games/${id}`, {});
-			const series = await ApiRequests.get<GameSeries>(`game-series/${game.seriesId}`, {});
-			return { game, series };
+			return await ApiRequests.get<Game>(`games/${id}`, {});
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	findSeriesById: async function(id: number) {
+		try {
+			return await ApiRequests.get<GameSeries>(`game-series/${id}`, {});
 		} catch (error) {
 			throw new Error(error);
 		}
