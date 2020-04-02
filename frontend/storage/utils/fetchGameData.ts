@@ -27,6 +27,13 @@ export const FetchGame = {
 			throw new Error(error);
 		}
 	},
+	lookupSeriesByIds: async function(ids: number[]) {
+		try {
+			return await ApiRequests.get<Array<GameSeries>>('game-series/', { id: ids });
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
 	lookupGameEnvironmentsByGameId: async function(gameId: number) {
 		try {
 			return await ApiRequests.get<Array<GameEnvironment>>(`game-environments`, { gameId: gameId });
@@ -44,6 +51,13 @@ export const FetchGame = {
 	findImageById: async function(id: number) {
 		try {
 			return await ApiRequests.get<Image>(`images/${id}`, {});
+		} catch (error) {
+			throw new Error(error);
+		}
+	},
+	lookupImagesByIds: async function(ids: (number | undefined)[]) {
+		try {
+			return await ApiRequests.get<Array<Image>>('images', { id: ids });
 		} catch (error) {
 			throw new Error(error);
 		}

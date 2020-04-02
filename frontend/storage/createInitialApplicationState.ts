@@ -30,7 +30,7 @@ export function createInitialApplicationState(): AppStore {
 function createMockGamesVisibility(): Map<number, boolean> {
 	const mockData: Map<number, boolean> = new Map();
 	for (let i = 0; i < 20; i++) {
-		mockData.set(i, Math.random() >= 0.5);
+		mockData.set(i, true);
 	}
 	return mockData;
 }

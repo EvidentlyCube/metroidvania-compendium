@@ -5,8 +5,8 @@ import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SearchRow } from '../components/styles/SearchRow';
-import GamesList from '../components/gamesList/GamesList';
 import { Link } from 'react-router-dom';
+import { SmartGamesList } from '../components/gamesList/SmartGamesList';
 
 interface GameViewState {
 	filterString: string;
@@ -38,7 +38,7 @@ export class GamesView extends React.Component<{}, GameViewState> {
 						<p>Find your favorite Metroidvania and learn more about it!</p>
 						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find a game" />
 					</PageSection>
-					<GamesList filterString={this.state.filterString} />
+					<SmartGamesList filterString={this.state.filterString} />
 				</Narrow>
 			</>
 		);

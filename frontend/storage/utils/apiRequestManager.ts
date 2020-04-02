@@ -5,6 +5,7 @@ import { Dictionary } from '../../../common/types';
 export const ApiRequests = {
 	get: async function<T>(endpoint: string, queryParams: Dictionary): Promise<T> {
 		const endpointFullString = createApiRequestUrl(endpoint, queryParams);
+		console.log(endpointFullString);
 		try {
 			const { data } = await axios.get(endpointFullString);
 			if (typeof data !== 'object') {
