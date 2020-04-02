@@ -1,5 +1,4 @@
 import * as React from 'react';
-import GamesVisibilityList from '../components/gamesVisibilityList/GamesVisibilityList';
 import styled from 'styled-components';
 import { Theme } from '../components/styles/themes';
 import { Narrow } from '../components/styles/Narrow';
@@ -9,6 +8,7 @@ import { SectionHeader } from '../components/styles/SectionHeader';
 import { SearchRow } from '../components/styles/SearchRow';
 import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
+import { SmartGamesVisibilityList } from '../components/gamesVisibilityList/SmartGamesVisibilityList';
 
 const Buttons = styled.div`
 	display: flex;
@@ -68,7 +68,7 @@ export class ConfigView extends React.Component<ConfigViewProps, ConfigViewState
 						</Buttons>
 						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find a game" />
 					</Controls>
-					<GamesVisibilityList filterString={this.state.filterString} />
+					<SmartGamesVisibilityList filterString={this.state.filterString} />
 				</PageSection>
 			</Narrow>
 		);
