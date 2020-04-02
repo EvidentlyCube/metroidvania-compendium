@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { AppStore, GameVisibilityActions } from '../storage/common';
-import { CheckboxRow } from './generics/CheckboxRow';
-import { Game } from '../storage/models/Game';
+import { AppStore, GameVisibilityActions } from '../../storage/common';
+import { CheckboxRow } from '../generics/CheckboxRow';
+import { Game } from '../../storage/models/Game';
 interface GamesVisibilityFilterProps {
 	filterString: string;
 }

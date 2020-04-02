@@ -1,5 +1,5 @@
 import * as React from 'react';
-import GamesVisibilityList from '../components/GamesVisibilityList';
+import GamesVisibilityList from '../components/gamesVisibilityList/GamesVisibilityList';
 import styled from 'styled-components';
 import { Theme } from '../components/styles/themes';
 import { Narrow } from '../components/styles/Narrow';
