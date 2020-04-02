@@ -4,10 +4,10 @@ import { Dispatch, AnyAction } from 'redux';
 import { AppStore, GameVisibilityActions } from '../../storage/common';
 import { CheckboxRow } from '../generics/CheckboxRow';
 import { Game } from '../../storage/models/Game';
-interface GamesVisibilityFilterProps {
+interface GamesOwnProps {
 	games: Array<Game>;
 }
-interface GamesVisibilityListProps extends GamesVisibilityFilterProps {
+interface GamesVisibilityListProps extends GamesOwnProps {
 	gamesVisibility: Map<number, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
@@ -37,7 +37,7 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 	);
 };
 
-const mapStateToProps = (state: AppStore, ownProps: GamesVisibilityFilterProps): Partial<GamesVisibilityListProps> => {
+const mapStateToProps = (state: AppStore, ownProps: GamesOwnProps): Partial<GamesVisibilityListProps> => {
 	return {
 		games: ownProps.games,
 		gamesVisibility: state.gamesVisibility,

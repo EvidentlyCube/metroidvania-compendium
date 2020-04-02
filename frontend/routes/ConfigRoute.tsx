@@ -1,10 +1,9 @@
 import * as React from 'react';
-import { BreadcrumbActions, GameVisibilityActions, DataLoadActions, AppStore } from '../storage/common';
+import { BreadcrumbActions, GameVisibilityActions, AppStore } from '../storage/common';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
 import { ConfigView } from '../views/ConfigView';
 import { Game } from '../storage/models/Game';
-import { FetchGame } from '../storage/utils/fetchGameData';
 
 interface ConfigRouteProps {
 	games: Map<number, Game>;
@@ -17,13 +16,6 @@ export class ConfigRoute extends React.Component<ConfigRouteProps> {
 	};
 	public async componentDidMount() {
 		this.props.dispatch(BreadcrumbActions.setBreadcrumb('Config'));
-		try {
-			const gamesData = await FetchGame.lookupGames();
-			this.props.dispatch(DataLoadActions.setGames(gamesData));
-			this.props.dispatch(GameVisibilityActions.setEveryGameVisibility(true));
-		} catch (error) {
-			console.log(error);
-		}
 	}
 	public render() {
 		return <ConfigView changeGamesVisibility={this.changeGamesVisibilityCallback} />;
