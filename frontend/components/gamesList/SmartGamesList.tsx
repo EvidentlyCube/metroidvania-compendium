@@ -34,7 +34,6 @@ export class SmartGamesList extends React.Component<SmartGamesListProps, SmartGa
 			const gameSeries = await FetchGame.lookupSeriesByIds(FetchHelperFunctions.getUniqueValues(filteredGames, 'seriesId'));
 			const imageIds = FetchHelperFunctions.getUniqueValues(filteredGames, 'imageId');
 			let images = null;
-			console.log(imageIds);
 			if (imageIds.length > 0) {
 				images = await FetchGame.lookupImagesByIds(imageIds);
 			}
