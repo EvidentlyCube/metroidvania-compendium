@@ -5,7 +5,7 @@ import GamesVisibilityList from './GamesVisibilityList';
 
 interface SmartGamesListState {
 	isDataAvailable: boolean;
-	games: Array<Game> | null;
+	games: Array<Game>;
 }
 
 interface SmartGamesListProps {
@@ -17,7 +17,7 @@ export class SmartGamesVisibilityList extends React.Component<SmartGamesListProp
 		super(props);
 		this.state = {
 			isDataAvailable: false,
-			games: null,
+			games: [],
 		};
 	}
 	public async componentDidMount() {
@@ -34,7 +34,7 @@ export class SmartGamesVisibilityList extends React.Component<SmartGamesListProp
 	}
 	public render() {
 		if (this.state.isDataAvailable) {
-			const filteredGames = this.state.games!.filter((game: Game) => game.title.startsWith(this.props.filterString));
+			const filteredGames = this.state.games.filter((game: Game) => game.title.startsWith(this.props.filterString));
 			return <GamesVisibilityList games={filteredGames} />;
 		} else {
 			return <></>;

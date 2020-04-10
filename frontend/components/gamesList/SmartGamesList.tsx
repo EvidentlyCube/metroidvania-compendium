@@ -8,9 +8,9 @@ import GamesList from './GamesList';
 
 interface SmartGamesListState {
 	isDataAvailable: boolean;
-	games: Array<Game> | null;
-	gameSeries: Map<number, GameSeries> | null;
-	images: Map<number, Image> | null;
+	games: Array<Game>;
+	gameSeries: Map<number, GameSeries>;
+	images: Map<number, Image>;
 }
 
 interface SmartGamesListProps {
@@ -22,9 +22,9 @@ export class SmartGamesList extends React.Component<SmartGamesListProps, SmartGa
 		super(props);
 		this.state = {
 			isDataAvailable: false,
-			games: null,
-			gameSeries: null,
-			images: null,
+			games: [],
+			gameSeries: new Map(),
+			images: new Map(),
 		};
 	}
 	public async componentDidMount() {

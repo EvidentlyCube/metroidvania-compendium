@@ -6,7 +6,7 @@ import { FetchHelperFunctions } from '../../storage/utils/fetchHelperFunctions';
 
 interface SmartGameBoxEnvironmentListState {
 	isDataAvailable: boolean;
-	environments: Array<Environment> | null;
+	environments: Array<Environment>;
 }
 
 interface SmartGameBoxEnvironmentListProps {
@@ -18,7 +18,7 @@ export class SmartGameBoxEnvironmentList extends React.Component<SmartGameBoxEnv
 		super(props);
 		this.state = {
 			isDataAvailable: false,
-			environments: null,
+			environments: [],
 		};
 	}
 	public async componentDidMount() {
