@@ -5,7 +5,7 @@ import { AppStore, GameVisibilityActions } from '../../storage/common';
 import { CheckboxRow } from '../generics/CheckboxRow';
 import { Game } from '../../storage/models/Game';
 interface GamesOwnProps {
-	games: Array<Game>;
+	games: Game[];
 }
 interface GamesVisibilityListProps extends GamesOwnProps {
 	gamesVisibility: Map<number, boolean>;

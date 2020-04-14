@@ -16,8 +16,8 @@ import { Game } from '../storage/models/Game';
 interface AbilityRouteProps {
 	games: Map<number, Game>;
 	images: Map<number, Image>;
-	abilityExamples: Array<AbilityExample>;
-	abilityVariants: Array<AbilityVariant>;
+	abilityExamples: AbilityExample[];
+	abilityVariants: AbilityVariant[];
 	abilities: Map<number, Ability>;
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;

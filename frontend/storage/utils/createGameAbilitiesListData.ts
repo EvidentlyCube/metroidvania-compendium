@@ -5,7 +5,7 @@ import { AbilityCategory } from '../models/AbilityCategory';
 import { GameAbilitiesListProps } from '../../components/gameAbilitiesList/GameAbilitiesList';
 
 interface GameAbilitiesListInitialProps {
-	abilityExamples: Array<AbilityExample>;
+	abilityExamples: AbilityExample[];
 	abilities: Map<number, Ability>;
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;

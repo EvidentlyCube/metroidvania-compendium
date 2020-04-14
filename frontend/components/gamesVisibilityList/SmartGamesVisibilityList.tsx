@@ -5,7 +5,7 @@ import GamesVisibilityList from './GamesVisibilityList';
 
 interface SmartGamesListState {
 	isDataAvailable: boolean;
-	games: Array<Game>;
+	games: Game[];
 }
 
 interface SmartGamesListProps {

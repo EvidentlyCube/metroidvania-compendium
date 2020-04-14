@@ -6,7 +6,7 @@ import { GameListRow } from './GameListRow';
 import { GameSeries } from '../../storage/models/GameSeries';
 import { Image, DefaultImage } from '../../storage/models/Image';
 interface GamesOwnProps {
-	games: Array<Game>;
+	games: Game[];
 	gameSeries: Map<number, GameSeries>;
 	images: Map<number, Image>;
 }

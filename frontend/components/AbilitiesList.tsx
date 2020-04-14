@@ -16,7 +16,7 @@ interface AbilitiesFilterProps {
 	filterString: string;
 }
 interface AbilitiesListProps extends AbilitiesFilterProps {
-	abilities: Array<Ability>;
+	abilities: Ability[];
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;
 }

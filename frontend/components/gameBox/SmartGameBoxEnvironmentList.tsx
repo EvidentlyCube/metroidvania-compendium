@@ -6,7 +6,7 @@ import { FetchHelperFunctions } from '../../storage/utils/fetchHelperFunctions';
 
 interface SmartGameBoxEnvironmentListState {
 	isDataAvailable: boolean;
-	environments: Array<Environment>;
+	environments: Environment[];
 }
 
 interface SmartGameBoxEnvironmentListProps {

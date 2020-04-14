@@ -8,7 +8,7 @@ import GamesList from './GamesList';
 
 interface SmartGamesListState {
 	isDataAvailable: boolean;
-	games: Array<Game>;
+	games: Game[];
 	gameSeries: Map<number, GameSeries>;
 	images: Map<number, Image>;
 }
@@ -50,7 +50,7 @@ export class SmartGamesList extends React.Component<SmartGamesListProps, SmartGa
 	}
 	public render() {
 		if (this.state.isDataAvailable) {
-			return <GamesList games={this.state.games!} images={this.state.images!} gameSeries={this.state.gameSeries!} />;
+			return <GamesList games={this.state.games} images={this.state.images} gameSeries={this.state.gameSeries} />;
 		} else {
 			return <></>;
 		}

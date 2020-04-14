@@ -16,8 +16,8 @@ interface AbilityViewProps {
 	group: string;
 	description: string;
 	analysis: string;
-	abilityVariants: Array<AbilityVariant>;
-	abilityExamples: Array<AbilityExampleRowProps>;
+	abilityVariants: AbilityVariant[];
+	abilityExamples: AbilityExampleRowProps[];
 }
 
 export class AbilityView extends React.Component<AbilityViewProps> {
