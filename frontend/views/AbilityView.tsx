@@ -47,7 +47,6 @@ export class AbilityView extends React.Component<AbilityViewProps> {
 							<AbilityVariantRow key={abilityVariant.id}>{abilityVariant.description}</AbilityVariantRow>
 						))}
 					</PageSection>
-					{/* TODO GameExamples list */}
 					<PageSection>
 						<SectionHeader>Appearances</SectionHeader>
 						<AbilityExamplesTable>
