@@ -27,6 +27,9 @@ export const FetchGame = {
 	findImageById: async function(id: number) {
 		return await ApiRequests.get<Image>(`images/${id}`, {});
 	},
+	lookupImages: async function() {
+		return await ApiRequests.get<Image[]>(`images/`, {});
+	},
 	lookupImagesByIds: async function(ids: (number | undefined)[]) {
 		return await ApiRequests.get<Image[]>('images', { id: ids });
 	},

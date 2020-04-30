@@ -1,81 +1,81 @@
 import * as React from 'react';
 import { BreadcrumbActions, AppStore } from '../storage/common';
-import { Image } from '../storage/models/Image';
 import { RouteComponentProps, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { AbilityExample } from '../storage/models/AbilityExample';
-import { Ability } from '../storage/models/Ability';
-import { AbilityGroup } from '../storage/models/AbilityGroup';
-import { AbilityCategory } from '../storage/models/AbilityCategory';
-import { AbilityView } from '../views/AbilityView';
-import { AbilityVariant } from '../storage/models/AbilityVariant';
+import { AbilityView, AbilityViewProps } from '../views/AbilityView';
 import { createAbilitiesExampleListData } from '../storage/utils/createAbilitiesExampleLIstData';
-import { Game } from '../storage/models/Game';
+import { FetchAbilities } from '../storage/utils/fetchAbilitiesData';
+import { FetchGame } from '../storage/utils/fetchGameData';
+import { FetchHelperFunctions } from '../storage/utils/fetchHelperFunctions';
 
+interface AbilityRouteState {
+	abilityViewProps: AbilityViewProps | null;
+	isDataFetched: boolean;
+	doesAbilityExistsInDb: boolean;
+}
 interface AbilityRouteProps {
-	games: Map<number, Game>;
-	images: Map<number, Image>;
-	abilityExamples: AbilityExample[];
-	abilityVariants: AbilityVariant[];
-	abilities: Map<number, Ability>;
-	abilityGroups: Map<number, AbilityGroup>;
-	abilityCategories: Map<number, AbilityCategory>;
 	chosenAbilityId: number;
 	dispatch: Dispatch<AnyAction>;
 }
 interface MatchParams {
 	abilityId: string;
 }
-export class AbilityRoute extends React.Component<AbilityRouteProps> {
+export class AbilityRoute extends React.Component<AbilityRouteProps, AbilityRouteState> {
 	abilityExists: boolean;
 	constructor(props: AbilityRouteProps) {
 		super(props);
-		if (props.abilities.has(props.chosenAbilityId)) {
-			this.abilityExists = true;
-		} else {
-			this.abilityExists = false;
-		}
+		this.state = {
+			isDataFetched: false,
+			doesAbilityExistsInDb: true,
+			abilityViewProps: null,
+		};
 	}
-	public componentDidMount() {
-		if (this.abilityExists) {
-			this.props.dispatch(BreadcrumbActions.setBreadcrumb(this.props.abilities.get(this.props.chosenAbilityId)!.name));
+	public async componentDidMount() {
+		try {
+			const ability = await FetchAbilities.findAbilityById(this.props.chosenAbilityId);
+			console.log(ability);
+			const abilityGroup = await FetchAbilities.findAbilityGroupById(ability.id);
+			const abilityExamples = await FetchAbilities.lookupAbilityExamplesByAbilityId(ability.id);
+			const abilityCategory = await FetchAbilities.findAbilityCategoryById(abilityGroup.categoryId);
+			const abilityVariants = await FetchAbilities.lookupAbilityVariantsById(this.props.chosenAbilityId);
+			const games = FetchHelperFunctions.mapValues(await FetchGame.lookupGames(), 'id');
+			const images = FetchHelperFunctions.mapValues(await FetchGame.lookupImages(), 'id');
+			const abilityExampleData = createAbilitiesExampleListData({ abilityExamples, games, images });
+			this.props.dispatch(BreadcrumbActions.setBreadcrumb(ability.name));
+			this.setState({
+				abilityViewProps: {
+					name: ability.name,
+					category: abilityCategory.name,
+					group: abilityGroup.name,
+					description: ability.description,
+					analysis: ability.analysis,
+					abilityExamples: abilityExampleData,
+					abilityVariants: abilityVariants,
+				},
+				doesAbilityExistsInDb: true,
+				isDataFetched: true,
+			});
+		} catch (error) {
+			console.log(error);
+			this.setState({ doesAbilityExistsInDb: false, isDataFetched: true });
 		}
 	}
 	public render() {
-		if (this.abilityExists) {
-			const { abilities, abilityGroups, abilityCategories, chosenAbilityId, abilityVariants, abilityExamples, games, images } = this.props;
-			const ability = abilities.get(chosenAbilityId)!;
-			const abilityGroup = abilityGroups.get(ability.groupId)!;
-			const abilityCategory = abilityCategories.get(abilityGroup.categoryId)!;
-			const filteredAbilityVariants = abilityVariants.filter(abilityVariant => abilityVariant.abilityId === chosenAbilityId);
-			const abilityExamplesData = createAbilitiesExampleListData({ abilityExamples, games, images, abilityId: chosenAbilityId });
-			return (
-				<AbilityView
-					name={ability.name}
-					description={ability.description}
-					analysis={ability.analysis}
-					category={abilityCategory.name}
-					group={abilityGroup.name}
-					abilityVariants={filteredAbilityVariants}
-					abilityExamples={abilityExamplesData}
-				/>
-			);
+		if (this.state.isDataFetched) {
+			if (this.state.doesAbilityExistsInDb) {
+				return <AbilityView {...this.state.abilityViewProps!} />;
+			} else {
+				return <Redirect to="/abilities" />;
+			}
 		} else {
-			return <Redirect to="/home" />;
+			return <></>;
 		}
 	}
 }
 const mapStateToProps = (state: AppStore, ownProps: RouteComponentProps<MatchParams>): Partial<AbilityRouteProps> => {
 	return {
-		images: state.images,
 		chosenAbilityId: Number.parseInt(ownProps.match.params.abilityId),
-		abilityExamples: state.abilityExamples,
-		abilities: state.abilities,
-		abilityGroups: state.abilityGroups,
-		abilityCategories: state.abilityCategories,
-		abilityVariants: state.abilityVariants,
-		games: state.games,
 	};
 };
 
