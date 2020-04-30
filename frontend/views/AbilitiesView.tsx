@@ -5,7 +5,7 @@ import { PageTitle } from '../components/styles/PageTitle';
 import { PageSubtitle } from '../components/styles/PageSubtitle';
 import { PageSection } from '../components/styles/PageSection';
 import { SearchRow } from '../components/styles/SearchRow';
-import AbilitiesList from '../components/AbilitiesList';
+import { SmartAbilitiesList } from '../components/abilitiesList/SmartAbilitiesList';
 
 interface AbilitiesViewState {
 	filterString: string;
@@ -53,7 +53,7 @@ export class AbilitiesView extends React.Component<{}, AbilitiesViewState> {
 						</p>
 						<SearchRow name="searchedGame" onChange={this.setGameFilter} placeholder="Find an ability" />
 					</PageSection>
-					<AbilitiesList filterString={this.state.filterString} />
+					<SmartAbilitiesList filterString={this.state.filterString} />
 				</Narrow>
 			</>
 		);

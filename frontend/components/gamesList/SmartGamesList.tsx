@@ -30,15 +30,15 @@ export class SmartGamesList extends React.Component<SmartGamesListProps, SmartGa
 	public async componentDidMount() {
 		try {
 			const games = await FetchGame.lookupGames();
-			const filteredGames = games.filter((game: Game) => game.title.startsWith(this.props.filterString));
-			const gameSeries = await FetchGame.lookupSeriesByIds(FetchHelperFunctions.getUniqueValues(filteredGames, 'seriesId'));
-			const imageIds = FetchHelperFunctions.getUniqueValues(filteredGames, 'imageId');
+			const gameSeries = await FetchGame.lookupSeriesByIds(FetchHelperFunctions.getUniqueValues(games, 'seriesId'));
+			const imageIds = FetchHelperFunctions.getUniqueValues(games, 'imageId');
 			let images = null;
 			if (imageIds.length > 0) {
 				images = await FetchGame.lookupImagesByIds(imageIds);
 			}
+			console.log('setting state');
 			this.setState({
-				games,
+				games: games,
 				gameSeries: FetchHelperFunctions.mapValues(gameSeries, 'id'),
 				images: images ? FetchHelperFunctions.mapValues(images, 'id') : new Map(),
 				isDataAvailable: true,
@@ -50,7 +50,8 @@ export class SmartGamesList extends React.Component<SmartGamesListProps, SmartGa
 	}
 	public render() {
 		if (this.state.isDataAvailable) {
-			return <GamesList games={this.state.games} images={this.state.images} gameSeries={this.state.gameSeries} />;
+			const filteredGames = this.state.games.filter((game: Game) => game.title.startsWith(this.props.filterString));
+			return <GamesList games={filteredGames} images={this.state.images} gameSeries={this.state.gameSeries} />;
 		} else {
 			return <></>;
 		}

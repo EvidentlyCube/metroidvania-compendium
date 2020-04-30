@@ -6,14 +6,12 @@ import { AbilityExampleRowProps } from '../../components/listings/AbilityExample
 interface AbilitiesExampleListInitialProps {
 	abilityExamples: AbilityExample[];
 	games: Map<number, Game>;
-	abilityId: number;
 	images: Map<number, Image>;
 }
 export function createAbilitiesExampleListData(props: AbilitiesExampleListInitialProps): AbilityExampleRowProps[] {
-	const { abilityExamples, games, images, abilityId } = props;
+	const { abilityExamples, games, images } = props;
 	const abilitiesExampleListData: AbilityExampleRowProps[] = [];
-	const abilityExamplesFiltered = abilityExamples.filter(abilityExample => abilityExample.abilityId == abilityId);
-	for (const abilityExample of abilityExamplesFiltered) {
+	for (const abilityExample of abilityExamples) {
 		abilitiesExampleListData.push({
 			gameId: abilityExample.gameId,
 			gameName: games.get(abilityExample.gameId)!.title,
