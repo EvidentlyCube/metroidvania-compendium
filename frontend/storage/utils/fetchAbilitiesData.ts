@@ -8,6 +8,9 @@ export const FetchAbilities = {
 	lookupAbilityExamplesByGameId: async function(gameId: number) {
 		return await ApiRequests.get<AbilityExample[]>(`ability-examples`, { gameId: gameId });
 	},
+	lookupAbilities: async function() {
+		return await ApiRequests.get<Ability[]>(`abilities/`, {});
+	},
 	lookupAbilitiesByIds: async function(ids: number[]) {
 		return await ApiRequests.get<Ability[]>(`abilities/`, { id: ids });
 	},
