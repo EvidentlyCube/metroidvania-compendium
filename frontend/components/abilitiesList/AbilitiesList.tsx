@@ -3,7 +3,7 @@ import { Ability } from '../../storage/models/Ability';
 import { AbilityGroup } from '../../storage/models/AbilityGroup';
 import { AbilityCategory } from '../../storage/models/AbilityCategory';
 import styled from 'styled-components';
-import { AbilityListBox } from '../listings/AbilityListBox';
+import { AbilityListBox } from './AbilityListBox';
 
 const Box = styled.div`
 	display: flex;
