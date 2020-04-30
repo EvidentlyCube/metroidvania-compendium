@@ -5,8 +5,8 @@ import { GameAbilityRowSeparator } from './GameAbilityRowSeparator';
 import { GameAbilityRow, GameAbilityRowProps } from './GameAbilityRow';
 
 export interface GameAbilitiesListProps {
-	abilities: Map<number, Array<GameAbilityRowProps>>;
-	categories: Array<AbilityCategory>;
+	abilities: Map<number, GameAbilityRowProps[]>;
+	categories: AbilityCategory[];
 }
 
 export const GameAbilitiesList: React.FC<GameAbilitiesListProps> = (props: GameAbilitiesListProps) => {

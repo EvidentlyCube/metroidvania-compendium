@@ -36,7 +36,6 @@ export class EndpointFactory {
 				filters[fieldName] = values;
 			}
 		}
-
 		return await this.db.findManyBy(entity, filters);
 	}
 

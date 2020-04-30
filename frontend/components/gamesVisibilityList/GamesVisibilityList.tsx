@@ -1,14 +1,13 @@
 import * as React from 'react';
 import { connect } from 'react-redux';
 import { Dispatch, AnyAction } from 'redux';
-import { AppStore, GameVisibilityActions } from '../storage/common';
-import { CheckboxRow } from './generics/CheckboxRow';
-import { Game } from '../storage/models/Game';
-interface GamesVisibilityFilterProps {
-	filterString: string;
+import { AppStore, GameVisibilityActions } from '../../storage/common';
+import { CheckboxRow } from '../generics/CheckboxRow';
+import { Game } from '../../storage/models/Game';
+interface GamesOwnProps {
+	games: Game[];
 }
-interface GamesVisibilityListProps extends GamesVisibilityFilterProps {
-	games: Array<Game>;
+interface GamesVisibilityListProps extends GamesOwnProps {
 	gamesVisibility: Map<number, boolean>;
 	dispatch: Dispatch<AnyAction>;
 }
@@ -19,10 +18,9 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 		props.dispatch(GameVisibilityActions.setGameVisibility(gameId, !checkValue));
 	};
 	const { games, gamesVisibility } = props;
-	const filteredGames = games.filter((game: Game) => game.title.startsWith(props.filterString));
 	return (
 		<>
-			{filteredGames.map(game => {
+			{games.map(game => {
 				const isGameVisible = gamesVisibility.get(game.id) ?? true;
 				return (
 					<CheckboxRow
@@ -39,11 +37,10 @@ const GamesVisibilityList: React.FC<GamesVisibilityListProps> = (props: GamesVis
 	);
 };
 
-const mapStateToProps = (state: AppStore, ownProps: GamesVisibilityFilterProps): Partial<GamesVisibilityListProps> => {
+const mapStateToProps = (state: AppStore, ownProps: GamesOwnProps): Partial<GamesVisibilityListProps> => {
 	return {
-		games: Array.from(state.games.values()),
+		games: ownProps.games,
 		gamesVisibility: state.gamesVisibility,
-		filterString: ownProps.filterString,
 	};
 };
 

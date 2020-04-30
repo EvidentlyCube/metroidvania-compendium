@@ -21,9 +21,9 @@ export interface AppStore {
 	gameSeries: Map<number, GameSeries>;
 	images: Map<number, Image>;
 	environments: Map<number, Environment>;
-	gameEnvironments: Array<GameEnvironment>;
-	abilityExamples: Array<AbilityExample>;
-	abilityVariants: Array<AbilityVariant>;
+	gameEnvironments: GameEnvironment[];
+	abilityExamples: AbilityExample[];
+	abilityVariants: AbilityVariant[];
 	abilities: Map<number, Ability>;
 	abilityGroups: Map<number, AbilityGroup>;
 	abilityCategories: Map<number, AbilityCategory>;
@@ -43,15 +43,15 @@ export interface SetEveryGameVisibilityAction {
 }
 export interface SetGamesAction {
 	type: typeof SET_GAMES;
-	games: Array<Game>;
+	games: Game[];
 }
 export interface SetGameDataAction {
 	type: typeof SET_GAME_DATA;
 	game: Game;
 	gameSeries: GameSeries;
 	image: Image;
-	gameEnvironments: Array<GameEnvironment>;
-	environments: Array<Environment>;
+	gameEnvironments: GameEnvironment[];
+	environments: Environment[];
 }
 export const BreadcrumbActions = {
 	setBreadcrumb: function(headerBreadcrumb: string): SetBreadcrumbAction {
@@ -77,7 +77,7 @@ export const GameVisibilityActions = {
 	},
 };
 export const DataLoadActions = {
-	setGames: function(games: Array<Game>): SetGamesAction {
+	setGames: function(games: Game[]): SetGamesAction {
 		return {
 			type: SET_GAMES,
 			games,
@@ -87,8 +87,8 @@ export const DataLoadActions = {
 		game: Game,
 		gameSeries: GameSeries,
 		image: Image,
-		gameEnvironments: Array<GameEnvironment>,
-		environments: Array<Environment>
+		gameEnvironments: GameEnvironment[],
+		environments: Environment[]
 	): SetGameDataAction {
 		return {
 			type: SET_GAME_DATA,

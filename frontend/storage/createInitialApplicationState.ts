@@ -30,7 +30,7 @@ export function createInitialApplicationState(): AppStore {
 function createMockGamesVisibility(): Map<number, boolean> {
 	const mockData: Map<number, boolean> = new Map();
 	for (let i = 0; i < 20; i++) {
-		mockData.set(i, Math.random() >= 0.5);
+		mockData.set(i, true);
 	}
 	return mockData;
 }
@@ -107,8 +107,8 @@ function createMockEnvironemnts(): Map<number, Environment> {
 	);
 	return mockData;
 }
-function createMockGameEnvironments(): Array<GameEnvironment> {
-	const mockData: Array<GameEnvironment> = new Array();
+function createMockGameEnvironments(): GameEnvironment[] {
+	const mockData: GameEnvironment[] = [];
 	for (let i = 0; i < 20; i++) {
 		//Added randomness to check if filtering works
 		if (Math.random() >= 0.5) {
@@ -196,8 +196,8 @@ function createMockAbilities(): Map<number, Ability> {
 	);
 	return mockData;
 }
-function createMockAbilityExamples(): Array<AbilityExample> {
-	const mockData: Array<AbilityExample> = new Array();
+function createMockAbilityExamples(): AbilityExample[] {
+	const mockData: AbilityExample[] = [];
 	for (let i = 0; i < 20; i++) {
 		for (let j = 0; j < Math.random() * 10 + 1; j++)
 			mockData.push(
@@ -246,8 +246,8 @@ function createMockAbilityExamples(): Array<AbilityExample> {
 	}
 	return mockData;
 }
-function createMockAbilityVariants(): Array<AbilityVariant> {
-	const mockData: Array<AbilityVariant> = new Array();
+function createMockAbilityVariants(): AbilityVariant[] {
+	const mockData: AbilityVariant[] = [];
 	for (let i = 0; i < 20; i++) {
 		for (let j = 0; j < Math.random() * 20 + 1; j++)
 			mockData.push(

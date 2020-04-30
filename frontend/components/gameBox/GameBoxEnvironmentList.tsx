@@ -9,7 +9,7 @@ const Item = styled.a`
 	list-style: circle;
 `;
 interface GameBoxEnvironmentListProps {
-	environments: Array<Environment>;
+	environments: Environment[];
 }
 export const GameBoxEnvironmentList: React.FC<GameBoxEnvironmentListProps> = (props: GameBoxEnvironmentListProps) => {
 	return (

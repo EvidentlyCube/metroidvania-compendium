@@ -4,14 +4,14 @@ import { Image, DefaultImage } from '../models/Image';
 import { AbilityExampleRowProps } from '../../components/listings/AbilityExampleRow';
 
 interface AbilitiesExampleListInitialProps {
-	abilityExamples: Array<AbilityExample>;
+	abilityExamples: AbilityExample[];
 	games: Map<number, Game>;
 	abilityId: number;
 	images: Map<number, Image>;
 }
-export function createAbilitiesExampleListData(props: AbilitiesExampleListInitialProps): Array<AbilityExampleRowProps> {
+export function createAbilitiesExampleListData(props: AbilitiesExampleListInitialProps): AbilityExampleRowProps[] {
 	const { abilityExamples, games, images, abilityId } = props;
-	const abilitiesExampleListData: Array<AbilityExampleRowProps> = new Array();
+	const abilitiesExampleListData: AbilityExampleRowProps[] = [];
 	const abilityExamplesFiltered = abilityExamples.filter(abilityExample => abilityExample.abilityId == abilityId);
 	for (const abilityExample of abilityExamplesFiltered) {
 		abilitiesExampleListData.push({
