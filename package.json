@@ -88,6 +88,6 @@
     "redux": "^4.0.5",
     "styled-components": "^5.0.1",
     "ts-node": "^8.6.2",
-    "typeorm": "^0.2.24"
+    "typeorm": "^0.2.25"
   }
 }
